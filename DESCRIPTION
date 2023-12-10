@@ -42,3 +42,5 @@ Depends:
     rationalmatrices
 RdMacros: Rdpack
 URL: https://bfunovits.github.io/RLDM, https://github.com/bfunovits/RLDM, https://bfunovits.github.io/RLDM/
+Remotes: 
+    bfunovits/rationalmatrices
