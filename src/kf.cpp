@@ -4,7 +4,7 @@
 
 // we only include RcppArmadillo.h which pulls Rcpp.h in for us
 #include <RcppArmadillo.h>
-
+#include <Rcpp.h>
 using namespace Rcpp;
 
 // via the depends attribute we tell Rcpp to create hooks for
@@ -15,7 +15,7 @@ using namespace Rcpp;
 // we use rationalmatrices::lyapunov_cpp
 
 // [[Rcpp::depends(rationalmatrices)]]
-#include <rationalmatrices.h>
+// #include <rationalmatrices.h>
 
 
 // To make your C++ code callable from C++ code in other packages.
@@ -48,7 +48,8 @@ Rcpp::List kf_cpp(const arma::mat& A, const arma::mat& C,
   arma::mat tS = S.t();
   arma::mat sigma = C * P1 * tC + R;
   // left Cholesky factor of Sigma[t|t-1]
-  arma::mat sigma_L = chol(sigma).t();
+  arma::mat sigma_L = chol(sigma).t();//' @name solve_rmfd_cpp
+
 
   double ll = N * m * log(2 * arma::datum::pi);
 
@@ -453,9 +454,6 @@ bool lyapunov2_cpp(const arma::mat& A, const arma::mat& Q, arma::mat& P,
 //' Compute the log likelihood for a statespace system
 //' described by a model template.
 //'
-//' @description
-//' \ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-//'
 //' This is an internal helper function, used by the function factory \code{\link{ll_FUN}}. For a more detailed
 //' documentation of the log Likelihood, see \code{\link{ll_kf}}.
 //'
@@ -477,7 +475,7 @@ bool lyapunov2_cpp(const arma::mat& A, const arma::mat& Q, arma::mat& P,
 //'        initial state covariance matrix (computed via a Lyapunov equation).
 //' @param tol (double) tolerance used by ll_kf_cpp.
 //' @param err (double) return err, if the computation of P1 fails.
-//' @keywords internal
+//' @export
 // [[Rcpp::export]]
 double ll_kf_theta_cpp(const arma::vec& theta, const arma::mat& y,
                        arma::mat& SYS, const arma::mat& H_SYS, const arma::vec& h_SYS,

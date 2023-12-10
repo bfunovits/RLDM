@@ -9,7 +9,8 @@
 // -----------------------------------------------------------------------------
 
 // we only include RcppArmadillo.h which pulls Rcpp.h in for us
-#include "RcppArmadillo.h"
+#include <RcppArmadillo.h>
+#include <Rcpp.h>
 using namespace Rcpp;
 
 // via the depends attribute we tell Rcpp to create hooks for
@@ -21,17 +22,11 @@ using namespace Rcpp;
 // can be included by other packages
 // [[Rcpp::interfaces(r, cpp)]]
 
-// via the exports attribute we tell Rcpp to make this function
-// available from R
-
 // -----------------------------------------------------------------------------
 // 1) Compute Outputs (solve_de) ----
 // -----------------------------------------------------------------------------
 
 //' Outputs of an ARMA systems
-//'
-//' @description
-//' \ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
 //'
 //' This internal helper function computes the outputs of an ARMA system
 //' \deqn{a_0 y_t + a_1 y_{t-1} + \cdots + a_p y_{t-p} = b_0 u_t + \cdots + b_q u_{t-q}}{
@@ -59,6 +54,11 @@ using namespace Rcpp;
 //'
 //' @return This RcppArmadillo routine returns \code{NULL} but \bold{overwrites}
 //'         the input argument \code{y} with the computed outputs!
+//'
+//' @export
+//'
+//' @rdname outputs_ARMA_cpp
+//' @name outputs_ARMA_cpp
 //'
 //' @seealso \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
 //'    \code{\link{outputs_STSP_cpp}}, \code{\link{residuals_STSP_cpp}},  \code{\link{cll_theta_STSP_cpp}} and
@@ -92,8 +92,6 @@ using namespace Rcpp;
 //' outputs_ARMA_cpp(A1, B, t0 = 2, u, y) # start with t>=2
 //' print(u)
 //' print(y)  # y is overwritten with the computed outputs
-//'
-//' @export
 // [[Rcpp::export]]
 void outputs_ARMA_cpp(const arma::mat& A1, const arma::mat& B, int t0,
                       const arma::mat& u, arma::mat& y) {
@@ -225,6 +223,10 @@ void outputs_ARMA_cpp(const arma::mat& A1, const arma::mat& B, int t0,
 //'
 //' @return This RcppArmadillo routine returns \code{NULL} but \bold{overwrites} the input
 //'         arguments \code{a} and \code{u}!
+//' @export
+//'
+//' @rdname outputs_STSP_cpp
+//' @name outputs_STSP_cpp
 //'
 //' @seealso \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
 //'    \code{\link{outputs_STSP_cpp}}, \code{\link{residuals_STSP_cpp}},  \code{\link{cll_theta_STSP_cpp}} and
@@ -255,11 +257,9 @@ void outputs_ARMA_cpp(const arma::mat& A1, const arma::mat& B, int t0,
 //' print(u)
 //' print(a)  # a is overwritten with the computed states
 //' print(y)  # y is overwritten with the computed outputs
-//'
-//' @export
-//' @name outputs_STSP_cpp
- // [[Rcpp::export]]
- void outputs_STSP_cpp(const arma::mat& A, const arma::mat& B,
+
+// [[Rcpp::export]]
+void outputs_STSP_cpp(const arma::mat& A, const arma::mat& B,
                        const arma::mat& C, const arma::mat& D,
                        const arma::mat& u, arma::mat& a, arma::mat& y) {
 
@@ -349,6 +349,9 @@ void outputs_ARMA_cpp(const arma::mat& A1, const arma::mat& B, int t0,
 //'
 //' @export
 //' @name fbsolve_STSP_cpp
+//' @rdname fbsolve_STSP_cpp
+//'
+
 // [[Rcpp::export]]
 void fbsolve_STSP_cpp(const arma::mat& A, const arma::mat& B, const arma::mat& C, const arma::mat& D,
                       const arma::mat& u, arma::mat& au, arma::mat& as, arma::mat& y) {
@@ -451,8 +454,13 @@ void fbsolve_STSP_cpp(const arma::mat& A, const arma::mat& B, const arma::mat& C
 //' @param t0 Integer. Time index from which we should start calculating a solution.
 //'     Usually equal to 1.
 //'
+//' @return \code{data_out} is overwritten with the outputs of the RMFD system.
+//'
 //' @export
+//'
 //' @name solve_rmfd_cpp
+//' @rdname solve_rmfd_cpp
+
 // [[Rcpp::export]]
 void solve_rmfd_cpp(const arma::mat& poly_inv, const arma::mat& poly_fwd, arma::mat& data_in, arma::mat& data_out, int t0) {
   // (c,d,u,y,t0)
@@ -543,9 +551,6 @@ void solve_rmfd_cpp(const arma::mat& poly_inv, const arma::mat& poly_fwd, arma::
 
 //' Residuals of an ARMA system
 //'
-//' @description
-//' \ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-//'
 //' This internal helper function computes the residuals and the directional derivatives of the
 //' residuals of an ARMA system of the form
 //' \deqn{a_0 y_t + a_1 y_{t-1} + \cdots + a_p y_{t-p} = b_0 u_t + \cdots + b_q u_{t-q}}{
@@ -579,6 +584,11 @@ void solve_rmfd_cpp(const arma::mat& poly_inv, const arma::mat& poly_fwd, arma::
 //'
 //' @return This RcppArmadillo routine returns \code{NULL} but \bold{overwrites}
 //'         the input arguments \code{u} (and \code{dU})!
+//'
+//' @export
+//'
+//' @rdname residuals_ARMA_cpp
+//' @name residuals_ARMA_cpp
 //'
 //' @seealso \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
 //'    \code{\link{outputs_STSP_cpp}}, \code{\link{residuals_STSP_cpp}},  \code{\link{cll_theta_STSP_cpp}} and
@@ -634,8 +644,7 @@ void solve_rmfd_cpp(const arma::mat& poly_inv, const arma::mat& poly_fwd, arma::
 //' # compute directional derivatives of residuals
 //' dU = matrix(0, nrow = n.obs*m, ncol = (m^2)*(p+q+2))
 //' residuals_ARMA_cpp(ib0, B1, A, t0 = 2, y, uu, dU)
-//'
-//' @export
+
 // [[Rcpp::export]]
 void residuals_ARMA_cpp(const arma::mat& ib0, const arma::mat& B1, const arma::mat& A,
                         int t0, const arma::mat& y, arma::mat& u, arma::mat& dU) {
@@ -737,9 +746,6 @@ void residuals_ARMA_cpp(const arma::mat& ib0, const arma::mat& B1, const arma::m
 
 //' Residuals of a statespace system
 //'
-//' @description
-//' \ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-//'
 //' This internal helper function computes the residuals
 //' (and the directional derivatives of the residuals)
 //' for a statespace system of the form
@@ -773,6 +779,11 @@ void residuals_ARMA_cpp(const arma::mat& ib0, const arma::mat& B1, const arma::m
 //'
 //' @return This RcppArmadillo implementation returns \code{NULL} but \bold{overwrites} the input
 //'         arguments \code{a}, \code{u} and \code{dU}!
+//'
+//' @export
+//'
+//' @rdname residuals_STSP_cpp
+//' @name residuals_STSP_cpp
 //'
 //' @seealso \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
 //'    \code{\link{outputs_STSP_cpp}}, \code{\link{residuals_STSP_cpp}},  \code{\link{cll_theta_STSP_cpp}} and
@@ -834,10 +845,8 @@ void residuals_ARMA_cpp(const arma::mat& ib0, const arma::mat& B1, const arma::m
 //' junk[junk == 0] = 1
 //' 2*abs(dU_num - dU)/junk
 //'
-//' @export
-//' @name residuals_STSP_cpp
- // [[Rcpp::export]]
- void residuals_STSP_cpp(const arma::mat& A, const arma::mat& B,
+// [[Rcpp::export]]
+void residuals_STSP_cpp(const arma::mat& A, const arma::mat& B,
                          const arma::mat& C, const arma::mat& D,
                          const arma::mat& y,
                          arma::mat& a, arma::mat& u,
@@ -951,9 +960,6 @@ void residuals_ARMA_cpp(const arma::mat& ib0, const arma::mat& B1, const arma::m
 //' Compute the (concentrated) conditional log likelihood for ARMA models
 //' described by a model template.
 //'
-//' @description
-//' \ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-//'
 //' This internal helper function computes the (concentrated) conditional log Likelihood
 //' of ARMA systems of the form
 //' \deqn{a_0 y_t + a_1 y_{t-1} + \cdots + a_p y_{t-p} = b_0 u_t + \cdots + b_q u_{t-q}}{
@@ -1028,6 +1034,9 @@ void residuals_ARMA_cpp(const arma::mat& ib0, const arma::mat& B1, const arma::m
 //' @return (double) log Likelihood
 //'
 //' @export
+//'
+//' @rdname cll_theta_ARMA_cpp
+//' @name cll_theta_ARMA_cpp
 // [[Rcpp::export]]
 double cll_theta_ARMA_cpp(const arma::vec& th, const arma::mat& y, unsigned long int skip, bool concentrated,
                           arma::mat& ib0, const arma::mat& H_b, const arma::vec& h_b,
@@ -1129,23 +1138,13 @@ double cll_theta_ARMA_cpp(const arma::vec& th, const arma::mat& y, unsigned long
 }
 
 
-
-
-
-
-
-
 //' Compute the (concentrated) conditional log likelihood for a statespace system
 //' described by a model template.
-//'
-//' @description
-//' \ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
 //'
 //' This is an internal helper function, used by the function factory \code{\link{ll_FUN}}. For a more detailed
 //' documentation of the conditional log Likelihood, see \code{\link{ll}}.
 //' The conditional likelihood is computed for the initial state \eqn{a_1} given in the first column `a[,1]` of the
 //' matrix `a`.
-//'
 //'
 //' @param th \eqn{(K)} dimensional vector of "deep" parameters.
 //' @param y \eqn{(m,N)} matrix with the observed outputs:
@@ -1175,86 +1174,91 @@ double cll_theta_ARMA_cpp(const arma::vec& th, const arma::mat& y, unsigned long
 //'
 //' @return (double) log Likelihood
 //'
+//' @export
+//'
 //' @seealso \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
 //'    \code{\link{outputs_STSP_cpp}}, \code{\link{residuals_STSP_cpp}},  \code{\link{cll_theta_STSP_cpp}} and
 //'    \code{\link{solve_de}}, \code{\link{solve_inverse_de}} and \code{\link{ll}}.
 //'
- // [[Rcpp::export]]
- double cll_theta_STSP_cpp(const arma::vec& th, const arma::mat& y, unsigned long int skip, bool concentrated,
-                           arma::mat& pi, const arma::mat& H_pi, const arma::vec& h_pi,
-                           arma::mat& L, const arma::mat& H_L, const arma::vec& h_L,
-                           arma::mat& a, arma::mat& u, arma::mat& dU) {
+//' @rdname cll_theta_STSP_cpp
+//' @name cll_theta_STSP_cpp
 
-   unsigned long int s = a.n_rows;
-   unsigned long int m = y.n_rows;
-   unsigned long int nobs = y.n_cols;
-   unsigned long int nvalid = nobs - skip;
+// [[Rcpp::export]]
+double cll_theta_STSP_cpp(const arma::vec& th, const arma::mat& y, unsigned long int skip, bool concentrated,
+                          arma::mat& pi, const arma::mat& H_pi, const arma::vec& h_pi,
+                          arma::mat& L, const arma::mat& H_L, const arma::vec& h_L,
+                          arma::mat& a, arma::mat& u, arma::mat& dU) {
 
-   // http://arma.sourceforge.net/docs.html#memptr
-   // vec(ptr_aux_mem, number_of_elements, copy_aux_mem = true, strict = false)
-   // pi_vec is the vectorised version of the matrix pi (shares the memory with pi)
-   arma::vec pi_vec = arma::vec(pi.memptr(), (m+s)*(m+s), false, true);
+  unsigned long int s = a.n_rows;
+  unsigned long int m = y.n_rows;
+  unsigned long int nobs = y.n_cols;
+  unsigned long int nvalid = nobs - skip;
 
-   pi_vec = h_pi + H_pi * th;
+  // http://arma.sourceforge.net/docs.html#memptr
+  // vec(ptr_aux_mem, number_of_elements, copy_aux_mem = true, strict = false)
+  // pi_vec is the vectorised version of the matrix pi (shares the memory with pi)
+  arma::vec pi_vec = arma::vec(pi.memptr(), (m+s)*(m+s), false, true);
 
-   // A = pi.submat(0,0,s-1,s-1);
-   // B = pi.submat(0,s,s-1,s+m-1);
-   // C = pi.submat(s,0,s+m-1,s-1);
-   // D = pi.submat(s,s,s+m-1,s+m-1);
+  pi_vec = h_pi + H_pi * th;
+
+  // A = pi.submat(0,0,s-1,s-1);
+  // B = pi.submat(0,s,s-1,s+m-1);
+  // C = pi.submat(s,0,s+m-1,s-1);
+  // D = pi.submat(s,s,s+m-1,s+m-1);
 
 
-   // compute residuals
-   // void residuals_STSP_cpp(const arma::mat& A, const arma::mat& B,
-   //                         const arma::mat& C, const arma::mat& D,
-   //                         const arma::mat& y,
-   //                         arma::mat& a, arma::mat& u,
-   //                         const arma::mat& dPI, arma::mat& dU)
+  // compute residuals
+  // void residuals_STSP_cpp(const arma::mat& A, const arma::mat& B,
+  //                         const arma::mat& C, const arma::mat& D,
+  //                         const arma::mat& y,
+  //                         arma::mat& a, arma::mat& u,
+  //                         const arma::mat& dPI, arma::mat& dU)
 
-   if (s > 0) {
-     residuals_STSP_cpp(pi.submat(0,0,s-1,s-1),      // A
-                        pi.submat(0,s,s-1,s+m-1),    // B
-                        pi.submat(s,0,s+m-1,s-1),    // C
-                        pi.submat(s,s,s+m-1,s+m-1),  // D
-                        y, a, u, H_pi, dU);
-   } else {
-     residuals_STSP_cpp(arma::mat(0,0),   // A
-                        arma::mat(0,m),   // B
-                        arma::mat(m,0),   // C
-                        pi,               // D
-                        y, a, u, H_pi, dU);
-   }
+  if (s > 0) {
+    residuals_STSP_cpp(pi.submat(0,0,s-1,s-1),      // A
+                       pi.submat(0,s,s-1,s+m-1),    // B
+                       pi.submat(s,0,s+m-1,s-1),    // C
+                       pi.submat(s,s,s+m-1,s+m-1),  // D
+                       y, a, u, H_pi, dU);
+  } else {
+    residuals_STSP_cpp(arma::mat(0,0),   // A
+                       arma::mat(0,m),   // B
+                       arma::mat(m,0),   // C
+                       pi,               // D
+                       y, a, u, H_pi, dU);
+  }
 
-   double ll, sign, lndetk0, lndetSigma, trSS, mln2pi;
+  double ll, sign, lndetk0, lndetSigma, trSS, mln2pi;
 
-   if (concentrated) {
-     // concentrated, conditional log Likelihood
+  if (concentrated) {
+    // concentrated, conditional log Likelihood
 
-     // sample covariance matrix of residuals
-     L = ( u.head_cols(nvalid) * u.head_cols(nvalid).t() ) / nvalid;
-     log_det(lndetSigma, sign, L);
-     trSS = m;
-   } else {
-     // conditional log Likelihood
+    // sample covariance matrix of residuals
+    L = ( u.head_cols(nvalid) * u.head_cols(nvalid).t() ) / nvalid;
+    log_det(lndetSigma, sign, L);
+    trSS = m;
+  } else {
+    // conditional log Likelihood
 
-     // L_vec is the vectorised version of the matrix L (shares the memory with L)
-     arma::vec L_vec = arma::vec(L.memptr(), (m)*(m), false, true);
-     L_vec = h_L + H_L * th;
+    // L_vec is the vectorised version of the matrix L (shares the memory with L)
+    arma::vec L_vec = arma::vec(L.memptr(), (m)*(m), false, true);
+    L_vec = h_L + H_L * th;
 
-     log_det(lndetSigma, sign, L);
-     lndetSigma = 2*lndetSigma; // log(det( sigma ));
-     // compute sum_t u[t]' sigma^(-1) u[t]
-     u = solve(L, u);
-     trSS = accu(square(u.head_cols(nvalid))) / nvalid;
-   }
+    log_det(lndetSigma, sign, L);
+    lndetSigma = 2*lndetSigma; // log(det( sigma ));
+    // compute sum_t u[t]' sigma^(-1) u[t]
+    u = solve(L, u);
+    trSS = accu(square(u.head_cols(nvalid))) / nvalid;
+  }
 
-   mln2pi = m*log(2 * arma::datum::pi);
-   // take care of the case where the lag zero coefficient k[0] = D
-   // of the impulse response is not equal to the identity!
-   // lndetk0 = log(abs(det(k0)))
-   log_det(lndetk0, sign, pi.submat(s,s,s+m-1,s+m-1));
+  mln2pi = m*log(2 * arma::datum::pi);
+  // take care of the case where the lag zero coefficient k[0] = D
+  // of the impulse response is not equal to the identity!
+  // lndetk0 = log(abs(det(k0)))
+  log_det(lndetk0, sign, pi.submat(s,s,s+m-1,s+m-1));
 
-   ll = (-0.5) * (mln2pi + trSS + lndetSigma + 2*lndetk0);
-   return(ll);
- }
+  ll = (-0.5) * (mln2pi + trSS + lndetSigma + 2*lndetk0);
+  return(ll);
+}
 
 

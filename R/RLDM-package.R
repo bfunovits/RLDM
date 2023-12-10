@@ -14,7 +14,6 @@
 #' @useDynLib RLDM, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom Rcpp evalCpp
-#' @exportPattern "^[[:alpha:]]+"
 #' @importFrom Rdpack reprompt
 #' @import rationalmatrices
 NULL
