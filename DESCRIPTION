@@ -1,0 +1,44 @@
+Package: RLDM
+Title: Rational Linear Dynamic (Time Series) Models
+Version: 0.0.0.9006
+Authors@R: 
+    c(person(given = "Wolfgang", family = "Scherrer", role = c("aut"), 
+             email = "wolfgang.scherrer@tuwien.ac.at"),
+      person(given = "Bernd", family = "Funovits",
+             role = c("aut", "cre"), email = "bernd.funovits@gmail.com",
+             comment = c(ORCID = "0000-0002-8247-6840")))
+Description: This package collects some tools for (stationary) processes with 
+    a rational spectral density.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+LinkingTo: 
+    Rcpp,
+    RcppArmadillo,
+    rationalmatrices
+Imports: 
+    dplyr,
+    MASS,
+    purrr,
+    Rcpp,
+    Rdpack,
+    tibble,
+    QZ
+Suggests: 
+    DiagrammeR,
+    kableExtra,
+    knitr,
+    lubridate,
+    mvbutils,
+    printr,
+    rmarkdown,
+    testthat (>= 2.1.0),
+    xts
+VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10),
+    rationalmatrices
+RdMacros: Rdpack
+URL: https://bfunovits.github.io/RLDM, https://github.com/bfunovits/RLDM

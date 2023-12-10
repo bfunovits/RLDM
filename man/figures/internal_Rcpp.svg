@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="20">
+<rect width = "110" height = "20" rx="3" fill = "#f22"/>
+<g text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="14" fill = "#fff">
+<text x="55.5" y="15" fill = "#777">internal Rcpp</text>
+<text x="55" y="14">internal Rcpp</text>
+</g>
+</svg>

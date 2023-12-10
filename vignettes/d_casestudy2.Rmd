@@ -1,0 +1,391 @@
+---
+title: "Case Study"
+author: "WS"
+date: "4/15/2020"
+output: 
+  rmarkdown::html_vignette:
+    toc: yes
+vignette: >
+  %\VignetteIndexEntry{Case Study}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 6, fig.height = 4
+)
+
+library(dplyr)
+library(lubridate)
+library(RLDM)
+library(kableExtra)
+library(xts)
+library(printr)
+```
+
+# Data 
+
+For this simple case study we use the Blanchard/Quah (1989) dataset with quarterly data of real GDP growth rates and the detrended unemployment rate in the USA. 
+
+```{r}
+y = BQdata_xts
+
+break_date = as_date("1970-01-01")
+
+y_train = BQdata_xts[index(BQdata_xts) < break_date]
+y_test  = BQdata_xts[index(BQdata_xts) >= break_date]
+dim_out = ncol(y_train)
+
+plot(y)
+addLegend('topleft', c('GDP growth rate', 'Unemployment rate'), col = c('black', 'red'),
+       lwd = 2, bty = 'n')
+addEventLines(xts("Break", break_date))
+
+```
+
+The data set contains `r nrow(y)` observations from `r start(y)` to `r end(y)`. 
+For estimation we use the first `r nrow(y_train)` observation till `r end(y_train)`. 
+
+The data is scaled such that the sample variances of the two series are equal to one.
+
+# AR Model
+
+Here, we estimate an AR model where the order is determined via AIC.
+The only essential input for the function **est_ar()** is a data-object, e.g. a matrix with observations in rows and variables in columns, or a covariance-object.
+The defaults are using **AIC** for model selection, **Yule-Walker** estimation, and the **sample.mean** for estimating the $\mathbb{E}\left(y_t\right)$. 
+
+```{r}
+out = est_ar(y_train, mean_estimate = 'zero')
+out %>% names()
+```
+
+Important statistics regarding model selection are contained in the slot **stats**
+
+```{r}
+out$stats
+```
+
+The estimates as **armamod** object are stored in 
+
+```{r}
+out$model
+```
+
+The remaining slots are
+
+```{r}
+out$ll
+out$p
+out$y.mean
+```
+
+The estimated models are collected in two lists `models`and `estimates`. 
+
+```{r}
+models    = list(AR1 = out$model)
+estimates = list(AR1 = list(model = out$model, n.par = out$p * dim_out^2))
+```
+
+
+# Statespace Models 
+
+## CCA Estimate
+
+```{r}
+out = est_stsp_ss(y_train, method = 'cca', mean_estimate = 'zero')
+out %>% names()
+```
+
+```{r}
+out$model
+```
+
+Only the "chosen" model with **s=1** has a value for *lndetSigma* below because the order selection criteria is performed first (and based on the singular values of the "normalized" Hankel matrix).
+
+```{r}
+out$stats
+```
+
+The slot **models** (plural) is only non-NULL if *keep_models == TRUE*.
+
+```{r}
+out$models
+```
+
+Save the model
+
+```{r}
+models$CCA    = out$model
+estimates$CCA = list(model = out$model, n.par = 2*dim_out*out$s)
+```
+
+## DDLC estimate
+
+ML estimation of statespace model with a "DDLC" parametrization. 
+We use the **concentrated** log likelihood, hence the noise covariance is **not** parametrized!
+
+Of course, we should wrap this procedure into a suitable estimation procedure/function. 
+
+```{r}
+tmpl = tmpl_DDLC(models$CCA, balance = 'minimum phase', sigma_L = 'identity')
+th0 = numeric(tmpl$n.par)
+
+llfun = ll_FUN(tmpl, y_train, skip = 0, which = "concentrated")
+control = list(trace = 1, fnscale = -1, maxit = 10)
+
+out = optim(th0, llfun, method = 'BFGS', control = control)
+th = out$par
+model = fill_template(th, tmpl)
+
+# reparametrize
+tmpl = tmpl_DDLC(model, balance = 'minimum phase', sigma_L = 'identity')
+llfun = ll_FUN(tmpl, y_train, skip = 0, which = "concentrated")
+control$maxit = 20
+
+out = optim(th0, llfun, method = 'BFGS', control = control)
+th = out$par
+model = fill_template(th, tmpl)
+
+# reparametrize
+tmpl = tmpl_DDLC(model, balance = 'minimum phase', sigma_L = 'identity')
+llfun = ll_FUN(tmpl, y_train, skip = 0, which = "concentrated")
+control$maxit = 200
+
+out   = optim(th0, llfun, method = 'BFGS', control = control)
+th    = out$par
+model = fill_template(th, tmpl)
+
+# out           = ll(model, y_train, skip = 0, which = "concentrated")
+model$sigma_L = t(chol(model$sigma_L))
+
+models$DDLC    = model
+estimates$DDLC = list(model = model, n.par = tmpl$n.par)
+```
+
+
+## ML Estimate of Echelon Form Model
+
+ML estimation of the statespace model in echelon canonical form. We first have to 
+coerce the CCA estimate into echelon canonical form. 
+
+```{r}
+lag.max = 20
+ir = impresp(models$CCA, lag.max = lag.max)$irf # impulse response
+nu = pseries2nu(ir)                             # Kronecker indices 
+nu
+
+# transform the CCA estimate into echelon canonical form
+model = stspmod(sys = pseries2stsp(ir, method = 'echelon')$Xs, 
+                sigma_L = models$CCA$sigma_L)
+# check 
+all.equal(autocov(model, lag.max = lag.max), 
+          autocov(models$CCA, lag.max = lag.max))
+
+tmpl = tmpl_stsp_echelon(nu, sigma_L = 'identity')
+th0 = extract_theta(model, tmpl, on_error = 'stop', ignore_sigma_L = TRUE)
+
+llfun = ll_FUN(tmpl, y_train, skip = 0, which = "concentrated")
+
+control$maxit = 500 
+out = optim(th0, llfun, method = 'BFGS', control = control)
+th = out$par
+model = fill_template(th, tmpl)
+out = ll(model, y_train, skip = 0, which = "concentrated")
+# model$sigma_L = t(chol(out$S))
+
+models$SSECF    = model
+estimates$SSECF = list(model = model, n.par = tmpl$n.par)
+```
+
+# ARMA models
+
+## HRK estimate
+
+Initial estimate via HRK procedure.
+**This should be replaced with `est_arma_hrk3()`.**
+
+```{r}
+tmpl = tmpl_arma_echelon(nu, sigma_L = 'chol')
+out = est_arma_hrk(y_train, tmpl = tmpl, mean_estimate = 'zero')
+models$HRK = out$model
+estimates$HRK = list(model = out$model, n.par = tmpl$n.par - dim_out*(dim_out+1)/2)
+```
+
+## ML Estimate of Echelon Form Model
+
+ML estimation of ARMA model in echelon form.
+
+```{r}
+tmpl = tmpl_arma_echelon(nu, sigma_L = 'identity')
+th0 = extract_theta(models$HRK, tmpl, on_error = 'stop', ignore_sigma_L = TRUE)
+
+llfun = ll_FUN(tmpl, y_train, skip = 0, which = "concentrated")
+
+out = optim(th0, llfun, method = 'BFGS', control = control)
+th = out$par
+model = fill_template(th, tmpl)
+out = ll(model, y_train, skip = 0, which = "concentrated")
+# model$sigma_L = t(chol(out$S))
+
+models$ARMAECF = model
+estimates$ARMAECF = list(model = model, n.par = tmpl$n.par)
+```
+
+
+# Compare Models 
+
+For this data set the three ML estimates are essentially equivalent:
+```{r}
+all.equal(impresp(models$DDLC, lag.max = lag.max), 
+          impresp(models$SSECF, lag.max = lag.max))
+all.equal(impresp(models$DDLC, lag.max = lag.max), 
+          impresp(models$ARMAECF, lag.max = lag.max))
+```
+
+Therefore we only keep the "SSECF" estimate for the further evluations/comparisons.
+
+```{r}
+models = models[c('AR1','CCA','HRK','SSECF')]
+estimates = estimates[c('AR1','CCA','HRK','SSECF')]
+```
+
+
+
+Portmanteau test for serial correlation for the AR1 estimate: 
+
+```{r}
+u = solve_inverse_de(models$AR1$sys, as.matrix(y_train))$u
+pm_test(u, 8, dim_out^2)
+```
+
+Compare estimates: collect statistics/tests into a matrix for easy comparison:
+
+
+```{r}
+stats = compare_estimates(estimates, y_train, n.lags = 8)
+if (requireNamespace("kableExtra", quietly = TRUE)) {
+  stats %>%
+    kable() %>%
+    kableExtra::kable_styling(bootstrap_options = c("striped", "hover"))
+} else {
+  stats
+}
+```
+
+# ACF 
+
+```{r}
+plot(autocov(y, lag.max = lag.max), 
+     lapply(models, FUN = autocov, lag.max = lag.max),
+     legend = c('sample', names(models)),
+     col = c('black', default_colmap(length(models))))
+```
+
+# Spectral Density 
+
+```{r}
+plot(spectrald(models[[1]], n.f = 2^10), 
+     lapply(models[-1], FUN = spectrald, n.f = 2^10),
+     legend = names(models))
+```
+
+# Impulse Response
+
+```{r}
+plot(impresp(models[[1]], lag.max = lag.max), 
+     lapply(models[-1], FUN = impresp, lag.max = lag.max),
+     legend = names(models))
+```
+
+# Prediction 
+
+## Plot 
+
+```{r}
+n.ahead = 8
+n.obs = nrow(y)
+pred = predict(models$SSECF, y, h = c(1,4), n.ahead = n.ahead)
+# add the date/time information to the list "pred"
+# date = seq((start(y)-1)*3+1, by = 3, length.out = nrow(y)+n.ahead)
+# date = as.Date(paste(start(y)[1] + (date-1) %/% 12, (date-1) %% 12 + 1, 1, sep='-'))
+# pred$date = date
+
+# the default "predictor names" h=1, h=2, ...
+# don't look well, when plotted as expressions
+dimnames(pred$yhat)[[3]] = gsub('=','==',dimnames(pred$yhat)[[3]])
+
+# generate some plots ####################
+
+# a simple/compressed plot of the data
+p.y0 = plot_prediction(pred, which = 'y0', style = 'bw',
+                       parse_names = TRUE, plot = FALSE)
+p.y0()
+
+# a simple/compressed plot of the prediction errors
+plot_prediction(pred, which = 'u0', parse_names = TRUE)
+
+# plot of the prediction errors (with 95% confidence intervals)
+plot_prediction(pred, which = 'error', qu = c(2,2,2),
+                parse_names = TRUE)
+
+# plot of the true vales and the predicted values (+ 50% confidence region
+# for the 1-step ahead prediction and the "out of sample" predictions)
+p.y = plot_prediction(pred, qu = c(qnorm(0.75), NA, qnorm(0.75)),
+                      parse_names = TRUE, plot = FALSE)
+# subfig = p.y(xlim = date[c(n.obs-12, n.obs+n.ahead)])
+# opar = subfig(1)
+# abline(v = mean(as.numeric(date[c(n.obs, n.obs+1)])), col = 'red')
+# # subfig(2)
+# abline(v = mean(as.numeric(date[c(n.obs, n.obs+1)])), col = 'red')
+# mtext(paste(' example plot:', date()), side = 1, outer = TRUE,
+#       cex = 0.5, col = 'gray', adj = 0)
+# graphics::par(opar) # reset the graphical parameters
+
+# CUSUM plot of the prediction errors
+plot_prediction(pred, which = 'cusum',
+                style = 'gray', parse_names = TRUE)
+
+# CUSUM2 plot of the prediction errors
+plot_prediction(pred, which = 'cusum2', parse_names = TRUE)
+
+```
+
+## Evaluate and Compare Predictions
+
+```{r}
+out = lapply(models, FUN = function(model) {predict(model, y, h = c(1,4))$yhat})
+yhat = do.call(dbind, c(3, out) )
+dimnames(yhat)[[3]] = kronecker(names(models), c(1,4), FUN = paste, sep = ':')
+stats = evaluate_prediction(y, yhat, h = rep(c(1,4), length(models)), 
+                            criteria = list('RMSE', 'MAE','MdAPE'), 
+                            samples = list(in.sample = 1:dim(y_train), out.of.sample = (dim(y_train)+1):dim(y)))
+# dimnames.stats = dimnames(stats)
+# stats = stats[,,c(seq(from = 1, by = 2, length.out = 6), 
+#                   seq(from = 2, by = 2, length.out = 6)), ]
+# dim(stats) = c(3,2,6,2,3)
+# dimnames(stats) = list(criterion = dimnames.stats[[1]], sample = dimnames.stats[[2]], 
+#                        predictor = names(models), h = paste('h=', c(1,4), sep = ''),
+#                        data = dimnames.stats[[4]])
+
+# use array2data.frame for "tabular" display of the results
+stats.df = array2data.frame(stats, cols = 4)
+stats.df$h = sub("^.*:","", as.character(stats.df$predictor))
+stats.df$predictor = sub(":.$","", as.character(stats.df$predictor))
+stats.df = stats.df[c('sample','h','criterion','predictor','rGDPgrowth_demeaned','unemp_detrended','total')]
+stats.df = stats.df[order(stats.df$sample, stats.df$h, stats.df$criterion, stats.df$predictor),]
+rownames(stats.df) = NULL
+if (requireNamespace("kableExtra", quietly = TRUE)) {
+  stats.df %>% 
+    kable() %>%
+    kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+    kableExtra::collapse_rows(columns = 1:3, valign = "top")
+} else {
+  stats.df
+}
+
+stats.df %>% names()
+```
+

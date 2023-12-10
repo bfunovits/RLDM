@@ -1,0 +1,344 @@
+---
+title: "Rational Linear Dynamic Models (RLDM)"
+author: "Wolfgang Scherrer and Bernd Funovits"
+date: "`r Sys.Date()`"
+bibliography: ../inst/REFERENCES.bib
+output: 
+  rmarkdown::html_vignette:
+    fig_width: 12
+    fig_height: 9
+    toc: yes
+    toc_depth: 2
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Rational Linear Dynamic Models (RLDM)}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+library(RLDM)
+```
+
+
+# Preliminaries
+
+## Notation 
+
+The following letters are used to denote the dimensions of the objects:
+
+* $m$-dimension process $(y_t)$
+* $n$- dimensional noise process $(u_t)$, $\epsilon_t$, ...
+* $s$- dimensional state process $(a_t)$ 
+* $N$ sample size (`n.obs`)
+
+## Sign Convention
+
+The sign convention for autoregressive (AR) is *non-standard* since `lmfd` objects store the AR/MA polynomials in the form
+
+$$
+a_0 y_t + \cdots + a_p y_{t-p} = b_0 \epsilon_t + \cdots + b_q \epsilon_{t-q} 
+$$
+
+Therefore, an AR model is written as
+
+$$
+y_t + a_1 y_{t-1} + \cdots + a_p y_{t-p} = \epsilon_t
+$$
+
+such that the signs of the coefficients are 'non standard'.
+
+# Processes
+
+The package RLDM deals with processes of the form 
+
+$$
+y_t = \sum_{j \geq 0}^\infty k_j u_{t-j}
+$$
+
+which are the solutions of the difference equations in left-matrix-fraction-description (LMFD) 
+
+$$
+a_0 y_t + a_1 y_{t-1} + \cdots a_p y_{t-p} = b_0 u_t + b_1 u_{t-1} + \cdots b_q u_{t-q},
+$$
+
+state space form,
+
+$$
+\begin{aligned}
+s_{t+1} &= A s_t + B u_t \\
+y_t &= C s_t + D u_t
+\end{aligned}
+$$
+
+or right-matrix-fraction-description (RMFD)
+
+$$
+\begin{aligned}
+w_t &= c_0 u_{t} + c_1 u_{t-1} + \cdots c_p u_{t-p}\\
+y_t &= d_0 u_{t} + d_1 u_{t-1} + \cdots d_q u_{t-q}
+\end{aligned}
+$$
+
+There are no deterministic trends or exogenously observed inputs.
+
+# Classes
+
+In the following, the classes of the package RLDM are described.
+
+## VARMA system/process
+
+**armamod** objects are lists with slots:
+
+slot        | type              | $a(z) x_t = b(z) u_t$    
+----------- | ----------------- | --------------------------------------------
+`sys`       | `lmfd [m,n]`      | filter $k(z) = a^{-1}(z)b(z)$, rational matrix in LMFD form
+`sigma_L`   | `double [n,n]`    | left square root of noise covariance $\Sigma$
+`names`     | `chr [m]`         | character vector with names for the components of $x_t$
+`label`     | `chr`             | description of the process/model
+
+Class attribute `c("armamod", "rldm")`. 
+
+The `sigma_L` slot contains a "left" square root $L$ of the noise covariance matrix $\Sigma$, i.e. $\Sigma = LL'$. 
+However, it is **not** required that $L$ is lower left triangular matrix. 
+
+Defaults: 
+
+* `label = NULL` gives `label = ''`
+* `names = NULL` gives `names = ???`
+
+The constructor for this class is
+
+```
+armamod(sys, sigma_L, names = NULL, label = NULL)
+```
+
+and the following methods are available
+
+```{r}
+methods(class = 'armamod')
+```
+
+
+## Statespace system/process
+
+**stspmod** objects are lists with slots:
+
+slot        | type              | $s_{t+1} = A s_t + B u_t,\; x_t = C s_t + D u_t$    
+----------- | ----------------- | --------------------------------------------
+`sys`       | `stsp [m,n]`      | statespace realization of the filter $k(z) = C(z^{-1}I - A)^{-1}B + D$
+`sigma_L`   | `double [n,n]`    | left factor of noise covariance $\Sigma$
+`names`     | `chr [m]`         | character vector with names for the components of $x_t$
+`label`     | `chr`             | description of the process/model
+
+Class attribute `c("armamod", "rldm")`. 
+
+Defaults: 
+
+* `label = NULL` gives `label = ''`
+* `names = NULL` gives `names = ???`
+
+The constructor for this class is 
+
+```
+stspmod(sys, sigma_L, names = NULL, label = NULL)
+```
+
+The following methods are available
+
+```{r}
+methods(class = 'stspmod')
+```
+
+## Right matrix fraction description
+
+For `rmfd` objects, see the corresponding help file.
+
+## Autocovariance function 
+
+**autocov** objects are lists with slots:
+
+slot        | type           | $\gamma_k = \mathbb{E} (x_{t+k} x_t')$
+----------- | -------------- | --------------------------------------------
+`acf`       | `pseries [m,m]` | autocovariance, autocorrelation or partial autocorrelation 
+`type`      | `chr`          | either "covariance", "correlation" or "partial"
+`gamma`     | `[m,m,lag.max+1]` | autocovariances stored in 3-D array  
+`names`     | `chr [m]`      | character vector with names for the components of $x_t$
+`label`     | `chr`          | description of the process/model
+`n.obs`     | `integer`      | sample size
+
+Class attribute `c("autocov", "rldm")`. 
+
+There is no direct constructor, but compute via S3 method 
+
+```
+autocov.default(obj, lag.max, type)   ##\sobj = data, calls stats::acf
+autocov.acf(obj, lag.max, type)        # obj = stats::acf object ??? 
+autocov.armamod(obj, lag.max, type)
+autocov.stspmod(obj, lag.max, type)
+autocov.autocov(obj, lag.max, type)
+```
+
+The following methods are available
+
+```{r}
+methods(class = 'autocov')
+```
+
+
+## Impulse Response function 
+
+**impresp** objects are lists with slots:
+
+slot        | type           | $k(z) = \sum_{j\geq 0} k_j z^j$
+----------- | -------------- | --------------------------------------------
+`irf`       | `pseries [m,n]` | impulse response function $(k_j)$
+`sigma_L`   | `double [n,n]` | left factor of noise covariance $\Sigma$
+`names`     | `chr [m]`      | character vector with names for the components of $x_t$
+`label`     | `chr`          | description of the process/model
+
+Class attribute `c("impresp", "rldm")`. 
+
+There is no direct constructor, but compute via S3 method 
+
+```
+impresp.armamod(obj, lag.max, H)
+impresp.stspmod(obj, lag.max, H)
+impresp.impresp(obj, lag.max, H)  change orthogonalization H
+```
+
+The following methods are available
+
+```{r}
+methods(class = 'impresp')
+```
+
+
+## Frequency Response / Transfer function
+
+The *frequency response function* associated to an ARMA/statespace model is 
+
+$$
+\begin{aligned}
+K(\lambda) &= \sum_{j=0}^{\infty} k_j e^{-i\lambda j}                    & \\
+           &= (a_0 + a_1 e^{-i\lambda} + \cdots + a_p e^{-i\lambda p})^{-1} 
+              (b_0 + b_1 e^{-i\lambda} + \cdots + b_q e^{-i\lambda q})   & \mbox{ARMA model}\\
+           &= C(e^{i\lambda}I_s -A)^{-1}B+D                              & \mbox{statespace model}
+\end{aligned}
+$$
+where $(k_j \,|\, j\geq 0)$ is the *impulse response* of the model. 
+Note that $K()$ is the discrete-time Fourier transform (DTFT) of the impulse response. 
+If the impulse response is absolutely summable then the ceofficents $k_j$ may be reconstructed from the frequency response via the inverse DTFT 
+
+$$
+k_j = \frac{1}{2\pi} \int_{-\pi}^{\pi} K(\lambda) e^{i\lambda j} d\lambda
+$$
+The S3 methods `freqresp.*` evaluate the function on a grid of angular frequencies $\lambda_j = 2\pi j/N$, $j=0,\ldots,N-1$ and store the result (together with `sigma_L`) in a **freqresp** object. 
+
+**freqresp** objects are lists with slots:
+
+slot        | type           | $K(\lambda)$
+----------- | -------------- | --------------------------------------------
+`frr`       | `zvalues [m,n]`| frequency response function $K(\lambda_j)$, $\lambda_j = 2\pi j/N$.
+`sigma_L`   | `double [n,n]` | left factor of noise covariance $\Sigma$
+`names`     | `chr [m]`      | character vector with names for the components of $x_t$
+`label`     | `chr`          | description of the process/model
+
+Class attribute `c("freqresp", "rldm")`. 
+
+There is no direct constructor, but compute via S3 method 
+
+```
+freqresp.armamod(obj, n.f)
+freqresp.stspmod(obj, n.f)
+freqresp.impresp(obj, n.f)
+```
+
+The available methods are
+
+```{r}
+methods(class = 'freqresp')
+```
+
+
+## Spectral Density 
+
+The spectral density of an ARMA process, or a process defined via a (stable) statespace model is 
+
+$$
+\begin{aligned}
+\Gamma(\lambda) &= \frac{1}{2\pi} \sum_{j=-\infty}^{\infty} \gamma_j e^{-i\lambda j}  \\
+                &= \frac{1}{2\pi} K(\lambda) \Sigma K^*(\lambda) 
+\end{aligned}
+$$
+
+where $(\gamma_j\,|\, j\in \mathbb{Z})$ is the autocovariance function of the process and $K(\lambda)$ is the 
+frequency response of the associated model. The spectral density is (up to the factor $2\pi$) the DTFT 
+of the autocovariances and hence 
+$$
+\gamma_j = \int_{-\pi}^\pi \Gamma(\lambda) e^{i\lambda} d\lambda
+$$
+The S3 methods `spectrald.*` 
+evaluate the function on a grid of angular frequencies $\lambda_j = 2\pi j/N$, $j=0,\ldots,N-1$ 
+and store the result in a **spectrald** object. 
+
+**spectrald** objects are lists with slots:
+
+slot        | type           | $\Gamma(\lambda) = K(\lambda) \Sigma K^*(\lambda)$
+----------- | -------------- | --------------------------------------------
+`spd`       | `zvalues [m,m]`| spectral density $\Gamma(\lambda_j)$, $\lambda_j = 2\pi j/N$.
+`names`     | `chr [m]`      | character vector with names for the components of $x_t$
+`label`     | `chr`          | description of the process/model
+`n.obs`     | `integer`      | (optional) sample size
+
+Class attribute `c("spectrald", "rldm")`. 
+
+The name is chosen in order to avoid name clash with `stats::spectrum`. 
+
+No direct constructor, but compute via S3 method 
+
+```
+spectrald(obj, n.f = 128, ...)  # ARMA model
+spectrald(obj, n.f = 128, ...)  # statespace model
+spectrald(obj, n.f = 128, ...)  # autocov object (only approximation)
+spectrald(obj, n.f = 128, ...)  # impresp object (only approximation)
+spectrald(obj, n.f = NULL, demean = TRUE, ...)  # given a data matrix => periodogram
+```
+
+
+## Forecast Error Variance Decomposition 
+
+**fevardec** objects are lists with slots:
+
+slot        | type             | $\Sigma_h$ covariance of the $h$-step ahead forecast error
+----------- | ---------------- | --------------------------------------------
+`vd`        | `array [m,m,h]`  | forecast error variance decomposition
+`v`         | `matrix [m,h]`   | forecast error variance
+`names`     | `chr [m]`        | character vector with names for the components of $x_t$
+`label`     | `chr`            | description of the process/model
+
+Class attribute `c("fevardec")`. 
+
+This is not a complete process model: skip additional `rldm` in the class attribute 
+
+The name is chosen in order to avoid name clash with `vars::fevd`. 
+
+No direct constructor, but compute via function: 
+```
+fevardec(obj, h.max = NULL, H = NULL)
+```
+
+
+```{r}
+methods(class = 'fevardec')
+```
+
+# References 
+
+[@ScherrerDeistler2019].

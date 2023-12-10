@@ -1,0 +1,139 @@
+url: https://bfunovits.github.io/RLDM/
+template:
+  bootstrap: 5
+navbar:
+  structure:
+    left:  [intro, reference, articles]
+    right: [search, github]
+repo:
+  url:
+    home: https://github.com/bfunovits/RLDM/
+
+authors:
+  Wolfgang Scherrer:
+    href: https://scholar.google.com/citations?user=-Ytb9BYAAAAJ
+  Bernd Funovits:
+    href: https://ch.linkedin.com/in/bernd-funovits-phd-cfa-a8215016
+reference:
+- title: "Basic Classes"
+- subtitle: "Models"
+  desc: >
+    Models for rational transfer functions including input covariance.
+  contents:
+  - RLDM
+  - armamod
+  - rmfdmod
+  - stspmod
+
+- subtitle: "Templates"
+  contents:
+  - fill_template
+  - model2template
+  - starts_with("tmpl_")
+  - is.template
+
+- subtitle: "Test Objects"
+  contents:
+  - r_model
+  - starts_with("test_")
+
+- subtitle: "Transformation between and of Models"
+  contents:
+  - as.stspmod
+  - innovation_form
+
+- title: "Derivatives of Basic Classes"
+  contents:
+  - autocov
+  - fevardec
+  - freqresp
+  - impresp
+  - spectrald
+  - dft_3D
+
+- title: "Generic Functions and Helpers"
+  contents:
+  - str methods
+  - plot methods
+  - plot.fevardec
+  - plot_prediction
+  - poles and zeroes
+  - predict
+  - print methods
+
+- title: "Solving Difference Equations"
+
+- subtitle: "Main methods (Generics)"
+  contents:
+  - solve_de
+
+- subtitle: "RcppArmadillo Implementations"
+  contents:
+  - outputs_ARMA_cpp
+  - outputs_STSP_cpp
+  - residuals_ARMA_cpp
+  - residuals_STSP_cpp
+  - cll_theta_ARMA_cpp
+  - cll_theta_STSP_cpp
+
+- subtitle: "RcppArmadillo Implementations: R Functions For Checking (and Helpers)"
+  contents:
+  - solve_RMFD_R
+  - solve_inverse_RMFD_R
+  - solve_ARMA_R
+  - toepl_fwd
+
+- subtitle: "Possibly Deprecated RcppArmadillo Implementations"
+  contents:
+  - fbsolve_STSP_cpp
+  - solve_rmfd_cpp
+
+- title: "Moment Based Estimation"
+  contents:
+  - starts_with("est_")
+
+- title: "Likelihood Estimation"
+- subtitle: "Main"
+  contents:
+  - ll
+  - ll_FUN
+  - ll_theta
+
+- subtitle: "For State Space Models only"
+  contents:
+  - ll_kf
+
+- title: "Model Comparison"
+  contents:
+  - compare_estimates
+  - pm_test
+  - KL_divergence
+
+- title: "Kalman Filtering Related"
+  contents:
+  - starts_with("kf")
+  - riccati
+
+- title: "Subspace Related"
+  contents:
+  - local model structures
+  - subspace order estimates
+  - starts_with("subspace")
+
+- title: "Others"
+  contents:
+  - sim
+
+- title: "RcppArmadillo"
+  desc: >
+    Some methods are implemented in RcppArmadillo to speed up calculations
+  contents:
+  - ends_with("_cpp")
+
+- title: "Data Sets"
+  contents:
+  - BQdata
+  - RSdata
+
+
+
