@@ -85,15 +85,14 @@ the matrix is empty then no derivatives are computed.}
 (double) log Likelihood
 }
 \description{
-\ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-
 This internal helper function computes the (concentrated) conditional log Likelihood
 of ARMA systems of the form
 \deqn{a_0 y_t + a_1 y_{t-1} + \cdots + a_p y_{t-p} = b_0 u_t + \cdots + b_q u_{t-q}}{
       a[0] y[t] + a[1] y[t-1] + ... + a[p] y[t-p] = b[0] u[t] + ... + b[q] u[t-q]}
 The conditional likelihood is computed for \strong{zero} initial values \eqn{u_s=y_s=0}{u[s]=y[s]=0} for
 \eqn{s\leq 0}{s\le 0}.
-
+}
+\details{
 This function is mainly used by the function factory \code{\link{ll_FUN}}. For a more detailed
 documentation of the (concentrated) conditional log Likelihood, see \code{\link{ll}}.
 

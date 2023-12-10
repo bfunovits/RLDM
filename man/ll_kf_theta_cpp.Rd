@@ -52,9 +52,6 @@ initial state covariance matrix (computed via a Lyapunov equation).}
 \item{err}{(double) return err, if the computation of P1 fails.}
 }
 \description{
-\ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-
 This is an internal helper function, used by the function factory \code{\link{ll_FUN}}. For a more detailed
 documentation of the log Likelihood, see \code{\link{ll_kf}}.
 }
-\keyword{internal}

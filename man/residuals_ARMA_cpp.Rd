@@ -3,9 +3,6 @@
 \name{residuals_ARMA_cpp}
 \alias{residuals_ARMA_cpp}
 \title{Residuals of an ARMA system}
-\usage{
-residuals_ARMA_cpp(ib0, B1, A, t0, y, u, dU)
-}
 \arguments{
 \item{ib0}{\eqn{(m, m)} matrix, \strong{inverse} of the coefficient matrix \eqn{b[0]}{b[0]}.}
 
@@ -31,13 +28,12 @@ This RcppArmadillo routine returns \code{NULL} but \bold{overwrites}
 the input arguments \code{u} (and \code{dU})!
 }
 \description{
-\ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-
 This internal helper function computes the residuals and the directional derivatives of the
 residuals of an ARMA system of the form
 \deqn{a_0 y_t + a_1 y_{t-1} + \cdots + a_p y_{t-p} = b_0 u_t + \cdots + b_q u_{t-q}}{
       a[0] y[t] + a[1] y[t-1] + ... + a[p] y[t-p] = b[0] u[t] + ... + b[q] u[t-q]}
-
+}
+\details{
 Values \eqn{y_t}{y[t]}, \eqn{u_t}{u[t]} for \eqn{t\leq 0}{t\le 0} are implicitly set to be zero.
 However, by starting the iteration with some \eqn{t_0>1}{t0>1} we can enforce non-zero
 initial values.
@@ -102,7 +98,6 @@ all.equal(u, uu) # check
 # compute directional derivatives of residuals
 dU = matrix(0, nrow = n.obs*m, ncol = (m^2)*(p+q+2))
 residuals_ARMA_cpp(ib0, B1, A, t0 = 2, y, uu, dU)
-
 }
 \seealso{
 \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},

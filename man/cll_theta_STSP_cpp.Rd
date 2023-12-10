@@ -4,23 +4,6 @@
 \alias{cll_theta_STSP_cpp}
 \title{Compute the (concentrated) conditional log likelihood for a statespace system
 described by a model template.}
-\usage{
-cll_theta_STSP_cpp(
-  th,
-  y,
-  skip,
-  concentrated,
-  pi,
-  H_pi,
-  h_pi,
-  L,
-  H_L,
-  h_L,
-  a,
-  u,
-  dU
-)
-}
 \arguments{
 \item{th}{\eqn{(K)} dimensional vector of "deep" parameters.}
 
@@ -64,8 +47,6 @@ the matrix is empty then no derivatives are computed.}
 (double) log Likelihood
 }
 \description{
-\ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-
 This is an internal helper function, used by the function factory \code{\link{ll_FUN}}. For a more detailed
 documentation of the conditional log Likelihood, see \code{\link{ll}}.
 The conditional likelihood is computed for the initial state \eqn{a_1} given in the first column \code{a[,1]} of the

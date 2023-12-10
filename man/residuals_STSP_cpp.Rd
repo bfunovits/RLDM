@@ -35,8 +35,6 @@ This RcppArmadillo implementation returns \code{NULL} but \bold{overwrites} the 
 arguments \code{a}, \code{u} and \code{dU}!
 }
 \description{
-\ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-
 This internal helper function computes the residuals
 (and the directional derivatives of the residuals)
 for a statespace system of the form

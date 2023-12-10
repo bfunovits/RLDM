@@ -3,9 +3,6 @@
 \name{solve_rmfd_cpp}
 \alias{solve_rmfd_cpp}
 \title{Simulating Output from an RMFD Model (or obtain residuals)}
-\usage{
-solve_rmfd_cpp(poly_inv, poly_fwd, data_in, data_out, t0)
-}
 \arguments{
 \item{poly_inv}{Matrix of dimension \eqn{(n \times n p)}{(n x n p)},
 representing a square matrix polynomial \eqn{c(z)} with \eqn{c_0}{c[0]} equal to the identity matrix (and therefore not stored).
@@ -26,6 +23,9 @@ Outputs of the RMFD system. Initially zero and will be \strong{overwritten}.}
 
 \item{t0}{Integer. Time index from which we should start calculating a solution.
 Usually equal to 1.}
+}
+\value{
+\code{data_out} is overwritten with the outputs of the RMFD system.
 }
 \description{
 This RcppArmadillo function calculates for given inputs \code{data_in}

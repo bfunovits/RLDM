@@ -22,12 +22,11 @@ This RcppArmadillo routine returns \code{NULL} but \bold{overwrites}
 the input argument \code{y} with the computed outputs!
 }
 \description{
-\ifelse{html}{\figure{internal_Rcpp.svg}{options: alt='Internal (Rcpp) function'}}{\strong{Internal (Rcpp)} function}
-
 This internal helper function computes the outputs of an ARMA system
 \deqn{a_0 y_t + a_1 y_{t-1} + \cdots + a_p y_{t-p} = b_0 u_t + \cdots + b_q u_{t-q}}{
       a[0] y[t] + a[1] y[t-1] + ... + a[p] y[t-p] = b[0] u[t] + ... + b[q] u[t-q]}
-
+}
+\details{
 Values \eqn{y_t}{y[t]}, \eqn{u_t}{u[t]} for \eqn{t\leq 0}{t\le 0} are implicitly set to be zero.
 However, by starting the iteration with some \eqn{t_0>1}{t0>1} we can enforce non-zero
 initial values.
@@ -71,7 +70,6 @@ y = matrix(0, nrow = m, ncol = n.obs)
 outputs_ARMA_cpp(A1, B, t0 = 2, u, y) # start with t>=2
 print(u)
 print(y)  # y is overwritten with the computed outputs
-
 }
 \seealso{
 \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
