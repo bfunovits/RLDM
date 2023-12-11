@@ -7,8 +7,6 @@ inst/include
 src/*.o
 src/*.so
 src/*.dll
-R/RcppExports.R
-src/RcppExports.cpp
 *.html
 *.RData
 *.bak
