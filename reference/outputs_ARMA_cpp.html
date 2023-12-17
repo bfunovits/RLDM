@@ -137,12 +137,12 @@ initial values.</p>
 <span class="r-in"><span><span class="va">n.obs</span> <span class="op">=</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="va">u</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n.obs</span><span class="op">*</span><span class="va">n</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="va">n.obs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]      [,2]      [,3]      [,4]       [,5]      [,6]      [,7]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.6727197 -3.015827 0.3596626 -2.088264  0.2455572 0.9480790 2.1220845</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  1.2258696  1.271059 0.6153130  1.785277 -1.3224404 0.5920432 0.6148116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,8]       [,9]      [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.63043010 -1.2634735  1.5776279</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.03644486 -0.4022728 -0.7037822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]        [,2]       [,3]      [,4]       [,5]      [,6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.9234875  0.06413824 -0.9346702 1.5322629  1.6740514 -2.593322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1.3827419 -0.84400232  1.5097295 0.3183137 -0.8690263 -2.874328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,7]       [,8]       [,9]       [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.009260612 -1.0108320 -0.6941441 -1.05623972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.272488684 -0.6879902 -0.5103549 -0.02120797</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate matrix for the outputs</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow <span class="op">=</span> <span class="va">m</span>, ncol <span class="op">=</span> <span class="va">n.obs</span><span class="op">)</span></span></span>
@@ -150,21 +150,21 @@ initial values.</p>
 <span class="r-in"><span><span class="co"># call outputs_ARMA_cpp()</span></span></span>
 <span class="r-in"><span><span class="fu">outputs_ARMA_cpp</span><span class="op">(</span><span class="va">A1</span>, <span class="va">B</span>, t0 <span class="op">=</span> <span class="fl">2</span>, <span class="va">u</span>, <span class="va">y</span><span class="op">)</span> <span class="co"># start with t&gt;=2</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]      [,2]      [,3]      [,4]       [,5]      [,6]      [,7]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.6727197 -3.015827 0.3596626 -2.088264  0.2455572 0.9480790 2.1220845</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  1.2258696  1.271059 0.6153130  1.785277 -1.3224404 0.5920432 0.6148116</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,8]       [,9]      [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.63043010 -1.2634735  1.5776279</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.03644486 -0.4022728 -0.7037822</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]        [,2]       [,3]      [,4]       [,5]      [,6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.9234875  0.06413824 -0.9346702 1.5322629  1.6740514 -2.593322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1.3827419 -0.84400232  1.5097295 0.3183137 -0.8690263 -2.874328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>              [,7]       [,8]       [,9]       [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.009260612 -1.0108320 -0.6941441 -1.05623972</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.272488684 -0.6879902 -0.5103549 -0.02120797</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>  <span class="co"># y is overwritten with the computed outputs</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]       [,2]      [,3]      [,4]      [,5]       [,6]       [,7]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0 -2.0820766  3.020609 -8.863051 10.482240 -16.297199  27.933818</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0  1.7555846  0.750899  2.920361 -5.302189   6.870707 -11.521045</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0 -0.8398604 -3.843394 -2.204348 -2.866299  13.129438   2.798567</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,8]      [,9]      [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -39.19313  57.52580 -91.812319</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  20.07121 -22.93972  42.908171</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  13.97290 -29.83315   8.190574</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      [,1]       [,2]        [,3]      [,4]      [,5]       [,6]      [,7]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    0  1.4816666 -6.68354563 -3.163022 19.727964   1.146488 -18.37155</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    0 -3.0774978 -2.68220557  8.123394  2.456978  -6.716153  18.16196</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    0 -0.6506853 -0.04853879  8.301383 -4.003540 -24.220695  10.10210</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,8]       [,9]      [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  37.54089  -49.93209 -243.06434</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -27.10059 -113.44119   83.12755</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  17.60264  -27.35485  121.22911</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

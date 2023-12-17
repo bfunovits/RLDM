@@ -159,16 +159,16 @@ it may fail or need a very large number of randomly generated matrices.</p>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">pseries2nu</span><span class="op">(</span><span class="fu">pseries</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span>, lag.max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># Kronecker indices</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> state space model [2,2] with s = 3 states</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       s[1]  s[2]  s[3]  u[1]  u[2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1] -0.43 -0.99 -0.22  1.05  0.76</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.54 -0.41 -0.21 -0.09 -0.52</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] -0.11  0.03  0.79 -0.26 -0.04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[1] -1.00 -0.38  0.13  1.00  0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.55 -0.07 -0.22  0.00  1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       s[1]  s[2]  s[3] u[1]  u[2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.02  0.22 -0.11 0.53 -0.24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] -0.35  0.96 -0.54 0.79  0.37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] -0.35  0.33 -0.50 0.58 -0.15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[1] -1.14  0.05  0.17 1.00  0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.99 -0.36 -0.17 0.00  1.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Left square root of noise covariance Sigma:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       u[1] u[2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[1]  0.41    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.16    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[1]  0.99 0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.73 0.38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 1</span>
@@ -186,19 +186,19 @@ it may fail or need a very large number of randomly generated matrices.</p>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">pseries2nu</span><span class="op">(</span><span class="fu">pseries</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span>, lag.max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># Kronecker indices</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> state space model [3,2] with s = 5 states</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       s[1] s[2]  s[3] s[4]  s[5]  u[1]  u[2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.00 0.00  1.00 0.00  0.00  0.22  0.04</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.00 0.00  0.00 1.00  0.00 -0.20  0.62</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] -0.18 0.00 -1.05 0.04  0.00  0.12  0.19</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.00 0.00  0.00 0.00  1.00  1.11  0.01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[5] -0.60 0.33  0.76 0.20 -0.01  0.14 -0.50</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.00 0.00  0.00 0.00  0.00  1.00  0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.00 1.00  0.00 0.00  0.00 -0.37  1.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.08 0.56  0.00 0.00  0.00 -0.92 -1.39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       s[1]  s[2]  s[3]  s[4] s[5]  u[1]  u[2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.00  0.00  1.00  0.00 0.00 -1.17  0.08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.00  0.00  0.00  1.00 0.00  0.39 -0.11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] -0.07  0.65  0.33 -0.85 0.00  0.42  0.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.00  0.00  0.00  0.00 1.00  0.02 -1.04</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[5] -0.45 -0.14 -0.82 -0.40 0.96  0.04  0.28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.00  0.00  0.00  0.00 0.00  1.00  0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.00  1.00  0.00  0.00 0.00 -0.45  1.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.85 -0.39  0.00  0.00 0.00 -0.38 -0.31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Left square root of noise covariance Sigma:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       u[1] u[2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[1]  1.94 0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.66 1.19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[1]  1.68 0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.06 1.15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 3 0</span>
 </code></pre></div>
