@@ -106,7 +106,6 @@ for (k in (1:((m+s)^2))) {
 junk = (abs(dU)+abs(dU_num))
 junk[junk == 0] = 1
 2*abs(dU_num - dU)/junk
-
 }
 \seealso{
 \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},

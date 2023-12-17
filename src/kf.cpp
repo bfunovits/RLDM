@@ -4,7 +4,6 @@
 
 // we only include RcppArmadillo.h which pulls Rcpp.h in for us
 #include <RcppArmadillo.h>
-#include <Rcpp.h>
 using namespace Rcpp;
 
 // via the depends attribute we tell Rcpp to create hooks for

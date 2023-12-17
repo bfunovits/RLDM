@@ -3,6 +3,9 @@
 \name{outputs_STSP_cpp}
 \alias{outputs_STSP_cpp}
 \title{Outputs of a statespace system}
+\usage{
+outputs_STSP_cpp(A, B, C, D, u, a, y)
+}
 \arguments{
 \item{A}{\eqn{(s,s)} matrix.}
 

@@ -3,6 +3,9 @@
 \name{residuals_ARMA_cpp}
 \alias{residuals_ARMA_cpp}
 \title{Residuals of an ARMA system}
+\usage{
+residuals_ARMA_cpp(ib0, B1, A, t0, y, u, dU)
+}
 \arguments{
 \item{ib0}{\eqn{(m, m)} matrix, \strong{inverse} of the coefficient matrix \eqn{b[0]}{b[0]}.}
 

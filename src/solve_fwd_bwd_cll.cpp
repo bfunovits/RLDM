@@ -10,7 +10,6 @@
 
 // we only include RcppArmadillo.h which pulls Rcpp.h in for us
 #include <RcppArmadillo.h>
-#include <Rcpp.h>
 using namespace Rcpp;
 
 // via the depends attribute we tell Rcpp to create hooks for
@@ -257,7 +256,6 @@ void outputs_ARMA_cpp(const arma::mat& A1, const arma::mat& B, int t0,
 //' print(u)
 //' print(a)  # a is overwritten with the computed states
 //' print(y)  # y is overwritten with the computed outputs
-
 // [[Rcpp::export]]
 void outputs_STSP_cpp(const arma::mat& A, const arma::mat& B,
                        const arma::mat& C, const arma::mat& D,
@@ -351,7 +349,6 @@ void outputs_STSP_cpp(const arma::mat& A, const arma::mat& B,
 //' @name fbsolve_STSP_cpp
 //' @rdname fbsolve_STSP_cpp
 //'
-
 // [[Rcpp::export]]
 void fbsolve_STSP_cpp(const arma::mat& A, const arma::mat& B, const arma::mat& C, const arma::mat& D,
                       const arma::mat& u, arma::mat& au, arma::mat& as, arma::mat& y) {
@@ -460,7 +457,6 @@ void fbsolve_STSP_cpp(const arma::mat& A, const arma::mat& B, const arma::mat& C
 //'
 //' @name solve_rmfd_cpp
 //' @rdname solve_rmfd_cpp
-
 // [[Rcpp::export]]
 void solve_rmfd_cpp(const arma::mat& poly_inv, const arma::mat& poly_fwd, arma::mat& data_in, arma::mat& data_out, int t0) {
   // (c,d,u,y,t0)
@@ -644,7 +640,6 @@ void solve_rmfd_cpp(const arma::mat& poly_inv, const arma::mat& poly_fwd, arma::
 //' # compute directional derivatives of residuals
 //' dU = matrix(0, nrow = n.obs*m, ncol = (m^2)*(p+q+2))
 //' residuals_ARMA_cpp(ib0, B1, A, t0 = 2, y, uu, dU)
-
 // [[Rcpp::export]]
 void residuals_ARMA_cpp(const arma::mat& ib0, const arma::mat& B1, const arma::mat& A,
                         int t0, const arma::mat& y, arma::mat& u, arma::mat& dU) {
@@ -844,7 +839,6 @@ void residuals_ARMA_cpp(const arma::mat& ib0, const arma::mat& B1, const arma::m
 //' junk = (abs(dU)+abs(dU_num))
 //' junk[junk == 0] = 1
 //' 2*abs(dU_num - dU)/junk
-//'
 // [[Rcpp::export]]
 void residuals_STSP_cpp(const arma::mat& A, const arma::mat& B,
                          const arma::mat& C, const arma::mat& D,
@@ -1182,7 +1176,6 @@ double cll_theta_ARMA_cpp(const arma::vec& th, const arma::mat& y, unsigned long
 //'
 //' @rdname cll_theta_STSP_cpp
 //' @name cll_theta_STSP_cpp
-
 // [[Rcpp::export]]
 double cll_theta_STSP_cpp(const arma::vec& th, const arma::mat& y, unsigned long int skip, bool concentrated,
                           arma::mat& pi, const arma::mat& H_pi, const arma::vec& h_pi,

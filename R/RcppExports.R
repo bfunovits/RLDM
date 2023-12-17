@@ -58,6 +58,76 @@ ll_kf_theta_cpp <- function(theta, y, SYS, H_SYS, h_SYS, sigma_L, H_sigma_L, h_s
     .Call(`_RLDM_ll_kf_theta_cpp`, theta, y, SYS, H_SYS, h_SYS, sigma_L, H_sigma_L, h_sigma_L, VAR, P1, tol, err)
 }
 
+#' Outputs of an ARMA systems
+#'
+#' This internal helper function computes the outputs of an ARMA system
+#' \deqn{a_0 y_t + a_1 y_{t-1} + \cdots + a_p y_{t-p} = b_0 u_t + \cdots + b_q u_{t-q}}{
+#'       a[0] y[t] + a[1] y[t-1] + ... + a[p] y[t-p] = b[0] u[t] + ... + b[q] u[t-q]}
+#'
+#' Values \eqn{y_t}{y[t]}, \eqn{u_t}{u[t]} for \eqn{t\leq 0}{t\le 0} are implicitly set to be zero.
+#' However, by starting the iteration with some \eqn{t_0>1}{t0>1} we can enforce non-zero
+#' initial values.
+#'
+#' @note
+#' Use this procedure with care!
+#'
+#' * The procedure does \bold{not} check the input arguments. We require \eqn{m > 0},
+#'   \eqn{p \geq 0}{p \ge 0}, \eqn{n(q+1) \geq 0}{n(q+1)\ge 0} and
+#'   \eqn{1 \leq t_0 \leq N}{1 \le t_0  \le N}.
+#' * The procedure \bold{overwrites} the input argument \code{y}.
+#' * The data matrices are organized columnwise (to avoid memory shuffling)!
+#' * Note also the non standard representation of the coefficient matrices.
+#'
+#' @param A1 \eqn{(m, mp)} matrix \eqn{-a_0^{-1}(a_p,...,a_1)}{-a[0]^{-1}(a[p],...,a[1])}.
+#' @param B \eqn{(m, n(q+1))} matrix \eqn{a_0^{-1}(b_0,...,b_q}{a[0]^{-1}(b[0],...,b[q])}.
+#' @param u \eqn{(n, N)} matrix with the inputs \eqn{(u_1,...,u_N}{(u[1],...,u[N])}.
+#' @param y \eqn{(m, N)} matrix with the outputs \eqn{(y_1,...,y_N}{(y[1],...,y[N])}.
+#' @param t0 integer, start iteration at t = t0.
+#'
+#' @return This RcppArmadillo routine returns \code{NULL} but \bold{overwrites}
+#'         the input argument \code{y} with the computed outputs!
+#'
+#' @export
+#'
+#' @rdname outputs_ARMA_cpp
+#' @name outputs_ARMA_cpp
+#'
+#' @seealso \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
+#'    \code{\link{outputs_STSP_cpp}}, \code{\link{residuals_STSP_cpp}},  \code{\link{cll_theta_STSP_cpp}} and
+#'    \code{\link{solve_de}}, \code{\link{solve_inverse_de}} and \code{\link{ll}}.
+#'
+#' @examples
+#' # generate a random ARMA(2,1) model (3 outputs, 2 inputs)
+#' p = 2
+#' q = 1
+#' m = 3
+#' n = 2
+#' model = test_armamod(dim = c(m, n), degrees = c(p,q), digits = 2)
+#' A = unclass(model$sys$a)
+#' a0 = A[,,1]
+#' A1 = -A[,,(p+1):2]
+#' dim(A1) = c(m, m*p)
+#' A1 = solve(a0, A1)
+#' B = unclass(model$sys$b)
+#' dim(B) = c(m, n*(q+1))
+#' B = solve(a0, B)
+#'
+#' # generate random noise sequence (sample size N = 10)
+#' n.obs = 10
+#' u = matrix(rnorm(n.obs*n), nrow = n, ncol = n.obs)
+#' print(u)
+#'
+#' # generate matrix for the outputs
+#' y = matrix(0, nrow = m, ncol = n.obs)
+#'
+#' # call outputs_ARMA_cpp()
+#' outputs_ARMA_cpp(A1, B, t0 = 2, u, y) # start with t>=2
+#' print(u)
+#' print(y)  # y is overwritten with the computed outputs
+outputs_ARMA_cpp <- function(A1, B, t0, u, y) {
+    invisible(.Call(`_RLDM_outputs_ARMA_cpp`, A1, B, t0, u, y))
+}
+
 #' Outputs of a statespace system
 #'
 #' @description
@@ -121,7 +191,9 @@ ll_kf_theta_cpp <- function(theta, y, SYS, H_SYS, h_SYS, sigma_L, H_sigma_L, h_s
 #' print(u)
 #' print(a)  # a is overwritten with the computed states
 #' print(y)  # y is overwritten with the computed outputs
-NULL
+outputs_STSP_cpp <- function(A, B, C, D, u, a, y) {
+    invisible(.Call(`_RLDM_outputs_STSP_cpp`, A, B, C, D, u, a, y))
+}
 
 #' Forward-backward solution of statespace systems
 #'
@@ -171,7 +243,9 @@ NULL
 #' @name fbsolve_STSP_cpp
 #' @rdname fbsolve_STSP_cpp
 #'
-NULL
+fbsolve_STSP_cpp <- function(A, B, C, D, u, au, as, y) {
+    invisible(.Call(`_RLDM_fbsolve_STSP_cpp`, A, B, C, D, u, au, as, y))
+}
 
 #' Simulating Output from an RMFD Model (or obtain residuals)
 #'
@@ -205,7 +279,9 @@ NULL
 #'
 #' @name solve_rmfd_cpp
 #' @rdname solve_rmfd_cpp
-NULL
+solve_rmfd_cpp <- function(poly_inv, poly_fwd, data_in, data_out, t0) {
+    invisible(.Call(`_RLDM_solve_rmfd_cpp`, poly_inv, poly_fwd, data_in, data_out, t0))
+}
 
 #' Residuals of an ARMA system
 #'
@@ -302,136 +378,6 @@ NULL
 #' # compute directional derivatives of residuals
 #' dU = matrix(0, nrow = n.obs*m, ncol = (m^2)*(p+q+2))
 #' residuals_ARMA_cpp(ib0, B1, A, t0 = 2, y, uu, dU)
-NULL
-
-#' Compute the (concentrated) conditional log likelihood for a statespace system
-#' described by a model template.
-#'
-#' This is an internal helper function, used by the function factory \code{\link{ll_FUN}}. For a more detailed
-#' documentation of the conditional log Likelihood, see \code{\link{ll}}.
-#' The conditional likelihood is computed for the initial state \eqn{a_1} given in the first column `a[,1]` of the
-#' matrix `a`.
-#'
-#' @param th \eqn{(K)} dimensional vector of "deep" parameters.
-#' @param y \eqn{(m,N)} matrix with the observed outputs:
-#'        \eqn{(y_1,y_2,\ldots,y_N)}{(y[1],y[2],...,y[N])}.
-#' @param skip (integer), skip the first residuals, when computing the sample covariance of the
-#'        residuals.
-#' @param concentrated (bool), if TRUE then the *concentrated*, conditional log Likelihood is computed
-#' @param pi \eqn{(m+s,m+s)} matrix, is overwritten with the system matrix
-#'        \eqn{[A,B | C,D]}.
-#' @param H_pi \eqn{(m+s)^2, K)} matrix.
-#' @param h_pi \eqn{((m+s)^2)}-dimensional vector. Note that \code{vec(pi) = H_pi*th + h_pi}.
-#' @param L \eqn{(m,m)} matrix. If (concentrated==FALSE) then L is overwritten with
-#'        the left square of the noise covariance matrix L corresponding
-#'        to the deep parameters th. However, if (concentrated==TRUE) then
-#'        L is overwritten with sample covariance matrix of the computed residuals!
-#' @param H_L \eqn{(m^2, K)} matrix.
-#' @param h_L \eqn{(m^2)}-dimensional vector. Note that
-#'        \code{vec(L) = H_L*th + h_L}.
-#' @param a \eqn{(s,N+1)} matrix. This matrix is overwritten with the (computed) states:
-#'            \eqn{(a_1,a_2,\ldots,a_N,a_{N+1})}{(a[1],a[2],\ldots,a[N],a[N+1])}.
-#'            On input \code{a[,1]} must hold the initial state \eqn{a_1}{a[1]}.
-#' @param u \eqn{(m,N)} matrix. This matrix is overwritten with (computed) residuals:
-#'           \eqn{(u_1,u_2,\ldots,u_N)}{(u[1],u[2],...,u[N])}.
-#' @param dU \eqn{(mN,K)} matrix or \eqn{(0,0)} matrix. This matrix is overwritten with the
-#'           directional derivatives of the residuals. However, if
-#'           the matrix is empty then no derivatives are computed.
-#'
-#' @return (double) log Likelihood
-#'
-#' @export
-#'
-#' @seealso \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
-#'    \code{\link{outputs_STSP_cpp}}, \code{\link{residuals_STSP_cpp}},  \code{\link{cll_theta_STSP_cpp}} and
-#'    \code{\link{solve_de}}, \code{\link{solve_inverse_de}} and \code{\link{ll}}.
-#'
-#' @rdname cll_theta_STSP_cpp
-#' @name cll_theta_STSP_cpp
-NULL
-
-#' Outputs of an ARMA systems
-#'
-#' This internal helper function computes the outputs of an ARMA system
-#' \deqn{a_0 y_t + a_1 y_{t-1} + \cdots + a_p y_{t-p} = b_0 u_t + \cdots + b_q u_{t-q}}{
-#'       a[0] y[t] + a[1] y[t-1] + ... + a[p] y[t-p] = b[0] u[t] + ... + b[q] u[t-q]}
-#'
-#' Values \eqn{y_t}{y[t]}, \eqn{u_t}{u[t]} for \eqn{t\leq 0}{t\le 0} are implicitly set to be zero.
-#' However, by starting the iteration with some \eqn{t_0>1}{t0>1} we can enforce non-zero
-#' initial values.
-#'
-#' @note
-#' Use this procedure with care!
-#'
-#' * The procedure does \bold{not} check the input arguments. We require \eqn{m > 0},
-#'   \eqn{p \geq 0}{p \ge 0}, \eqn{n(q+1) \geq 0}{n(q+1)\ge 0} and
-#'   \eqn{1 \leq t_0 \leq N}{1 \le t_0  \le N}.
-#' * The procedure \bold{overwrites} the input argument \code{y}.
-#' * The data matrices are organized columnwise (to avoid memory shuffling)!
-#' * Note also the non standard representation of the coefficient matrices.
-#'
-#' @param A1 \eqn{(m, mp)} matrix \eqn{-a_0^{-1}(a_p,...,a_1)}{-a[0]^{-1}(a[p],...,a[1])}.
-#' @param B \eqn{(m, n(q+1))} matrix \eqn{a_0^{-1}(b_0,...,b_q}{a[0]^{-1}(b[0],...,b[q])}.
-#' @param u \eqn{(n, N)} matrix with the inputs \eqn{(u_1,...,u_N}{(u[1],...,u[N])}.
-#' @param y \eqn{(m, N)} matrix with the outputs \eqn{(y_1,...,y_N}{(y[1],...,y[N])}.
-#' @param t0 integer, start iteration at t = t0.
-#'
-#' @return This RcppArmadillo routine returns \code{NULL} but \bold{overwrites}
-#'         the input argument \code{y} with the computed outputs!
-#'
-#' @export
-#'
-#' @rdname outputs_ARMA_cpp
-#' @name outputs_ARMA_cpp
-#'
-#' @seealso \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
-#'    \code{\link{outputs_STSP_cpp}}, \code{\link{residuals_STSP_cpp}},  \code{\link{cll_theta_STSP_cpp}} and
-#'    \code{\link{solve_de}}, \code{\link{solve_inverse_de}} and \code{\link{ll}}.
-#'
-#' @examples
-#' # generate a random ARMA(2,1) model (3 outputs, 2 inputs)
-#' p = 2
-#' q = 1
-#' m = 3
-#' n = 2
-#' model = test_armamod(dim = c(m, n), degrees = c(p,q), digits = 2)
-#' A = unclass(model$sys$a)
-#' a0 = A[,,1]
-#' A1 = -A[,,(p+1):2]
-#' dim(A1) = c(m, m*p)
-#' A1 = solve(a0, A1)
-#' B = unclass(model$sys$b)
-#' dim(B) = c(m, n*(q+1))
-#' B = solve(a0, B)
-#'
-#' # generate random noise sequence (sample size N = 10)
-#' n.obs = 10
-#' u = matrix(rnorm(n.obs*n), nrow = n, ncol = n.obs)
-#' print(u)
-#'
-#' # generate matrix for the outputs
-#' y = matrix(0, nrow = m, ncol = n.obs)
-#'
-#' # call outputs_ARMA_cpp()
-#' outputs_ARMA_cpp(A1, B, t0 = 2, u, y) # start with t>=2
-#' print(u)
-#' print(y)  # y is overwritten with the computed outputs
-outputs_ARMA_cpp <- function(A1, B, t0, u, y) {
-    invisible(.Call(`_RLDM_outputs_ARMA_cpp`, A1, B, t0, u, y))
-}
-
-outputs_STSP_cpp <- function(A, B, C, D, u, a, y) {
-    invisible(.Call(`_RLDM_outputs_STSP_cpp`, A, B, C, D, u, a, y))
-}
-
-fbsolve_STSP_cpp <- function(A, B, C, D, u, au, as, y) {
-    invisible(.Call(`_RLDM_fbsolve_STSP_cpp`, A, B, C, D, u, au, as, y))
-}
-
-solve_rmfd_cpp <- function(poly_inv, poly_fwd, data_in, data_out, t0) {
-    invisible(.Call(`_RLDM_solve_rmfd_cpp`, poly_inv, poly_fwd, data_in, data_out, t0))
-}
-
 residuals_ARMA_cpp <- function(ib0, B1, A, t0, y, u, dU) {
     invisible(.Call(`_RLDM_residuals_ARMA_cpp`, ib0, B1, A, t0, y, u, dU))
 }
@@ -536,7 +482,6 @@ residuals_ARMA_cpp <- function(ib0, B1, A, t0, y, u, dU) {
 #' junk = (abs(dU)+abs(dU_num))
 #' junk[junk == 0] = 1
 #' 2*abs(dU_num - dU)/junk
-#'
 residuals_STSP_cpp <- function(A, B, C, D, y, a, u, dPI, dU) {
     invisible(.Call(`_RLDM_residuals_STSP_cpp`, A, B, C, D, y, a, u, dPI, dU))
 }
@@ -625,6 +570,50 @@ cll_theta_ARMA_cpp <- function(th, y, skip, concentrated, ib0, H_b, h_b, B1, H_B
     .Call(`_RLDM_cll_theta_ARMA_cpp`, th, y, skip, concentrated, ib0, H_b, h_b, B1, H_B, h_B, a0, A, H_A, h_A, L, H_L, h_L, u, dU)
 }
 
+#' Compute the (concentrated) conditional log likelihood for a statespace system
+#' described by a model template.
+#'
+#' This is an internal helper function, used by the function factory \code{\link{ll_FUN}}. For a more detailed
+#' documentation of the conditional log Likelihood, see \code{\link{ll}}.
+#' The conditional likelihood is computed for the initial state \eqn{a_1} given in the first column `a[,1]` of the
+#' matrix `a`.
+#'
+#' @param th \eqn{(K)} dimensional vector of "deep" parameters.
+#' @param y \eqn{(m,N)} matrix with the observed outputs:
+#'        \eqn{(y_1,y_2,\ldots,y_N)}{(y[1],y[2],...,y[N])}.
+#' @param skip (integer), skip the first residuals, when computing the sample covariance of the
+#'        residuals.
+#' @param concentrated (bool), if TRUE then the *concentrated*, conditional log Likelihood is computed
+#' @param pi \eqn{(m+s,m+s)} matrix, is overwritten with the system matrix
+#'        \eqn{[A,B | C,D]}.
+#' @param H_pi \eqn{(m+s)^2, K)} matrix.
+#' @param h_pi \eqn{((m+s)^2)}-dimensional vector. Note that \code{vec(pi) = H_pi*th + h_pi}.
+#' @param L \eqn{(m,m)} matrix. If (concentrated==FALSE) then L is overwritten with
+#'        the left square of the noise covariance matrix L corresponding
+#'        to the deep parameters th. However, if (concentrated==TRUE) then
+#'        L is overwritten with sample covariance matrix of the computed residuals!
+#' @param H_L \eqn{(m^2, K)} matrix.
+#' @param h_L \eqn{(m^2)}-dimensional vector. Note that
+#'        \code{vec(L) = H_L*th + h_L}.
+#' @param a \eqn{(s,N+1)} matrix. This matrix is overwritten with the (computed) states:
+#'            \eqn{(a_1,a_2,\ldots,a_N,a_{N+1})}{(a[1],a[2],\ldots,a[N],a[N+1])}.
+#'            On input \code{a[,1]} must hold the initial state \eqn{a_1}{a[1]}.
+#' @param u \eqn{(m,N)} matrix. This matrix is overwritten with (computed) residuals:
+#'           \eqn{(u_1,u_2,\ldots,u_N)}{(u[1],u[2],...,u[N])}.
+#' @param dU \eqn{(mN,K)} matrix or \eqn{(0,0)} matrix. This matrix is overwritten with the
+#'           directional derivatives of the residuals. However, if
+#'           the matrix is empty then no derivatives are computed.
+#'
+#' @return (double) log Likelihood
+#'
+#' @export
+#'
+#' @seealso \code{\link{outputs_ARMA_cpp}}, \code{\link{residuals_ARMA_cpp}},  \code{\link{cll_theta_ARMA_cpp}},
+#'    \code{\link{outputs_STSP_cpp}}, \code{\link{residuals_STSP_cpp}},  \code{\link{cll_theta_STSP_cpp}} and
+#'    \code{\link{solve_de}}, \code{\link{solve_inverse_de}} and \code{\link{ll}}.
+#'
+#' @rdname cll_theta_STSP_cpp
+#' @name cll_theta_STSP_cpp
 cll_theta_STSP_cpp <- function(th, y, skip, concentrated, pi, H_pi, h_pi, L, H_L, h_L, a, u, dU) {
     .Call(`_RLDM_cll_theta_STSP_cpp`, th, y, skip, concentrated, pi, H_pi, h_pi, L, H_L, h_L, a, u, dU)
 }

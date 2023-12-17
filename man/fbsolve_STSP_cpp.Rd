@@ -3,6 +3,9 @@
 \name{fbsolve_STSP_cpp}
 \alias{fbsolve_STSP_cpp}
 \title{Forward-backward solution of statespace systems}
+\usage{
+fbsolve_STSP_cpp(A, B, C, D, u, au, as, y)
+}
 \arguments{
 \item{A}{\eqn{(s, s)} matrix.}
 

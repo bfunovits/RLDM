@@ -4,6 +4,23 @@
 \alias{cll_theta_STSP_cpp}
 \title{Compute the (concentrated) conditional log likelihood for a statespace system
 described by a model template.}
+\usage{
+cll_theta_STSP_cpp(
+  th,
+  y,
+  skip,
+  concentrated,
+  pi,
+  H_pi,
+  h_pi,
+  L,
+  H_L,
+  h_L,
+  a,
+  u,
+  dU
+)
+}
 \arguments{
 \item{th}{\eqn{(K)} dimensional vector of "deep" parameters.}
 
