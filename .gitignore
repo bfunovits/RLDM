@@ -11,3 +11,4 @@ src/*.dll
 *.bak
 docs
 *todo.md*
+man/
