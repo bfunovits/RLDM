@@ -11,10 +11,9 @@ using namespace Rcpp;
 //
 // [[Rcpp::depends(RcppArmadillo)]]
 
-// we use rationalmatrices::lyapunov_cpp
-
+// we use rationalmatrices::lyapunov_impl from the header-only implementation
 // [[Rcpp::depends(rationalmatrices)]]
-// #include <rationalmatrices.h>
+#include <rationalmatrices_lyapunov.h>
 
 
 // To make your C++ code callable from C++ code in other packages.
@@ -367,89 +366,6 @@ double ll_kf2_cpp(arma::mat& A, arma::mat& C, arma::mat& H_t,
   return (-ll/(2*N));
 }
 
-// This is just a copy of the rationalmatruces::lyapunov.
-bool lyapunov2_cpp(const arma::mat& A, const arma::mat& Q, arma::mat& P,
-                   arma::vec& lambda_r, arma::vec& lambda_i, bool stop_if_non_stable) {
-
-  unsigned long int m = A.n_rows;
-
-  arma::cx_mat cA = arma::cx_mat(A, arma::mat(m,m,arma::fill::zeros));
-  arma::cx_mat cQ = arma::cx_mat(Q, arma::mat(m,m,arma::fill::zeros));
-  arma::cx_mat cU = cQ;
-  arma::cx_mat cS = cQ;
-
-  // call Schur decomposition of cA, such that cA = cU*cS*cU.t() and cS is upper triangular!
-  bool ok = arma::schur(cU, cS, cA);
-  if (!ok) {
-    stop("RcppArmadillo \"schur\" algorithm failed");
-  }
-  bool is_stable = (max(abs(cS.diag())) < 1);
-  lambda_r = real(cS.diag());
-  lambda_i = imag(cS.diag());
-
-  // Rcout << std::endl << stop_if_non_stable << " " << is_stable << " " << std::endl;
-  // Rcout << std::endl << "P" << std::endl << P << std::endl;
-
-  // if A is not stable, return FALSE
-  if ( (stop_if_non_stable)  and  (!is_stable) ) {
-    return FALSE;
-  }
-
-  // transform Q
-  cQ = cU.t() * cQ * cU;
-
-  // Rcout << std::endl << "Q" << std::endl << cQ << std::endl << std::endl << "S" << std::endl << cS << std::endl;
-
-
-  // RcppArmadillo syntax for submatrices:
-  //   X.submat( first_row, first_col, last_row, last_col )
-
-  // cQ is recursively overwritten with the desired solution P
-  unsigned long int i;
-  for (i = (m-1); i>0; i--) {
-    // P22 = S22 * P22 * conj(S22) + Q22
-    // Q22 <- P22 = Q22 / ( 1- S22*conj(S22)) )
-    cQ(i,i) = cQ(i,i) / (1.0 - cS(i,i) * conj(cS(i,i)));
-
-    // [Q11, Q12] <- [Q11, Q12] + S12 * P22 * [conj(S21), conj(S22)]
-    cQ.submat(0,0,i-1,i) = cQ.submat(0,0,i-1,i) + ( cS.submat(0,i,i-1,i) * cQ(i,i) ) * cS.submat(0,i,i,i).t();
-
-    // (I - S11 *conj(S22))
-    cA.submat(0,0,i-1,i-1) = (-conj(cS(i,i))) * cS.submat(0,0,i-1,i-1);
-    cA.submat(0,0,i-1,i-1).diag() += 1;
-    //    cA.print();
-
-    // Q12 <- P12 = (I - S11 B22)^-1 * Q12
-    cQ.submat(0,i,i-1,i) = solve(trimatu(cA.submat(0,0,i-1,i-1)), cQ.submat(0,i,i-1,i));
-    // Q21 <- P21 = conj(P12)
-    cQ.submat(i,0,i,i-1) = cQ.submat(0,i,i-1,i).t();
-
-    // S11 * P12 * conj(S12)
-    cA.submat(0,0,i-1,i-1) = ( cS.submat(0,0,i-1,i-1) * cQ.submat(0,i,i-1,i) ) * ( cS.submat(0,i,i-1,i).t() );
-
-    // Q11 <- Q11 + S11 * P12 * conj(S12) + conj(S11 * P12 * conj(S12))
-    cQ.submat(0,0,i-1,i-1) = cQ.submat(0,0,i-1,i-1) + cA.submat(0,0,i-1,i-1) + cA.submat(0,0,i-1,i-1).t();
-  }
-  i = 0;
-  cQ(i,i) = cQ(i,i) / (1.0 - cS(i,i) * conj(cS(i,i)));
-
-  // Rcout << std::endl << "Q" << std::endl << cQ << std::endl;
-
-  // retransform Q
-  cQ = cU * cQ * cU.t();
-  // make sure that Q is Hermitean
-  cQ = (cQ + cQ.t())/2;
-  // make real
-  // the conversion conv_to<arma::mat>::from(cQ) does not work !?!
-  // P = arma::conv_to<arma::mat>::from(cQ);
-  P = real(cQ);
-
-  // Rcout << std::endl << "P" << std::endl << P << std::endl;
-
-  return is_stable;
-}
-
-
 //' Compute the log likelihood for a statespace system
 //' described by a model template.
 //'
@@ -513,25 +429,10 @@ double ll_kf_theta_cpp(const arma::vec& theta, const arma::mat& y,
   SYS.cols(s, s+m-1) = SYS.cols(s, s+m-1) * sigma_L;
   VAR = SYS.cols(s, s+m-1) * SYS.cols(s, s+m-1).t();
 
-  // bool ok = rationalmatrices::lyapunov_cpp(SYS.submat(0,0,s-1,s-1), VAR.submat(0,0,s-1,s-1),
-  //                                          P1, lambda_r, lambda_i, TRUE);
-  // der Aufruf der lyapunov routine in "rationalmatrices" funktioniert nicht?!
-  // P1 wird nicht mit der gesuchten Lösung überschrieben!
-  //
-  // daher habe ich oben einfach eine Kopie dieser Routine eingefügt.
-  // die Zeilen im Header:
-  //   // [[Rcpp::depends(rationalmatrices)]]
-  //   #include <rationalmatrices.h>
-  // und in der Datei DESCRIPTION den Verweis auf rationalmatrices in
-  //   LinkingTo:
-  //     Rcpp,
-  //     RcppArmadillo,
-  //     rationalmatrices
-  // kann man wieder löschen!
-
   if (s > 0) {
-    bool ok = lyapunov2_cpp(SYS.submat(0,0,s-1,s-1), VAR.submat(0,0,s-1,s-1),
-                       P1, lambda_r, lambda_i, TRUE);
+    // Using header-only implementation from rationalmatrices for cross-package linking
+    bool ok = rationalmatrices::lyapunov_impl(SYS.submat(0,0,s-1,s-1), VAR.submat(0,0,s-1,s-1),
+                                              P1, lambda_r, lambda_i, true);
     if (!ok) {
       // computation of P1 fails if the system is not stable!!!
       return(err);

@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(test:*)",
+      "Bash(grep:*)",
+      "Bash(R CMD INSTALL:*)",
+      "Bash(wc:*)",
+      "Bash(find:*)",
+      "Bash(Rscript -e:*)"
+    ]
+  }
+}

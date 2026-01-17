@@ -120,21 +120,9 @@ make_H = function(type = c('chol','eigen','sigma_L'), sigma_L) {
   return(H)
 }
 
-
-#' @rdname impresp
-#' @export
-impresp.armamod = function(obj, lag.max = 12, H = NULL) {
-
-  lag.max = as.integer(lag.max)[1]
-  if (lag.max < 0) {
-    stop('lag.max must be a non-negative integer.')
-  }
-
-  sys = obj$sys
-  sigma_L = obj$sigma_L
-
-  irf = pseries(sys, lag.max = lag.max)
-
+# Internal helper for impresp methods - applies orthogonalization transformation
+# and constructs the impresp object
+impresp_impl = function(irf, sigma_L, H, names, label) {
   # Compute orthogonalized IRF #
   if ((!is.null(H)) && (nrow(sigma_L) > 0)) {
     if (is.character(H)) {
@@ -147,103 +135,51 @@ impresp.armamod = function(obj, lag.max = 12, H = NULL) {
     sigma_L = solve(H, sigma_L)
   }
 
-  out = structure(list(irf = irf, sigma_L = sigma_L, names = obj$names, label = obj$label),
-                  class = c('impresp','rldm'))
+  structure(list(irf = irf, sigma_L = sigma_L, names = names, label = label),
+            class = c('impresp','rldm'))
+}
 
-  return(out)
+#' @rdname impresp
+#' @export
+impresp.armamod = function(obj, lag.max = 12, H = NULL) {
+  lag.max = as.integer(lag.max)[1]
+  if (lag.max < 0) {
+    stop('lag.max must be a non-negative integer.')
+  }
+
+  irf = pseries(obj$sys, lag.max = lag.max)
+  impresp_impl(irf, obj$sigma_L, H, obj$names, obj$label)
 }
 
 #' @rdname impresp
 #' @export
 impresp.rmfdmod = function(obj, lag.max = 12, H = NULL) {
-
   lag.max = as.integer(lag.max)[1]
   if (lag.max < 0) {
     stop('lag.max must be a non-negative integer.')
   }
 
-  sys = obj$sys
-  sigma_L = obj$sigma_L
-
-  irf = pseries(sys, lag.max = lag.max)
-
-  # Compute orthogonalized IRF #
-  if ((!is.null(H)) && (nrow(sigma_L) > 0)) {
-    if (is.character(H)) {
-      H = make_H(H, sigma_L)
-    }
-    if ( (!is.numeric(H)) || (!is.matrix(H)) || (any(dim(H) != nrow(sigma_L))) ) {
-      stop('H must be a numeric matrix of the same dimension as the noise.')
-    }
-    irf = irf %r% H
-    sigma_L = solve(H, sigma_L)
-  }
-
-  out = structure(list(irf = irf, sigma_L = sigma_L, names = obj$names, label = obj$label),
-                  class = c('impresp','rldm'))
-
-  return(out)
+  irf = pseries(obj$sys, lag.max = lag.max)
+  impresp_impl(irf, obj$sigma_L, H, obj$names, obj$label)
 }
 
 #' @rdname impresp
 #' @export
 impresp.stspmod = function(obj, lag.max = 12, H = NULL) {
-
-  # code is completey identical to the code of 'impresp.armamod #
-
   lag.max = as.integer(lag.max)[1]
   if (lag.max < 0) {
     stop('lag.max must be a non-negative integer.')
   }
 
-  sys = obj$sys
-  sigma_L = obj$sigma_L
-
-  irf = pseries(sys, lag.max = lag.max)
-
-  # Compute orthogonalized IRF #
-  if ((!is.null(H)) && (nrow(sigma_L) > 0)) {
-    if (is.character(H)) {
-      H = make_H(H, sigma_L)
-    }
-    if ( (!is.numeric(H)) || (!is.matrix(H)) || (any(dim(H) != nrow(sigma_L))) ) {
-      stop('H must be a numeric matrix of the same dimension as the noise.')
-    }
-    irf = irf %r% H
-    sigma_L = solve(H, sigma_L)
-  }
-
-  out = structure(list(irf = irf, sigma_L = sigma_L, names = obj$names, label = obj$label),
-                  class = c('impresp','rldm'))
-
-  return(out)
+  irf = pseries(obj$sys, lag.max = lag.max)
+  impresp_impl(irf, obj$sigma_L, H, obj$names, obj$label)
 }
 
 
 #' @rdname impresp
 #' @export
 impresp.impresp = function(obj, lag.max = NULL, H = NULL) {
-  # code is almost identical to the code of 'impresp.armamod #
-
-  sigma_L = obj$sigma_L
-  irf = obj$irf
-
-  # Compute orthogonalized IRF #
-  if ((!is.null(H)) && (nrow(sigma_L) > 0)) {
-    if (is.character(H)) {
-      H = make_H(H, sigma_L)
-    }
-    if ( (!is.numeric(H)) || (!is.matrix(H)) || (any(dim(H) != nrow(sigma_L))) ) {
-      stop('H must be a numeric matrix of the same dimension as the noise.')
-    }
-    irf = irf %r% H
-    sigma_L = solve(H, sigma_L)
-  }
-
-  out = structure(list(irf = irf, sigma_L = sigma_L, names = obj$names, label = obj$label),
-                  class = c('impresp','rldm'))
-
-  return(out)
+  impresp_impl(obj$irf, obj$sigma_L, H, obj$names, obj$label)
 }
 
 

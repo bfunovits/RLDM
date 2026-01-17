@@ -51,12 +51,22 @@ Model Comparison & Diagnostics
 
 ### Key File Organization
 
-R files use alphabetical prefixes for logical grouping:
-- `aa_*`, `ab_*` - Core classes and templates
-- `ac*` - Derived object methods (autocov, freqresp, impresp, spectrald)
-- `ad*` - Solving/simulation methods
+R files use alphabetical prefixes for logical grouping and load-order control:
+- `aa_*` - Core model classes (`armamod`, `stspmod`, `rmfdmod`)
+- `ab_*` - Parameter templates and model generation
+- `aca_*`, `acb_*`, etc. - Derived object methods:
+  - `aca_` - autocov (autocovariance)
+  - `acb_` - freqresp (frequency response)
+  - `acc_` - impresp (impulse response)
+  - `acd_` - spectrald (spectral density)
+- `ad*` - Solving/simulation methods (`solve_de`, `sim`)
 - `ae*` - Plot/print/predict methods
-- `af*` - Estimation methods
+- `af*` - Estimation methods:
+  - `afa_` - AR estimation
+  - `afb_` - Likelihood-based estimation
+  - `afc_` - Subspace/CCA methods
+
+This alphabetical convention ensures files load in dependency order and groups related functionality together.
 
 ### C++ Code (`src/`)
 

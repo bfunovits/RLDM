@@ -221,6 +221,48 @@ RcppExport SEXP _RLDM_ll_kf_theta_cpp(SEXP thetaSEXP, SEXP ySEXP, SEXP SYSSEXP, 
     UNPROTECT(1);
     return rcpp_result_gen;
 }
+// showMatrix
+void showMatrix(arma::mat X, const char* name);
+RcppExport SEXP _RLDM_showMatrix(SEXP XSEXP, SEXP nameSEXP) {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const char* >::type name(nameSEXP);
+    showMatrix(X, name);
+    return R_NilValue;
+END_RCPP
+}
+// rls_exp_cpp
+Rcpp::List rls_exp_cpp(const arma::mat Y, const arma::mat X, const arma::mat r, int n_init, bool allow_neg, bool debug_flag);
+RcppExport SEXP _RLDM_rls_exp_cpp(SEXP YSEXP, SEXP XSEXP, SEXP rSEXP, SEXP n_initSEXP, SEXP allow_negSEXP, SEXP debug_flagSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type r(rSEXP);
+    Rcpp::traits::input_parameter< int >::type n_init(n_initSEXP);
+    Rcpp::traits::input_parameter< bool >::type allow_neg(allow_negSEXP);
+    Rcpp::traits::input_parameter< bool >::type debug_flag(debug_flagSEXP);
+    rcpp_result_gen = Rcpp::wrap(rls_exp_cpp(Y, X, r, n_init, allow_neg, debug_flag));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rls_window_cpp
+Rcpp::List rls_window_cpp(const arma::mat Y, const arma::mat X, int ws, bool allow_neg, bool debug_flag);
+RcppExport SEXP _RLDM_rls_window_cpp(SEXP YSEXP, SEXP XSEXP, SEXP wsSEXP, SEXP allow_negSEXP, SEXP debug_flagSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::mat >::type Y(YSEXP);
+    Rcpp::traits::input_parameter< const arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type ws(wsSEXP);
+    Rcpp::traits::input_parameter< bool >::type allow_neg(allow_negSEXP);
+    Rcpp::traits::input_parameter< bool >::type debug_flag(debug_flagSEXP);
+    rcpp_result_gen = Rcpp::wrap(rls_window_cpp(Y, X, ws, allow_neg, debug_flag));
+    return rcpp_result_gen;
+END_RCPP
+}
 // outputs_ARMA_cpp
 void outputs_ARMA_cpp(const arma::mat& A1, const arma::mat& B, int t0, const arma::mat& u, arma::mat& y);
 static SEXP _RLDM_outputs_ARMA_cpp_try(SEXP A1SEXP, SEXP BSEXP, SEXP t0SEXP, SEXP uSEXP, SEXP ySEXP) {
@@ -599,6 +641,9 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RLDM_ll_kf_cpp", (DL_FUNC) &_RLDM_ll_kf_cpp, 9},
     {"_RLDM_ll_kf2_cpp", (DL_FUNC) &_RLDM_ll_kf2_cpp, 7},
     {"_RLDM_ll_kf_theta_cpp", (DL_FUNC) &_RLDM_ll_kf_theta_cpp, 12},
+    {"_RLDM_showMatrix", (DL_FUNC) &_RLDM_showMatrix, 2},
+    {"_RLDM_rls_exp_cpp", (DL_FUNC) &_RLDM_rls_exp_cpp, 6},
+    {"_RLDM_rls_window_cpp", (DL_FUNC) &_RLDM_rls_window_cpp, 5},
     {"_RLDM_outputs_ARMA_cpp", (DL_FUNC) &_RLDM_outputs_ARMA_cpp, 5},
     {"_RLDM_outputs_STSP_cpp", (DL_FUNC) &_RLDM_outputs_STSP_cpp, 7},
     {"_RLDM_fbsolve_STSP_cpp", (DL_FUNC) &_RLDM_fbsolve_STSP_cpp, 8},

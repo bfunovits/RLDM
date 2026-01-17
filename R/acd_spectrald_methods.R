@@ -111,38 +111,30 @@ spectrald = function(obj, n.f, ...) {
   UseMethod("spectrald", obj)
 }
 
-#' @rdname spectrald
-#' @export
-spectrald.armamod = function(obj, n.f = 128, ...) {
+# Internal helper for spectrald methods using frequency response
+spectrald_from_freqresp = function(obj, n.f) {
   n.f = as.integer(n.f)[1]
   if (n.f < 0) stop('the number of frequencies "n.f" must be a non negative integer')
 
   out = unclass(freqresp(obj, n.f))
   frr = out$frr
-  out$frr = NULL
   frr = frr %r% (out$sigma_L / sqrt(2*pi))
-  out$spd = frr %r% Ht(frr)
+  spd = frr %r% Ht(frr)
 
-  out = out[c('spd','names','label')]
-  class(out) = c('spectrald','rldm')
-  return(out)
+  structure(list(spd = spd, names = out$names, label = out$label),
+            class = c('spectrald','rldm'))
+}
+
+#' @rdname spectrald
+#' @export
+spectrald.armamod = function(obj, n.f = 128, ...) {
+  spectrald_from_freqresp(obj, n.f)
 }
 
 #' @rdname spectrald
 #' @export
 spectrald.stspmod = function(obj, n.f = 128, ...) {
-  n.f = as.integer(n.f)[1]
-  if (n.f < 0) stop('the number of frequencies "n.f" must be a non negative integer')
-
-  out = unclass(freqresp(obj, n.f))
-  frr = out$frr
-  out$frr = NULL
-  frr = frr %r% (out$sigma_L / sqrt(2*pi))
-  out$spd = frr %r% Ht(frr)
-
-  out = out[c('spd','names','label')]
-  class(out) = c('spectrald','rldm')
-  return(out)
+  spectrald_from_freqresp(obj, n.f)
 }
 
 
@@ -168,18 +160,7 @@ spectrald.autocov = function(obj, n.f = 128, ...) {
 #' @rdname spectrald
 #' @export
 spectrald.impresp = function(obj, n.f = 128, ...) {
-  n.f = as.integer(n.f)[1]
-  if (n.f < 0) stop('the number of frequencies "n.f" must be a non negative integer')
-
-  out = unclass(freqresp(obj, n.f))
-  frr = out$frr
-  out$frr = NULL
-  frr = frr %r% (out$sigma_L / sqrt(2*pi))
-  out$spd = frr %r% Ht(frr)
-
-  out = out[c('spd','names','label')]
-  class(out) = c('spectrald','rldm')
-  return(out)
+  spectrald_from_freqresp(obj, n.f)
 }
 
 
