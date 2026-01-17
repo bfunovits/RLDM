@@ -54,6 +54,37 @@ See `help("model structures")` and `help("local model structures")` for more det
     * simulation in `sim()`
     * model comparison in `KL_divergence()`, `pm_test()`, `compare_estimates()`
 
-## Usage
+## Getting Started
 
-See the case study `vignette("d_casestudy2")` for a detailed example of how to use the package.
+RLDM includes comprehensive documentation organized by user level:
+
+1. **New to RLDM?** Start with `vignette("0_getting_started")`
+   - Practical introduction with simple examples
+   - AR models and multivariate VAR/VARMA systems
+   - ~10-15 minute read with executable code
+
+2. **Want a complete workflow example?** See `vignette("1_case_study")`
+   - Blanchard-Quah economic data analysis
+   - Comparing AR, state space, and ARMA models
+   - Model selection, diagnostics, and forecasting
+
+3. **Need technical details?** Consult `vignette("2_technical_reference")`
+   - Complete class and method documentation
+   - Mathematical foundations
+   - Method selection guidance
+
+## Installation Notes
+
+The package depends on `rationalmatrices`. Install both:
+
+```r
+remotes::install_github("bfunovits/rationalmatrices")
+remotes::install_github("bfunovits/RLDM")
+```
+
+Then load and explore:
+
+```r
+library(RLDM)
+browseVignettes("RLDM")  # View all vignettes
+```

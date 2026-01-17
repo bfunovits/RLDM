@@ -85,7 +85,37 @@ This alphabetical convention ensures files load in dependency order and groups r
 
 ## Documentation
 
+### Vignettes
+
+RLDM has three main vignettes organized for different user levels:
+
+1. **Getting Started** (`vignette("0_getting_started")`)
+   - Beginner-friendly introduction
+   - Simple univariate and bivariate examples
+   - ~10-15 minute read with executable code
+   - Best starting point for new users
+
+2. **Case Study** (`vignette("1_case_study")`)
+   - Practical end-to-end workflow
+   - Blanchard-Quah economic data analysis
+   - Comparing multiple estimation methods
+   - Model diagnostics, prediction, and interpretation
+
+3. **Technical Reference** (`vignette("2_technical_reference")`)
+   - Comprehensive class and method documentation
+   - Mathematical foundations
+   - Method selection guidance
+   - Reference material for advanced users
+
+**Developer Documentation:**
+- `inst/doc/technical_notes.Rmd` - Deep mathematical derivations and algorithm details
+  - Durbin-Levinson-Whittle recursions
+  - HRK Stage 3 algorithm specifications
+  - ARMA ACF computation
+  - Not built as vignette but included in package
+
+### Documentation Tools
+
 - Uses Roxygen2 with markdown support
 - References managed via Rdpack
-- Main case study: `vignette("d_casestudy2")`
 - Online docs: https://bfunovits.github.io/RLDM/

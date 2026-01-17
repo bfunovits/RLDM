@@ -7,7 +7,11 @@
       "Bash(R CMD INSTALL:*)",
       "Bash(wc:*)",
       "Bash(find:*)",
-      "Bash(Rscript -e:*)"
+      "Bash(Rscript -e:*)",
+      "Bash(R --vanilla -e:*)",
+      "Bash(head -10 __NEW_LINE_7924dccb16eba5b1__ echo \"\" echo \"2. In vignettes/2_technical_reference.Rmd \\(overview\\):\" grep -n \"HRK\\\\|Hannan-Rissanen\" vignettes/2_technical_reference.Rmd)",
+      "Bash(head -10 __NEW_LINE_7924dccb16eba5b1__ echo \"\" echo \"3. In inst/doc/technical_notes.Rmd \\(detailed algorithm\\):\" grep -n \"HRK\\\\|Hannan-Rissanen\\\\|Stage 3\" inst/doc/technical_notes.Rmd)",
+      "Bash(__NEW_LINE_9c188e1a40564e89__ echo \"\")"
     ]
   }
 }

@@ -1,0 +1,268 @@
+---
+title: "Getting Started with RLDM"
+author: "RLDM Team"
+date: "`r Sys.Date()`"
+bibliography: ../inst/REFERENCES.bib
+output:
+  rmarkdown::html_vignette:
+    fig_width: 7
+    fig_height: 5
+    toc: yes
+    toc_depth: 2
+    number_sections: false
+vignette: >
+  %\VignetteIndexEntry{Getting Started with RLDM}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 5
+)
+
+library(RLDM)
+set.seed(42)
+```
+
+## What is RLDM?
+
+**RLDM** (Rational Linear Dynamic Models) is an R package for modeling and analyzing **stationary time series** using linear systems theory. It implements powerful methods for:
+
+- **Autoregressive (AR) models** - Simple, interpretable baseline models
+- **ARMA (VARMA) models** - Flexible models combining AR and Moving Average terms
+- **State Space models** - Compact representations of complex dynamics
+- **Impulse response analysis** - Understanding how shocks propagate through your system
+- **Spectral analysis** - Analyzing behavior at different frequencies
+- **Model comparison** - Selecting the best model for your data
+
+RLDM is particularly useful when you have **multivariate time series data** and want to go beyond simple AR(1) models to capture more complex dependencies.
+
+## Installation
+
+RLDM depends on the companion package `rationalmatrices` for matrix fraction computations. Install both from GitHub:
+
+```{r eval=FALSE}
+# Install dependencies first
+remotes::install_github("bfunovits/rationalmatrices")
+
+# Then install RLDM
+remotes::install_github("bfunovits/RLDM")
+```
+
+Then load the package:
+
+```{r}
+library(RLDM)
+```
+
+## Simple AR Model: Univariate Example
+
+Let's start with a simple univariate time series. We'll generate synthetic data from an AR(2) process and estimate the model.
+
+### Generate AR(2) Data
+
+```{r}
+# Simulate an AR(1) process: y_t = 0.8*y_{t-1} + u_t
+#
+# In RLDM convention: y_t - 0.8*y_{t-1} = u_t
+a_coef <- matrix(-0.8)  # AR coefficient with sign convention
+b_coef <- matrix(1)     # MA term (just white noise)
+sys <- lmfd(a_coef, b_coef)
+
+# Create ARMA model with noise variance = 1
+model_true <- armamod(sys, sigma_L = matrix(1), label = "AR(1)")
+
+# Simulate 200 observations
+y <- sim(model_true, n.obs = 200)
+
+# Plot the simulated data
+plot(y, main = "Simulated AR(1) Process", ylab = "y_t", type = 'l')
+```
+
+### Estimate the Model
+
+Now let's estimate an AR model from this data using the Yule-Walker method. RLDM uses information criteria (AIC) to automatically select the order:
+
+```{r}
+# Estimate AR model with automatic order selection
+result <- est_ar(y, p.max = 10)
+
+# Display basic information
+cat("Selected AR order:", result$p, "\n")
+cat("Number of parameters:", result$p, "\n")
+cat("AIC:", result$stats$AIC[result$p+1], "\n\n")
+
+# View the estimated model
+result$model
+```
+
+### Model Diagnostics
+
+Check if the model adequately captures the dynamics:
+
+```{r}
+# Compute residuals
+residuals <- solve_inverse_de(result$model$sys, y)$u
+
+# Plot residuals
+par(mfrow = c(2, 1))
+plot(residuals, main = "Residuals", type = 'l', ylab = "Residuals")
+abline(h = 0, col = 'red', lty = 2)
+
+# ACF of residuals (should show no significant correlations)
+acf(residuals, main = "ACF of Residuals")
+par(mfrow = c(1, 1))
+```
+
+### Make Predictions
+
+Forecast future values:
+
+```{r}
+# Predict 10 steps ahead
+n.ahead <- 10
+pred <- predict(result$model, y, h = 1, n.ahead = n.ahead)
+
+# Combine data and predictions
+plot_range <- max(150, nrow(y) - 40):nrow(y)
+plot(plot_range, y[plot_range], type = 'l',
+     xlab = "Time", ylab = "Value",
+     main = "Data and Predictions")
+
+# Add predictions
+pred_time <- (nrow(y)+1):(nrow(y)+n.ahead)
+lines(pred_time, pred$yhat[, 1], col = 'blue', lwd = 2)
+
+# Add confidence bands (approximate, assuming normality)
+se <- sqrt(pred$S[, 1])
+lines(pred_time, pred$yhat[, 1] + 1.96*se, col = 'blue', lty = 2)
+lines(pred_time, pred$yhat[, 1] - 1.96*se, col = 'blue', lty = 2)
+
+legend("topleft", c("Data", "Forecast", "95% CI"),
+       col = c("black", "blue", "blue"), lty = c(1, 1, 2))
+```
+
+## Multivariate Example: Bivariate VAR
+
+Now let's work with a **multivariate system** - a 2-dimensional VAR(1) model.
+
+### Generate Bivariate Data
+
+```{r}
+# Define a 2D VAR(1) model
+#
+# [ y1_t ]   [ 0.8  0.1 ] [ y1_{t-1} ]   [ u1_t ]
+# [ y2_t ] = [ 0.2  0.7 ] [ y2_{t-1} ] + [ u2_t ]
+
+# AR matrices (note sign convention)
+A1 <- matrix(c(-0.8, -0.2, -0.1, -0.7), nrow = 2, byrow = TRUE)
+B0 <- diag(2)
+
+# Create VARMA system
+sys_var <- lmfd(A1, B0)
+
+# Noise covariance (correlation between u1 and u2)
+rho <- 0.5
+Sigma_L <- matrix(c(1, rho, 0, sqrt(1 - rho^2)), nrow = 2)
+
+# Create model and simulate
+model_var <- armamod(sys_var, sigma_L = Sigma_L,
+                     names = c("Series 1", "Series 2"))
+
+y_var <- sim(model_var, n.obs = 300)
+
+# Plot both series
+plot.ts(y_var, main = "Bivariate VAR(1) Process")
+```
+
+### Estimate the Multivariate Model
+
+```{r}
+# Estimate VAR model
+result_var <- est_ar(y_var, p.max = 5)
+
+cat("Selected VAR order:", result_var$p, "\n")
+cat("Total parameters:", result_var$p * 2^2, "\n\n")
+
+# View estimated model
+result_var$model
+```
+
+### Analyze the System
+
+**Impulse Response Function**: How does the system respond to shocks?
+
+```{r}
+# Compute impulse responses
+irf <- impresp(result_var$model, lag.max = 20)
+
+# Plot impulse responses
+plot(irf,
+     main = "Impulse Response Functions",
+     legend = c("shock to Series 1", "shock to Series 2"))
+```
+
+**Spectral Density**: Understand frequency domain behavior:
+
+```{r}
+# Compute and plot spectral density
+spec <- spectrald(result_var$model, n.f = 128)
+
+plot(spec,
+     main = "Spectral Density",
+     legend = c("Series 1", "Series 2"))
+```
+
+**Autocovariance Structure**:
+
+```{r}
+# Compute autocovariances
+acov <- autocov(result_var$model, lag.max = 10, type = "correlation")
+
+# Plot correlations
+plot(acov, main = "Sample and Model ACF")
+```
+
+## Where to Go Next
+
+### For Real-World Applications
+Check out the **Case Study** vignette (`vignette("1_case_study")`) which walks through:
+- Economic data analysis (GDP growth and unemployment)
+- Comparing multiple estimation methods
+- Selecting the best model
+- Forecasting and model diagnostics
+
+### For More Details
+The **Technical Reference** vignette (`vignette("2_technical_reference")`) provides:
+- Detailed explanation of each model class
+- Mathematical foundations
+- Guidance on method selection
+- Parameter templates and estimation algorithms
+
+### Key Functions Reference
+
+| Task | Function |
+|------|----------|
+| **Estimate AR models** | `est_ar()` |
+| **Estimate ARMA models** | `est_arma_hrk()` |
+| **Estimate state space** | `est_stsp_cca()`, `est_stsp_ss()` |
+| **Generate forecasts** | `predict()` |
+| **Impulse responses** | `impresp()` |
+| **Spectral analysis** | `spectrald()` |
+| **Model diagnostics** | `autocov()`, `pm_test()` |
+
+## Quick Tips
+
+1. **Start simple**: Begin with `est_ar()` to understand your data before moving to more complex models
+2. **Check diagnostics**: Always plot residuals and ACF to verify your model
+3. **Use AIC**: The automatic order selection in `est_ar()` and `est_arma_hrk()` works well in most cases
+4. **Compare models**: Use `compare_estimates()` to systematically compare methods
+5. **Multivariate**: RLDM really shines with multivariate data where relationships matter
+
+## References
+
+[@ScherrerDeistler2019]
