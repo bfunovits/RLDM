@@ -49,24 +49,25 @@ Estimation (moment-based or likelihood)
 Model Comparison & Diagnostics
 ```
 
-### Key File Organization
+### Key File Organization (Numeric Functional System)
 
-R files use alphabetical prefixes for logical grouping and load-order control:
-- `aa_*` - Core model classes (`armamod`, `stspmod`, `rmfdmod`)
-- `ab_*` - Parameter templates and model generation
-- `aca_*`, `acb_*`, etc. - Derived object methods:
-  - `aca_` - autocov (autocovariance)
-  - `acb_` - freqresp (frequency response)
-  - `acc_` - impresp (impulse response)
-  - `acd_` - spectrald (spectral density)
-- `ad*` - Solving/simulation methods (`solve_de`, `sim`)
-- `ae*` - Plot/print/predict methods
-- `af*` - Estimation methods:
-  - `afa_` - AR estimation
-  - `afb_` - Likelihood-based estimation
-  - `afc_` - Subspace/CCA methods
+R files use a numeric prefix system organized by **purpose/workflow**:
 
-This alphabetical convention ensures files load in dependency order and groups related functionality together.
+| Prefix | Category | Content |
+|--------|----------|---------|
+| **01** | Representations | Model classes: `armamod()`, `stspmod()`, `rmfdmod()` |
+| **02** | Templates | Parameter templates (`tmpl_*`), `fill_template()`, `extract_theta()` |
+| **03** | Properties | Derived properties: autocov, frequency response, impulse response, spectral density, poles |
+| **04** | Timeseries | Operations: `solve_de()`, `sim()`, prediction/forecasting |
+| **05** | Estimation | All estimation methods: AR (OLS/YW/DLW), ARMA (HRK), subspace, likelihood, RLS |
+| **06** | Visualization | Plot methods for properties and predictions |
+| **07** | Comparison | Model comparison metrics and diagnostics |
+| **08** | Utilities | Support: `print()`, `str()`, data documentation, package metadata |
+| **99** | Auto-generated | RcppExports (DO NOT EDIT) |
+
+**Key principle:** Files are organized by what the code **does** (operations), not what object type it operates on (S3 dispatch handles representation differences).
+
+This numeric convention ensures files load in dependency order and groups related functionality together. See `R/README.md` for detailed organization documentation.
 
 ### C++ Code (`src/`)
 

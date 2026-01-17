@@ -13,7 +13,7 @@ NULL
 
 # Common functions to interaction-version and non-interaction-version of RLS algorithms ####
 # __Rcpp roxygen stuff ####
-#' @useDynLib pricefc
+#' @useDynLib RLDM
 #' @importFrom Rcpp sourceCpp
 NULL
 
