@@ -65,7 +65,7 @@ Let's start with a simple univariate time series. We'll generate synthetic data 
 
 ### Generate AR(2) Data
 
-```{r}
+```{r, fig.alt="Time series plot of simulated AR(1) process showing 200 observations over time with fluctuations around zero"}
 # Simulate an AR(1) process: y_t = 0.8*y_{t-1} + u_t
 #
 # In RLDM convention: y_t - 0.8*y_{t-1} = u_t
@@ -106,7 +106,7 @@ result$model
 
 Check if the model adequately captures the dynamics:
 
-```{r}
+```{r, fig.alt="Two-panel diagnostic plot: upper panel shows residuals from AR(1) model estimation over time with a red reference line at zero; lower panel shows autocorrelation function of residuals"}
 # Compute residuals
 residuals <- solve_inverse_de(result$model$sys, y)$u
 
@@ -124,7 +124,7 @@ par(mfrow = c(1, 1))
 
 Forecast future values:
 
-```{r}
+```{r, fig.alt="Forecast plot showing recent data (black line) from AR(1) model with 10-step ahead predictions (blue line) and 95% confidence bands (blue dashed lines)"}
 # Predict 10 steps ahead
 n.ahead <- 10
 pred <- predict(result$model, y, h = 1, n.ahead = n.ahead)
@@ -157,7 +157,7 @@ Now let's work with a **multivariate system** - a 2-dimensional VAR(1) model.
 
 ### Generate Bivariate Data
 
-```{r}
+```{r, fig.alt="Time series plot of two correlated series from a bivariate VAR(1) process with 300 observations each"}
 # Define a 2D VAR(1) model
 #
 # [ y1_t ]   [ 0.8  0.1 ] [ y1_{t-1} ]   [ u1_t ]
@@ -202,7 +202,7 @@ result_var$model
 
 **Impulse Response Function**: How does the system respond to shocks?
 
-```{r}
+```{r, fig.alt="Four-panel impulse response functions plot showing how shocks to each series in a bivariate VAR(1) system propagate over 20 lags"}
 # Compute impulse responses
 irf <- impresp(result_var$model, lag.max = 20)
 
@@ -214,7 +214,7 @@ plot(irf,
 
 **Spectral Density**: Understand frequency domain behavior:
 
-```{r}
+```{r, fig.alt="Spectral density plot showing power across frequencies for two series in the estimated VAR(1) model"}
 # Compute and plot spectral density
 spec <- spectrald(result_var$model, n.f = 128)
 
@@ -225,7 +225,7 @@ plot(spec,
 
 **Autocovariance Structure**:
 
-```{r}
+```{r, fig.alt="Four-panel autocorrelation function plot comparing sample ACF to model-implied ACF for the bivariate VAR(1) system"}
 # Compute autocovariances
 acov <- autocov(result_var$model, lag.max = 10, type = "correlation")
 

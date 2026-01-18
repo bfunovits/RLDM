@@ -54,7 +54,7 @@ Each method has different strengths, and we'll compare their performance systema
 
 # Data Preparation and Visualization
 
-```{r}
+```{r, fig.alt="Time series plot showing quarterly US GDP growth rate and unemployment rate data from approximately 1950 to 2010, with a vertical blue line marking the train/test split at 1970"}
 # Load the Blanchard-Quah dataset
 y = BQdata_xts
 
@@ -98,7 +98,7 @@ For multivariate data, we estimate a **VAR(p)** model which treats each variable
 
 The `est_ar()` function uses Yule-Walker estimation (statistically efficient) with automatic order selection:
 
-```{r}
+```{r, fig.alt="Two-panel time series plot showing: top panel - model selection statistics (AIC, BIC, etc.) for different VAR orders; bottom panel - log-likelihood values across AR orders"}
 # Estimate AR model with automatic order selection
 out = est_ar(y_train, mean_estimate = 'zero')
 
@@ -150,7 +150,7 @@ We'll estimate state space models using three different parameterizations:
 
 **CCA** is a data-driven method for finding the most informative state representation. It's good when you don't have a priori knowledge about the system structure.
 
-```{r}
+```{r, fig.alt="Two-panel plot showing: top panel - scree plot of singular values from CCA for order selection; bottom panel - model selection statistics across different state space orders"}
 out = est_stsp_ss(y_train, method = 'cca', mean_estimate = 'zero')
 
 cat("CCA estimation output components:\n")
@@ -170,7 +170,7 @@ estimates$CCA = list(model = out$model, n.par = 2*dim_out*out$s)
 
 **DDLC** uses maximum likelihood estimation with a specific parameterization that's often numerically stable. We refine the CCA estimate through iterative ML optimization:
 
-```{r}
+```{r, fig.alt="Four-panel plot showing the two-dimensional impulse response functions between GDP and unemployment variables, displaying how shocks propagate"}
 # Create template for ML estimation
 tmpl = tmpl_DDLC(models$CCA, balance = 'minimum phase', sigma_L = 'identity')
 th0 = numeric(tmpl$n.par)
@@ -206,7 +206,7 @@ print(model)
 
 **Echelon form** is a canonical representation that provides parsimony through structural restrictions. First, we compute Kronecker indices from the impulse response:
 
-```{r}
+```{r, fig.alt="Impulse response functions from echelon form state space model showing responses of GDP and unemployment to structural shocks"}
 lag.max = 20
 ir = impresp(models$CCA, lag.max = lag.max)$irf     # Impulse response
 nu = pseries2nu(ir)                                  # Kronecker indices
@@ -262,7 +262,7 @@ The Hannan-Rissanen-Kavalieris (HRK) procedure provides good initial estimates, 
 
 **HRK** is a three-stage procedure that provides consistent ARMA estimates without requiring nonlinear optimization:
 
-```{r}
+```{r, fig.alt="Four-panel plot showing autocorrelation functions from HRK ARMA estimation, displaying correlations in GDP and unemployment"}
 # Define echelon form template for ARMA
 tmpl = tmpl_arma_echelon(nu, sigma_L = 'chol')
 
@@ -280,7 +280,7 @@ print(out$model)
 
 Further optimize the HRK estimate using maximum likelihood:
 
-```{r}
+```{r, fig.alt="Four-panel autocorrelation plot comparing sample and model ACF from the ML-refined ARMA echelon form model"}
 tmpl = tmpl_arma_echelon(nu, sigma_L = 'identity')
 th0 = extract_theta(models$HRK, tmpl, on_error = 'stop', ignore_sigma_L = TRUE)
 
@@ -306,7 +306,7 @@ print(model)
 
 For this dataset, the three ML-refined state space and ARMA models are essentially equivalent (same data generating process):
 
-```{r}
+```{r, fig.alt="Four-panel autocorrelation comparison plot showing sample vs model ACF for different estimated models (AR, CCA, HRK, SSECF)"}
 # Compare impulse responses
 eq_ddlc_ssecf = all.equal(impresp(models$DDLC, lag.max = lag.max),
                           impresp(models$SSECF, lag.max = lag.max))
@@ -328,7 +328,7 @@ print(names(models))
 
 Compare models using multiple criteria:
 
-```{r}
+```{r, fig.alt="Four-panel autocorrelation comparison between data and four different models (AR, CCA, HRK, SSECF) showing how well each captures correlations"}
 # Residual diagnostics
 u = solve_inverse_de(models$AR1$sys, as.matrix(y_train))$u
 pm_result = pm_test(u, 8, dim_out^2)
@@ -393,7 +393,7 @@ plot(spectrald(models[[1]], n.f = 2^10),
 
 How does the system respond to shocks?
 
-```{r}
+```{r, fig.alt="Four-panel impulse response comparison showing how GDP and unemployment respond to shocks across multiple estimated models"}
 plot(impresp(models[[1]], lag.max = lag.max),
      lapply(models[-1], FUN = impresp, lag.max = lag.max),
      legend = names(models))

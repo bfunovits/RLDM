@@ -251,7 +251,7 @@ autocov.stspmod(obj, lag.max = 20, type = "correlation")
 ```
 
 **Example:**
-```{r}
+```{r, fig.alt="Time series plot of an AR(1) model showing simulated process output over 500 observations"}
 # Generate AR model and compute ACF
 y <- sim(model, n.obs = 500)
 acov <- autocov(model, lag.max = 15, type = "correlation")
@@ -279,7 +279,7 @@ impresp.stspmod(obj, lag.max = 40, H = NULL)
 ```
 
 **Example:**
-```{r}
+```{r, fig.alt="Four-panel impulse response plot showing how shocks in state space model propagate to outputs over 40 lags"}
 irf <- impresp(model, lag.max = 20)
 plot(irf, main = "Impulse Response")
 ```
@@ -305,7 +305,7 @@ spectrald(obj, n.f = 128, ...)
 ```
 
 **Example:**
-```{r}
+```{r, fig.alt="Four-panel spectral density plot showing power across frequencies for outputs of the state space model"}
 spec <- spectrald(model, n.f = 256)
 plot(spec)
 ```
