@@ -8,9 +8,9 @@
 #'
 #' Maintainer: <bernd.funovits@gmail.com>
 #'
-#' @docType package
-#' @name RLDM
-#'
+#' @keywords internal
+"_PACKAGE"
+
 #' @useDynLib RLDM, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 #' @importFrom Rcpp evalCpp
