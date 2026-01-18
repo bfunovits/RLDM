@@ -77,7 +77,8 @@ sys <- lmfd(a_coef, b_coef)
 model_true <- armamod(sys, sigma_L = matrix(1), label = "AR(1)")
 
 # Simulate 200 observations
-y <- sim(model_true, n.obs = 200)
+y_list <- sim(model_true, n.obs = 200)
+y <- y_list$y
 
 # Plot the simulated data
 plot(y, main = "Simulated AR(1) Process", ylab = "y_t", type = 'l')
@@ -85,7 +86,8 @@ plot(y, main = "Simulated AR(1) Process", ylab = "y_t", type = 'l')
 
 ### Estimate the Model
 
-Now let's estimate an AR model from this data using the Yule-Walker method. RLDM uses information criteria (AIC) to automatically select the order:
+Now let's estimate an AR model from this data using the Yule-Walker method. 
+RLDM uses information criteria (AIC) to automatically select the order:
 
 ```{r}
 # Estimate AR model with automatic order selection
@@ -94,7 +96,7 @@ result <- est_ar(y, p.max = 10)
 # Display basic information
 cat("Selected AR order:", result$p, "\n")
 cat("Number of parameters:", result$p, "\n")
-cat("AIC:", result$stats$AIC[result$p+1], "\n\n")
+cat("Information Criterion:", result$stats[result$p + 1, "ic"], "\n\n")
 
 # View the estimated model
 result$model
@@ -128,19 +130,22 @@ n.ahead <- 10
 pred <- predict(result$model, y, h = 1, n.ahead = n.ahead)
 
 # Combine data and predictions
-plot_range <- max(150, nrow(y) - 40):nrow(y)
+n_obs <- length(y)
+plot_range <- max(1, n_obs - 40):n_obs
 plot(plot_range, y[plot_range], type = 'l',
      xlab = "Time", ylab = "Value",
      main = "Data and Predictions")
 
 # Add predictions
-pred_time <- (nrow(y)+1):(nrow(y)+n.ahead)
-lines(pred_time, pred$yhat[, 1], col = 'blue', lwd = 2)
+pred_time <- (n_obs+1):(n_obs+n.ahead)
+lines(pred_time, pred$yhat.ahead[, 1], col = 'blue', lwd = 2)
 
 # Add confidence bands (approximate, assuming normality)
-se <- sqrt(pred$S[, 1])
-lines(pred_time, pred$yhat[, 1] + 1.96*se, col = 'blue', lty = 2)
-lines(pred_time, pred$yhat[, 1] - 1.96*se, col = 'blue', lty = 2)
+# Extract the variance for each step ahead (the variance increases with horizon)
+variance_ahead <- as.vector(pred$sigmahat.ahead[1, 1, ])
+se <- sqrt(variance_ahead)
+lines(pred_time, pred$yhat.ahead[, 1] + 1.96*se, col = 'blue', lty = 2)
+lines(pred_time, pred$yhat.ahead[, 1] - 1.96*se, col = 'blue', lty = 2)
 
 legend("topleft", c("Data", "Forecast", "95% CI"),
        col = c("black", "blue", "blue"), lty = c(1, 1, 2))
@@ -173,7 +178,8 @@ Sigma_L <- matrix(c(1, rho, 0, sqrt(1 - rho^2)), nrow = 2)
 model_var <- armamod(sys_var, sigma_L = Sigma_L,
                      names = c("Series 1", "Series 2"))
 
-y_var <- sim(model_var, n.obs = 300)
+y_var_list <- sim(model_var, n.obs = 300)
+y_var <- y_var_list$y
 
 # Plot both series
 plot.ts(y_var, main = "Bivariate VAR(1) Process")

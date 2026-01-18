@@ -19,8 +19,7 @@ authors:
   Bernd Funovits:
     href: https://ch.linkedin.com/in/bernd-funovits-phd-cfa-a8215016
 reference:
-- title: Basic Classes
-- subtitle: Models
+- title: Basic Classes - Models
   desc: |
     Models for rational transfer functions including input covariance.
   contents:
@@ -28,21 +27,42 @@ reference:
   - armamod
   - rmfdmod
   - stspmod
-- subtitle: Templates
+- title: Templates and Parametrization
+  desc: |
+    Parameter templates and model structures.
   contents:
   - fill_template
+  - extract_theta
   - model2template
-  - starts_with("tmpl_")
+  - model structures
+  - local model structures
+  - STSmodels
   - is.template
-- subtitle: Test Objects
+  - tmpl_sigma_L
+  - tmpl_arma_pq
+  - tmpl_arma_echelon
+  - tmpl_rmfd_pq
+  - tmpl_rmfd_echelon
+  - tmpl_stsp_full
+  - tmpl_stsp_ar
+  - tmpl_stsp_echelon
+  - tmpl_DDLC
+  - tmpl_GRAM
+  - tmpl_llm
+  - tmpl_lltm
+  - tmpl_cycle
+  - tmpl_season
+  - cbind_templates
+- title: Test Objects and Model Conversion
   contents:
   - r_model
-  - starts_with("test_")
-- subtitle: Transformation between and of Models
-  contents:
   - as.stspmod
   - innovation_form
-- title: Derivatives of Basic Classes
+  - test_armamod
+  - test_stspmod
+- title: Derived Properties
+  desc: |
+    Compute properties of rational models.
   contents:
   - autocov
   - fevardec
@@ -50,19 +70,28 @@ reference:
   - impresp
   - spectrald
   - dft_3D
-- title: Generic Functions and Helpers
+- title: Output and Visualization
+  desc: |
+    Display and format model information.
   contents:
   - str methods
+  - print methods
   - plot methods
   - plot.fevardec
   - plot_prediction
-  - poles and zeroes
   - predict
-  - print methods
-- title: Solving Difference Equations
-- subtitle: Main methods (Generics)
-  contents: solve_de
-- subtitle: RcppArmadillo Implementations
+  - poles and zeroes
+- title: Time Series Operations
+  desc: |
+    Solve difference equations and simulate.
+  contents:
+  - solve_de
+  - sim
+  - solve_RMFD_R
+  - solve_inverse_RMFD_R
+  - solve_ARMA_R
+  - toepl_fwd
+- title: RcppArmadillo Implementations - Solving
   contents:
   - outputs_ARMA_cpp
   - outputs_STSP_cpp
@@ -70,47 +99,49 @@ reference:
   - residuals_STSP_cpp
   - cll_theta_ARMA_cpp
   - cll_theta_STSP_cpp
-- subtitle: 'RcppArmadillo Implementations: R Functions For Checking (and Helpers)'
-  contents:
-  - solve_RMFD_R
-  - solve_inverse_RMFD_R
-  - solve_ARMA_R
-  - toepl_fwd
-- subtitle: Possibly Deprecated RcppArmadillo Implementations
-  contents:
   - fbsolve_STSP_cpp
   - solve_rmfd_cpp
-- title: Moment Based Estimation
-  contents: starts_with("est_")
-- title: Likelihood Estimation
-- subtitle: Main
+- title: Estimation Methods - AR
   contents:
+  - est_ar
+  - est_ar_ols
+  - est_ar_yw
+  - est_ar_dlw
+- title: Estimation Methods - ARMA
+  contents:
+  - est_arma_hrk
+  - est_arma_hrk3
+- title: Estimation Methods - State Space
+  contents:
+  - est_stsp_aoki
+  - est_stsp_cca
+  - est_stsp_cca_sample
+  - est_stsp_ss
+  - subspace order estimates
+  - subspace helpers
+  - subspace methods
+- title: Estimation Methods - Likelihood Based
+  contents:
+  - est_ML
   - ll
   - ll_FUN
   - ll_theta
-- subtitle: For State Space Models only
-  contents: ll_kf
+  - ll_kf
+  - ll_kf_theta_cpp
 - title: Model Comparison
+  desc: |
+    Compare and evaluate estimated models.
   contents:
   - compare_estimates
   - pm_test
   - KL_divergence
-- title: Kalman Filtering Related
-  contents:
-  - starts_with("kf")
-  - riccati
-- title: Subspace Related
-  contents:
-  - local model structures
-  - subspace order estimates
-  - starts_with("subspace")
-- title: Others
-  contents: sim
-- title: RcppArmadillo
+- title: Kalman Filtering and Riccati
   desc: |
-    Some methods are implemented in RcppArmadillo to speed up calculations
-  contents: ends_with("_cpp")
-- title: Data Sets
+    Kalman filter and matrix equation solvers.
+  contents:
+  - kf
+  - riccati
+- title: Datasets
   contents:
   - BQdata
   - RSdata

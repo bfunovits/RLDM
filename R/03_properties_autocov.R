@@ -61,7 +61,7 @@
 #'
 #' @seealso The autocovariance function of (V)ARMA processes may also be
 #' computed by [stats::ARMAacf()] in the scalar case and by
-#' [MTS::VARMAcov()] in the multivariate case (m > 1).
+#' `MTS::VARMAcov()` in the multivariate case (m > 1).
 #'
 #' As noted above the sample ACF is computed via the [stats::acf()] routine in the \pkg{stats} package.
 #'
