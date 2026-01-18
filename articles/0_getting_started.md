@@ -64,7 +64,9 @@ y <- y_list$y
 plot(y, main = "Simulated AR(1) Process", ylab = "y_t", type = 'l')
 ```
 
-![](0_getting_started_files/figure-html/unnamed-chunk-3-1.png)
+![Time series plot of simulated AR(1) process showing 200 observations
+over time with fluctuations around
+zero](0_getting_started_files/figure-html/unnamed-chunk-3-1.png)
 
 ### Estimate the Model
 
@@ -115,7 +117,10 @@ abline(h = 0, col = 'red', lty = 2)
 acf(residuals, main = "ACF of Residuals")
 ```
 
-![](0_getting_started_files/figure-html/unnamed-chunk-5-1.png)
+![Two-panel diagnostic plot: upper panel shows residuals from AR(1)
+model estimation over time with a red reference line at zero; lower
+panel shows autocorrelation function of
+residuals](0_getting_started_files/figure-html/unnamed-chunk-5-1.png)
 
 ``` r
 par(mfrow = c(1, 1))
@@ -152,7 +157,10 @@ legend("topleft", c("Data", "Forecast", "95% CI"),
        col = c("black", "blue", "blue"), lty = c(1, 1, 2))
 ```
 
-![](0_getting_started_files/figure-html/unnamed-chunk-6-1.png)
+![Forecast plot showing recent data (black line) from AR(1) model with
+10-step ahead predictions (blue line) and 95% confidence bands (blue
+dashed
+lines)](0_getting_started_files/figure-html/unnamed-chunk-6-1.png)
 
 ## Multivariate Example: Bivariate VAR
 
@@ -189,7 +197,9 @@ y_var <- y_var_list$y
 plot.ts(y_var, main = "Bivariate VAR(1) Process")
 ```
 
-![](0_getting_started_files/figure-html/unnamed-chunk-7-1.png)
+![Time series plot of two correlated series from a bivariate VAR(1)
+process with 300 observations
+each](0_getting_started_files/figure-html/unnamed-chunk-7-1.png)
 
 ### Estimate the Multivariate Model
 
@@ -233,7 +243,9 @@ plot(irf,
      legend = c("shock to Series 1", "shock to Series 2"))
 ```
 
-![](0_getting_started_files/figure-html/unnamed-chunk-9-1.png)
+![Four-panel impulse response functions plot showing how shocks to each
+series in a bivariate VAR(1) system propagate over 20
+lags](0_getting_started_files/figure-html/unnamed-chunk-9-1.png)
 
 **Spectral Density**: Understand frequency domain behavior:
 
@@ -246,7 +258,9 @@ plot(spec,
      legend = c("Series 1", "Series 2"))
 ```
 
-![](0_getting_started_files/figure-html/unnamed-chunk-10-1.png)
+![Spectral density plot showing power across frequencies for two series
+in the estimated VAR(1)
+model](0_getting_started_files/figure-html/unnamed-chunk-10-1.png)
 
 **Autocovariance Structure**:
 
@@ -258,7 +272,9 @@ acov <- autocov(result_var$model, lag.max = 10, type = "correlation")
 plot(acov, main = "Sample and Model ACF")
 ```
 
-![](0_getting_started_files/figure-html/unnamed-chunk-11-1.png)
+![Four-panel autocorrelation function plot comparing sample ACF to
+model-implied ACF for the bivariate VAR(1)
+system](0_getting_started_files/figure-html/unnamed-chunk-11-1.png)
 
 ## Where to Go Next
 

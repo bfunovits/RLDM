@@ -27,7 +27,7 @@ full column rank. This parameterization scheme is quite flexible. In particular,
 state space models in echelon form may be represented by this scheme.
 
 Templates and the related tools are mainly used for estimation and for the generation of (random) models
-for simulations and testing."></head><body>
+for simulations and testing."><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -590,37 +590,37 @@ For <code>sigma_L="full_normalized"</code> the diagonal elements of the matrix \
 <span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="fill_template.html">fill_template</a></span><span class="op">(</span><span class="va">th</span>, <span class="va">tmpl</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> state space model [3,3] with s = 9 states</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            s[1]      s[2]       s[3]       s[4]       s[5]       s[6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.0000000  0.000000 0.00000000  1.0000000  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.0000000  0.000000 0.00000000  0.0000000  1.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3]  0.0000000  0.000000 0.00000000  0.0000000  0.0000000  1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.0000000  0.000000 0.00000000  0.0000000  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[5] -0.2963030  1.084827 0.58460333  2.1805611  0.5181410  0.8781443</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[6]  0.0000000  0.000000 0.00000000  0.0000000  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[7]  0.4701187  1.409472 0.09501688 -0.3016186 -0.8222507  1.5417393</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[8]  0.0000000  0.000000 0.00000000  0.0000000  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[9] -0.2862241 -1.011287 0.65739082  1.2375489 -0.9612569 -1.4251182</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.0000000  0.000000 0.00000000  0.0000000  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.0000000  1.000000 0.00000000  0.0000000  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.0000000  0.000000 1.00000000  0.0000000  0.0000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            s[7]      s[8]       s[9]       u[1]        u[2]       u[3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.0000000 0.0000000  0.0000000 -1.6363990  1.56744006 -1.6103716</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.0000000 0.0000000  0.0000000 -2.2162089  0.14491362  0.3906056</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3]  0.0000000 0.0000000  0.0000000  0.3192191  0.40946723 -2.3579337</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  1.0000000 0.0000000  0.0000000 -0.8252660  0.91664746 -0.7609277</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[5] -0.4890614 0.0000000  0.0000000  1.7965566  0.01151907  0.3997202</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[6]  0.0000000 1.0000000  0.0000000 -0.2813417  1.36651386 -0.4422244</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[7] -0.1410377 0.4004309  0.0000000 -0.2712869  0.73866776  1.0600920</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[8]  0.0000000 0.0000000  1.0000000 -1.1943663 -2.06726562 -0.9509969</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[9]  0.7390755 2.0738663 -0.4357234 -0.9330828  1.04523137  1.1497305</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  0.0000000 0.0000000  0.0000000  1.0000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.0000000 0.0000000  0.0000000  0.0000000  1.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.0000000 0.0000000  0.0000000  0.0000000  0.00000000  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            s[1]       s[2]         s[3]        s[4]      s[5]       s[6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.0000000  0.0000000  0.000000000  1.00000000 0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.0000000  0.0000000  0.000000000  0.00000000 1.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3]  0.0000000  0.0000000  0.000000000  0.00000000 0.0000000  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.0000000  0.0000000  0.000000000  0.00000000 0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[5]  0.9602777 -0.0291943 -0.286073459 -0.23305898 0.9548047 -2.1192119</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[6]  0.0000000  0.0000000  0.000000000  0.00000000 0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[7] -0.7661943 -0.8893977  0.799131032 -0.09797865 1.9504484 -0.5907713</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[8]  0.0000000  0.0000000  0.000000000  0.00000000 0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[9] -1.0883716  1.1514482 -0.006941308  1.22450197 1.5279653 -0.9441963</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.0000000  0.0000000  0.000000000  0.00000000 0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.0000000  1.0000000  0.000000000  0.00000000 0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.0000000  0.0000000  1.000000000  0.00000000 0.0000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           s[7]     s[8]      s[9]        u[1]       u[2]         u[3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1] 0.0000000 0.000000 0.0000000  1.26368786  1.1443630  0.018340126</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] 0.0000000 0.000000 0.0000000 -1.75309526  1.3535636  1.303775449</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] 0.0000000 0.000000 0.0000000 -0.39204869  0.2310490 -0.555714002</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[4] 1.0000000 0.000000 0.0000000 -0.28978662  0.9522502  0.199886851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[5] 0.7077673 0.000000 0.0000000  0.32336846  0.2611330  0.002062335</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[6] 0.0000000 1.000000 0.0000000 -0.05919986 -1.3645766  0.348024936</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[7] 0.2273593 1.181463 0.0000000  0.35528359 -1.8787757 -1.771875962</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[8] 0.0000000 0.000000 1.0000000 -0.84557923 -0.5364748  0.019331953</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[9] 0.3714758 1.605901 0.6632105 -0.79145733 -0.1794184 -1.578413038</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[1] 0.0000000 0.000000 0.0000000  1.00000000  0.0000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[2] 0.0000000 0.000000 0.0000000  0.00000000  1.0000000  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[3] 0.0000000 0.000000 0.0000000  0.00000000  0.0000000  1.000000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Left square root of noise covariance Sigma:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          u[1]       u[2]      u[3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[1] 1.007612  0.0000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] 1.793397  1.3018221 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[3] 1.924229 -0.9366873 0.3536259</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            u[1]       u[2]      u[3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[1] -0.5382003  0.0000000  0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[2]  0.8228499 -0.5420765  0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[3]  0.6826491 -1.4539981 -0.115208</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># we can extract the free parameters from this given model</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">th</span>, <span class="fu"><a href="fill_template.html">extract_theta</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">tmpl</span>, on_error <span class="op">=</span> <span class="st">'stop'</span><span class="op">)</span><span class="op">)</span></span></span>

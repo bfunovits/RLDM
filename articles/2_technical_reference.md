@@ -274,7 +274,9 @@ acov <- autocov(model, lag.max = 15, type = "correlation")
 plot(acov)
 ```
 
-![](2_technical_reference_files/figure-html/unnamed-chunk-9-1.png)
+![Time series plot of an AR(1) model showing simulated process output
+over 500
+observations](2_technical_reference_files/figure-html/unnamed-chunk-9-1.png)
 
 ### Impulse Response: `impresp` Class
 
@@ -304,7 +306,9 @@ irf <- impresp(model, lag.max = 20)
 plot(irf, main = "Impulse Response")
 ```
 
-![](2_technical_reference_files/figure-html/unnamed-chunk-11-1.png)
+![Four-panel impulse response plot showing how shocks in state space
+model propagate to outputs over 40
+lags](2_technical_reference_files/figure-html/unnamed-chunk-11-1.png)
 
 The `H` parameter allows custom orthogonalization (default: Cholesky).
 
@@ -335,7 +339,9 @@ spec <- spectrald(model, n.f = 256)
 plot(spec)
 ```
 
-![](2_technical_reference_files/figure-html/unnamed-chunk-13-1.png)
+![Four-panel spectral density plot showing power across frequencies for
+outputs of the state space
+model](2_technical_reference_files/figure-html/unnamed-chunk-13-1.png)
 
 ### Frequency Response: `freqresp` Class
 

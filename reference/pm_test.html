@@ -9,7 +9,7 @@ $$Q = N^2\sum_{k=1}^{K} (N-k)^{-1}\mbox{tr} (G_k G_0^{-1} G_k' G_0^{-1})$$
 where \(G_k\) are the sample covariances of the residuals. Under the Null of a correctly
 specified and estimated model the test statistic is asmyptotically Chi-squared distributed with
 \(Km^2-\kappa\) degrees of freedom, where \(\kappa\) is the number of (free) parameters of the
-model (class)."></head><body>
+model (class)."><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -90,10 +90,10 @@ a matrix with <code>as.matrix(u)</code>).</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">u</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">*</span><span class="fl">3</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">100</span>, ncol <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">pm_test</span><span class="op">(</span><span class="va">u</span>, <span class="fl">4</span>, <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      lags         Q df         p</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1  8.023592  9 0.5317705</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2 15.156435 18 0.6511991</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3 19.834452 27 0.8376311</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    4 27.842198 36 0.8327771</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]    1  7.184504  9 0.6179165</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]    2 13.308160 18 0.7729505</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]    3 19.007360 27 0.8697331</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]    4 31.476940 36 0.6835487</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

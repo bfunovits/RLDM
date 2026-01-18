@@ -3,7 +3,7 @@
 for a statespace system of the form
 $$a_{t+1} = A a_t + B u_t, \; y_t   = C a_t + D u_t$$"><meta property="og:description" content="This internal helper function computes the outputs and states
 for a statespace system of the form
-$$a_{t+1} = A a_t + B u_t, \; y_t   = C a_t + D u_t$$"></head><body>
+$$a_{t+1} = A a_t + B u_t, \; y_t   = C a_t + D u_t$$"><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -119,22 +119,22 @@ arguments <code>a</code> and <code>u</code>!</p>
 <span class="r-in"><span><span class="va">n.obs</span> <span class="op">=</span> <span class="fl">10</span></span></span>
 <span class="r-in"><span><span class="va">u</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">n.obs</span><span class="op">*</span><span class="va">n</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="va">n</span>, ncol <span class="op">=</span> <span class="va">n.obs</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]      [,3]         [,4]       [,5]       [,6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.1621131  0.2754776 0.1546232 -0.241994688  1.3033774 -1.2047453</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.2767673 -0.5245635 0.8115842  0.004326083 -0.2845295  0.4190233</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,7]      [,8]      [,9]      [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.6807778 0.4564316 0.5098132 -0.8951889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.2271627 1.4490524 0.1997966 -1.0671328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]       [,3]       [,4]     [,5]       [,6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.02257665 -0.6234985 -1.2689028 -1.6233913 1.788238  0.5762031</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1.73917082  0.8530448  0.4344063  0.2914045 1.657197 -0.1284107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,7]       [,8]       [,9]      [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.09759244 -0.5895001 -1.2984312 -0.5606992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.22007338 -0.4481922 -0.5562581  0.4527295</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate matrix for the state sequence</span></span></span>
 <span class="r-in"><span><span class="va">a</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow <span class="op">=</span> <span class="va">s</span>, ncol <span class="op">=</span> <span class="va">n.obs</span><span class="op">+</span><span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">a</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span> <span class="co"># random initial state a[1]</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.2910083    0    0    0    0    0    0    0    0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.4180777    0    0    0    0    0    0    0    0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.9646559    0    0    0    0    0    0    0    0     0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  0.3606955    0    0    0    0    0    0    0    0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.9450664    0    0    0    0    0    0    0    0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.4197889    0    0    0    0    0    0    0    0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.3598256    0    0    0    0    0    0    0    0     0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.8936101    0    0    0    0    0    0    0    0     0     0</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># generate matrix for the outputs</span></span></span>
 <span class="r-in"><span><span class="va">y</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span>, nrow <span class="op">=</span> <span class="va">m</span>, ncol <span class="op">=</span> <span class="va">n.obs</span><span class="op">)</span></span></span>
@@ -142,32 +142,32 @@ arguments <code>a</code> and <code>u</code>!</p>
 <span class="r-in"><span><span class="co"># call outputs_STSP_cpp()</span></span></span>
 <span class="r-in"><span><span class="fu">outputs_STSP_cpp</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">A</span>, <span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">B</span>, <span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">C</span>, <span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">D</span>, <span class="va">u</span>, <span class="va">a</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">u</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           [,1]       [,2]      [,3]         [,4]       [,5]       [,6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.1621131  0.2754776 0.1546232 -0.241994688  1.3033774 -1.2047453</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.2767673 -0.5245635 0.8115842  0.004326083 -0.2845295  0.4190233</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,7]      [,8]      [,9]      [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.6807778 0.4564316 0.5098132 -0.8951889</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.2271627 1.4490524 0.1997966 -1.0671328</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,1]       [,2]       [,3]       [,4]     [,5]       [,6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.02257665 -0.6234985 -1.2689028 -1.6233913 1.788238  0.5762031</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1.73917082  0.8530448  0.4344063  0.2914045 1.657197 -0.1284107</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,7]       [,8]       [,9]      [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.09759244 -0.5895001 -1.2984312 -0.5606992</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.22007338 -0.4481922 -0.5562581  0.4527295</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">a</span><span class="op">)</span>  <span class="co"># a is overwritten with the computed states</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]       [,2]       [,3]       [,4]       [,5]       [,6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.2910083  0.1470632 -2.2887687  0.9914409 -5.8038118   1.914746</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.4180777 -0.8782638  0.4831436 -7.2554811  9.1149031 -29.334267</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.9646559  0.4475396 -0.1555441 -0.2768109 -0.2716191   2.065672</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  0.3606955 -0.8569591 -1.0539385 -1.2723679 -3.8823499  -4.454104</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]      [,2]        [,3]       [,4]       [,5]      [,6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.9450664  1.555291  6.09385706 -10.090029 -15.892886  86.11642</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.4197889  2.359183  0.05989388 -22.516358  20.532756 108.67984</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.3598256  1.702935 -4.48260356  -4.470646  41.449191 -31.19117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,] -0.8936101 -1.237574  1.37322571  -1.012969  -6.375628  18.55043</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            [,7]      [,8]      [,9]      [,10]      [,11]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -19.063660  20.48665 -76.39810  103.28393 -299.50850</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  36.521809 -95.20381 147.61934 -373.03877  653.31007</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  -4.600986  15.56166 -31.20729   66.34195 -123.80344</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]  -9.358324 -13.67995 -16.20940  -40.31421  -39.08654</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  -31.85077 -504.8281  957.9306  1791.3988  -8859.520</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -289.42027 -264.5084 2263.5040 -1708.2699 -11974.277</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -225.31993  545.9161  622.1753 -4458.9487   2724.218</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4,]   11.71331 -129.7429  124.3142   640.4324  -1777.915</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">y</span><span class="op">)</span>  <span class="co"># y is overwritten with the computed outputs</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]       [,2]       [,3]      [,4]      [,5]       [,6]       [,7]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.1391880  1.6938865 -3.5804536  5.917635 -8.610496  15.436191 -36.811577</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.7300401 -0.3661558 -0.7781827  1.092353 -1.795031  -2.244316  -2.058397</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -1.3560614 -0.8337046 -3.0828712 -6.261713 -2.359993 -23.478763  -3.401920</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,8]        [,9]       [,10]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  78.914011 -164.549864  336.015143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  -1.560201   -8.928909   -2.831807</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -51.196342   -7.538429 -159.236736</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,1]      [,2]      [,3]      [,4]       [,5]       [,6]       [,7]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.9100117 -2.374274  3.524024 -20.72283 -17.446762  150.92285  -94.13199</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -2.9260985  3.220696  4.930470 -12.77119   3.299185   79.67083 -138.00689</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.4386055 -1.981754 -8.882333  47.49607  13.879609 -315.65438  371.03509</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,8]      [,9]      [,10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -817.2299  1850.874  2458.5763</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -302.0919  1330.514   -82.6597</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 1469.2485 -4615.012 -2494.0035</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

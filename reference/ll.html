@@ -7,7 +7,7 @@ generates a closure that serves as such an input)."><meta property="og:descripti
 of ARMA, RMFD, and state space models.
 For functions which serve as input for optimizers like optim,
 see ll_theta and ll_FUN (where the latter is a function factory which
-generates a closure that serves as such an input)."></head><body>
+generates a closure that serves as such an input)."><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -165,28 +165,28 @@ that the model structure does <strong>not</strong> impose restrictions on the no
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ARMA model [3,3] with orders p = 2 and q = 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> AR polynomial a(z):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         z^0 [,1]  [,2]  [,3]   z^1 [,1]       [,2]      [,3]  z^2 [,1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000     0     0  0.2229105  0.0000000 0.0000000 0.2322142</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.08697319     1     0 -0.2809863 -0.0916191 0.1388723 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.36973140     0     1  0.5235097 -0.3195015 0.1077409 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            [,2]       [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.3231834 0.09860971</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.0000000 0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.0000000 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        z^0 [,1]  [,2]  [,3]    z^1 [,1]       [,2]        [,3]  z^2 [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.0000000     0     0 -0.06257007  0.0000000  0.00000000 0.2651723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.3219658     1     0  0.30732623 -0.1374902  0.29948302 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.2927502     0     1  0.03985494  0.2539926 -0.06747656 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,2]      [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.5647731 0.2501073</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.0000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.0000000 0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> MA polynomial b(z):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         z^0 [,1]  [,2]  [,3]   z^1 [,1]        [,2]        [,3]  z^2 [,1]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.00000000     0     0 -0.6760301 0.008212566 -0.10621727 0.1127865</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.08697319     1     0  0.3719352 0.182476256  0.02445579 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.36973140     0     1  0.4512660 0.050154269  0.39338134 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             [,2]      [,3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.06744302 0.1187835</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.00000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.00000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        z^0 [,1]  [,2]  [,3]    z^1 [,1]       [,2]         [,3]   z^2 [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.0000000     0     0 -0.06558983 -0.2825706 0.1972310718 0.08053013</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]  0.3219658     1     0  0.14791274 -0.2224439 0.0005983983 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.2927502     0     1  0.38232639 -0.2153297 0.0893493354 0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,2]      [,3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 0.2329422 0.1607917</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] 0.0000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] 0.0000000 0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Left square root of noise covariance Sigma:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            u[1]      u[2] u[3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[1]  1.0000000  0.000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.1758451  1.000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[3]  0.2867672 -0.143497    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            u[1]       u[2] u[3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[1]  1.0000000 0.00000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[2]  0.1684425 1.00000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[3] -0.2784828 0.05370202    1</span>
 <span class="r-in"><span><span class="co"># extract the corresponding free/deep parameters</span></span></span>
 <span class="r-in"><span><span class="va">th</span> <span class="op">=</span> <span class="fu"><a href="fill_template.html">extract_theta</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">tmpl</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -196,22 +196,22 @@ that the model structure does <strong>not</strong> impose restrictions on the no
 <span class="r-in"><span><span class="co"># conditional log likelihood</span></span></span>
 <span class="r-in"><span><span class="co"># the following statements return the same ll value!</span></span></span>
 <span class="r-in"><span><span class="fu">ll</span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, which <span class="op">=</span> <span class="st">'conditional'</span>, skip <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.446881</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.356565</span>
 <span class="r-in"><span><span class="fu"><a href="ll_theta.html">ll_theta</a></span><span class="op">(</span><span class="va">th</span>, template<span class="op">=</span> <span class="va">tmpl</span>, <span class="va">y</span>, which <span class="op">=</span> <span class="st">'conditional'</span>, skip <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.446881</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.356565</span>
 <span class="r-in"><span><span class="va">llfun</span> <span class="op">=</span> <span class="fu"><a href="ll_FUN.html">ll_FUN</a></span><span class="op">(</span><span class="va">tmpl</span>, <span class="va">y</span>, which <span class="op">=</span> <span class="st">'conditional'</span>, skip <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">llfun</span><span class="op">(</span><span class="va">th</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.446881</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.356565</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># concentrated, conditional log likelihood</span></span></span>
 <span class="r-in"><span><span class="co"># the following statements return the same ll value!</span></span></span>
 <span class="r-in"><span><span class="fu">ll</span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, which <span class="op">=</span> <span class="st">'concentrated'</span>, skip <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.40298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.317927</span>
 <span class="r-in"><span><span class="fu"><a href="ll_theta.html">ll_theta</a></span><span class="op">(</span><span class="va">th</span>, template<span class="op">=</span> <span class="va">tmpl</span>, <span class="va">y</span>, which <span class="op">=</span> <span class="st">'concentrated'</span>, skip <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.40298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.317927</span>
 <span class="r-in"><span><span class="va">llfun</span> <span class="op">=</span> <span class="fu"><a href="ll_FUN.html">ll_FUN</a></span><span class="op">(</span><span class="va">tmpl</span>, <span class="va">y</span>, which <span class="op">=</span> <span class="st">'concentrated'</span>, skip <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">llfun</span><span class="op">(</span><span class="va">th</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.40298</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.317927</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

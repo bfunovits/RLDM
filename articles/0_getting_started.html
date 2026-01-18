@@ -11,6 +11,7 @@
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started with RLDM">
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -139,7 +140,7 @@ synthetic data from an AR(2) process and estimate the model.</p>
 <span></span>
 <span><span class="co"># Plot the simulated data</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">y</span>, main <span class="op">=</span> <span class="st">"Simulated AR(1) Process"</span>, ylab <span class="op">=</span> <span class="st">"y_t"</span>, type <span class="op">=</span> <span class="st">'l'</span><span class="op">)</span></span></code></pre></div>
-<p><img src="0_getting_started_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="Time series plot of simulated AR(1) process showing 200 observations over time with fluctuations around zero" width="672"></p>
 </div>
 <div class="section level3">
 <h3 id="estimate-the-model">Estimate the Model<a class="anchor" aria-label="anchor" href="#estimate-the-model"></a>
@@ -187,7 +188,7 @@ order:</p>
 <span></span>
 <span><span class="co"># ACF of residuals (should show no significant correlations)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/acf.html" class="external-link">acf</a></span><span class="op">(</span><span class="va">residuals</span>, main <span class="op">=</span> <span class="st">"ACF of Residuals"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="0_getting_started_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-5-1.png" class="r-plt" alt="Two-panel diagnostic plot: upper panel shows residuals from AR(1) model estimation over time with a red reference line at zero; lower panel shows autocorrelation function of residuals" width="672"></p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -220,7 +221,7 @@ order:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data"</span>, <span class="st">"Forecast"</span>, <span class="st">"95% CI"</span><span class="op">)</span>,</span>
 <span>       col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"blue"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="0_getting_started_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" alt="Forecast plot showing recent data (black line) from AR(1) model with 10-step ahead predictions (blue line) and 95% confidence bands (blue dashed lines)" width="672"></p>
 </div>
 </div>
 <div class="section level2">
@@ -257,7 +258,7 @@ order:</p>
 <span></span>
 <span><span class="co"># Plot both series</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">y_var</span>, main <span class="op">=</span> <span class="st">"Bivariate VAR(1) Process"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="0_getting_started_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-7-1.png" class="r-plt" alt="Time series plot of two correlated series from a bivariate VAR(1) process with 300 observations each" width="672"></p>
 </div>
 <div class="section level3">
 <h3 id="estimate-the-multivariate-model">Estimate the Multivariate Model<a class="anchor" aria-label="anchor" href="#estimate-the-multivariate-model"></a>
@@ -300,7 +301,7 @@ respond to shocks?</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">irf</span>,</span>
 <span>     main <span class="op">=</span> <span class="st">"Impulse Response Functions"</span>,</span>
 <span>     legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"shock to Series 1"</span>, <span class="st">"shock to Series 2"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="0_getting_started_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-9-1.png" class="r-plt" alt="Four-panel impulse response functions plot showing how shocks to each series in a bivariate VAR(1) system propagate over 20 lags" width="672"></p>
 <p><strong>Spectral Density</strong>: Understand frequency domain
 behavior:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
@@ -310,7 +311,7 @@ behavior:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">spec</span>,</span>
 <span>     main <span class="op">=</span> <span class="st">"Spectral Density"</span>,</span>
 <span>     legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Series 1"</span>, <span class="st">"Series 2"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="0_getting_started_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" alt="Spectral density plot showing power across frequencies for two series in the estimated VAR(1) model" width="672"></p>
 <p><strong>Autocovariance Structure</strong>:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute autocovariances</span></span>
@@ -318,7 +319,7 @@ behavior:</p>
 <span></span>
 <span><span class="co"># Plot correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">acov</span>, main <span class="op">=</span> <span class="st">"Sample and Model ACF"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="0_getting_started_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="" width="672"></p>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="Four-panel autocorrelation function plot comparing sample ACF to model-implied ACF for the bivariate VAR(1) system" width="672"></p>
 </div>
 </div>
 <div class="section level2">

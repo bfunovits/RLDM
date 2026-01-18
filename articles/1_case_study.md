@@ -46,20 +46,29 @@ dim_out = ncol(y_train)
 plot(y)
 ```
 
-![](1_case_study_files/figure-html/unnamed-chunk-2-1.png)
+![Time series plot showing quarterly US GDP growth rate and unemployment
+rate data from approximately 1950 to 2010, with a vertical blue line
+marking the train/test split at
+1970](1_case_study_files/figure-html/unnamed-chunk-2-1.png)
 
 ``` r
 addLegend('topleft', c('GDP growth rate', 'Unemployment rate'),
           col = c('black', 'red'), lwd = 2, bty = 'n')
 ```
 
-![](1_case_study_files/figure-html/unnamed-chunk-2-2.png)
+![Time series plot showing quarterly US GDP growth rate and unemployment
+rate data from approximately 1950 to 2010, with a vertical blue line
+marking the train/test split at
+1970](1_case_study_files/figure-html/unnamed-chunk-2-2.png)
 
 ``` r
 addEventLines(xts("Train/Test Split", break_date), col = 'blue', on = NA)
 ```
 
-![](1_case_study_files/figure-html/unnamed-chunk-2-3.png)
+![Time series plot showing quarterly US GDP growth rate and unemployment
+rate data from approximately 1950 to 2010, with a vertical blue line
+marking the train/test split at
+1970](1_case_study_files/figure-html/unnamed-chunk-2-3.png)
 
 **Data Summary:** - Total observations: 159 quarters from 1948-04-01 to
 1987-10-01 - Training set: 87 observations (for model estimation) - Test
@@ -535,7 +544,9 @@ plot(impresp(models[[1]], lag.max = lag.max),
      legend = names(models))
 ```
 
-![](1_case_study_files/figure-html/unnamed-chunk-14-1.png)
+![Four-panel impulse response comparison showing how GDP and
+unemployment respond to shocks across multiple estimated
+models](1_case_study_files/figure-html/unnamed-chunk-14-1.png)
 
 **Economic interpretation:** - Top-left: GDP shock effect on GDP -
 Top-right: unemployment shock effect on GDP - Bottom-left: GDP shock

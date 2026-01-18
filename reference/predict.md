@@ -246,19 +246,19 @@ stats = evaluate_prediction(data$y, pred_ar$yhat, h = pred_ar$h,
 
 # use array2data.frame for "tabular" display of the results
 print(array2data.frame(stats, rows = 1:3, cols = 4))
-#>    criterion sample predictor       y[1]       y[2]      total
-#> 1       RMSE  train       h=1  0.7464332  0.3151248  0.5729163
-#> 2        MAE  train       h=1  0.6062208  0.2463317  0.4262762
-#> 3         PB  train       h=1 51.1111111 53.3333333 52.2222222
-#> 4       RMSE   test       h=1  0.8366101  0.3777231  0.6490729
-#> 5        MAE   test       h=1  0.6926596  0.3086385  0.5006490
-#> 6         PB   test       h=1 51.1111111 58.8888889 55.0000000
-#> 7       RMSE  train       h=5  1.0158984  1.2603229  1.1446535
-#> 8        MAE  train       h=5  0.8077797  0.9870565  0.8974181
-#> 9         PB  train       h=5 58.8888889 61.1111111 60.0000000
-#> 10      RMSE   test       h=5  1.3325549  1.6976224  1.5260446
-#> 11       MAE   test       h=5  1.1201251  1.4008479  1.2604865
-#> 12        PB   test       h=5 58.8888889 57.7777778 58.3333333
+#>    criterion sample predictor       y[1]      y[2]     total
+#> 1       RMSE  train       h=1  0.6539811  2.287527  1.682330
+#> 2        MAE  train       h=1  0.5234412  1.744002  1.133722
+#> 3         PB  train       h=1 56.6666667 52.222222 54.444444
+#> 4       RMSE   test       h=1  0.7260734  2.516711  1.852163
+#> 5        MAE   test       h=1  0.5982744  2.037086  1.317680
+#> 6         PB   test       h=1 58.8888889 50.000000 54.444444
+#> 7       RMSE  train       h=5  2.9084169  4.081186  3.543654
+#> 8        MAE  train       h=5  2.3003365  3.214216  2.757276
+#> 9         PB  train       h=5 52.2222222 54.444444 53.333333
+#> 10      RMSE   test       h=5  4.0055572  5.269170  4.680205
+#> 11       MAE   test       h=5  3.2446598  4.165137  3.704898
+#> 12        PB   test       h=5 44.4444444 41.111111 42.777778
 
 # evaluate all predictions
 # join predictions
@@ -284,40 +284,40 @@ dimnames(stats) = list(criterion = dimnames.stats[[1]], sample = dimnames.stats[
 # use array2data.frame for "tabular" display of the results
 print(array2data.frame(stats, cols = 5, rows = c(3,4,1,2)))
 #>    model   h criterion sample      y[1]      y[2]     total
-#> 1   true h=1      RMSE  train 0.7477685 0.3209361 0.5753945
-#> 2    AR1 h=1      RMSE  train 0.7834196 0.3220445 0.5989403
-#> 3     AR h=1      RMSE  train 0.7464332 0.3151248 0.5729163
-#> 4   true h=5      RMSE  train 1.0201199 1.2700194 1.1518667
-#> 5    AR1 h=5      RMSE  train 1.0610705 1.3159654 1.1953317
-#> 6     AR h=5      RMSE  train 1.0158984 1.2603229 1.1446535
-#> 7   true h=1       MAE  train 0.6067455 0.2514219 0.4290837
-#> 8    AR1 h=1       MAE  train 0.6289440 0.2544288 0.4416864
-#> 9     AR h=1       MAE  train 0.6062208 0.2463317 0.4262762
-#> 10  true h=5       MAE  train 0.8103448 0.9980458 0.9041953
-#> 11   AR1 h=5       MAE  train 0.8415633 1.0457366 0.9436500
-#> 12    AR h=5       MAE  train 0.8077797 0.9870565 0.8974181
-#> 13  true h=1     MdRAE  train 0.3716322 0.1601011 0.2134180
-#> 14   AR1 h=1     MdRAE  train 0.4362900 0.1380195 0.2473105
-#> 15    AR h=1     MdRAE  train 0.3802291 0.1474111 0.2204019
-#> 16  true h=5     MdRAE  train 0.7182880 0.7885423 0.7817148
-#> 17   AR1 h=5     MdRAE  train 0.8268266 0.9668042 0.8919780
-#> 18    AR h=5     MdRAE  train 0.7301805 0.8001168 0.7869697
-#> 19  true h=1      RMSE   test 0.8363547 0.3743463 0.6479292
-#> 20   AR1 h=1      RMSE   test 0.8721171 0.3993802 0.6782672
-#> 21    AR h=1      RMSE   test 0.8366101 0.3777231 0.6490729
-#> 22  true h=5      RMSE   test 1.3292630 1.6959861 1.5236976
-#> 23   AR1 h=5      RMSE   test 1.4364223 1.8304275 1.6452620
-#> 24    AR h=5      RMSE   test 1.3325549 1.6976224 1.5260446
-#> 25  true h=1       MAE   test 0.6920242 0.3055231 0.4987736
-#> 26   AR1 h=1       MAE   test 0.7095644 0.3273742 0.5184693
-#> 27    AR h=1       MAE   test 0.6926596 0.3086385 0.5006490
-#> 28  true h=5       MAE   test 1.1179249 1.3852854 1.2516052
-#> 29   AR1 h=5       MAE   test 1.2084904 1.5380311 1.3732607
-#> 30    AR h=5       MAE   test 1.1201251 1.4008479 1.2604865
-#> 31  true h=1     MdRAE   test 0.3303844 0.1110197 0.2029135
-#> 32   AR1 h=1     MdRAE   test 0.3618924 0.1324323 0.2163938
-#> 33    AR h=1     MdRAE   test 0.3462281 0.1021306 0.2055096
-#> 34  true h=5     MdRAE   test 0.8782822 0.8480689 0.8562370
-#> 35   AR1 h=5     MdRAE   test 0.8941141 0.9805714 0.9360010
-#> 36    AR h=5     MdRAE   test 0.8840215 0.8551495 0.8651375
+#> 1   true h=1      RMSE  train 0.6719019 2.3451931 1.7250193
+#> 2    AR1 h=1      RMSE  train 0.8927488 2.4775867 1.8621810
+#> 3     AR h=1      RMSE  train 0.6539811 2.2875270 1.6823304
+#> 4   true h=5      RMSE  train 2.9639855 4.1420597 3.6015183
+#> 5    AR1 h=5      RMSE  train 2.9458916 4.0902008 3.5642685
+#> 6     AR h=5      RMSE  train 2.9084169 4.0811860 3.5436541
+#> 7   true h=1       MAE  train 0.5419697 1.7596616 1.1508157
+#> 8    AR1 h=1       MAE  train 0.6761560 1.8638281 1.2699921
+#> 9     AR h=1       MAE  train 0.5234412 1.7440020 1.1337216
+#> 10  true h=5       MAE  train 2.2678501 3.2323421 2.7500961
+#> 11   AR1 h=5       MAE  train 2.2625911 3.2567509 2.7596710
+#> 12    AR h=5       MAE  train 2.3003365 3.2142164 2.7572764
+#> 13  true h=1     MdRAE  train 0.3714473 0.7019594 0.5446233
+#> 14   AR1 h=1     MdRAE  train 0.4768955 0.7407391 0.5369586
+#> 15    AR h=1     MdRAE  train 0.3718159 0.6523235 0.5372316
+#> 16  true h=5     MdRAE  train 0.6353331 0.6557029 0.6557029
+#> 17   AR1 h=5     MdRAE  train 0.6863424 0.6090035 0.6386169
+#> 18    AR h=5     MdRAE  train 0.5802512 0.5521782 0.5767738
+#> 19  true h=1      RMSE   test 0.6970850 2.4257264 1.7846675
+#> 20   AR1 h=1      RMSE   test 0.9516563 2.6068528 1.9623113
+#> 21    AR h=1      RMSE   test 0.7260734 2.5167108 1.8521631
+#> 22  true h=5      RMSE   test 3.8720195 5.0745797 4.5135293
+#> 23   AR1 h=5      RMSE   test 3.6869466 4.9815370 4.3823102
+#> 24    AR h=5      RMSE   test 4.0055572 5.2691697 4.6802050
+#> 25  true h=1       MAE   test 0.5570119 1.9958262 1.2764190
+#> 26   AR1 h=1       MAE   test 0.7689192 2.1064866 1.4377029
+#> 27    AR h=1       MAE   test 0.5982744 2.0370860 1.3176802
+#> 28  true h=5       MAE   test 3.1962482 4.0687861 3.6325171
+#> 29   AR1 h=5       MAE   test 2.9970296 3.9463451 3.4716873
+#> 30    AR h=5       MAE   test 3.2446598 4.1651370 3.7048984
+#> 31  true h=1     MdRAE   test 0.3119790 0.5488354 0.3990913
+#> 32   AR1 h=1     MdRAE   test 0.3860908 0.6555889 0.4772513
+#> 33    AR h=1     MdRAE   test 0.3212286 0.6320373 0.4341362
+#> 34  true h=5     MdRAE   test 0.5076402 0.4327344 0.4643516
+#> 35   AR1 h=5     MdRAE   test 0.4910610 0.3828607 0.4365129
+#> 36    AR h=5     MdRAE   test 0.5129465 0.3895001 0.4723429
 ```
