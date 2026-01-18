@@ -1,0 +1,136 @@
+# Rational Linear Dynamic Models (RLDM)
+
+This `RLDM` (Rational Linear Dynamic Models) R package provides models
+for stationary processes with a rational spectral density and methods
+for their estimation. We will refer to them as **rational models**. It
+builds heavily on its sister R package `rationalmatrices`, see
+<https://bfunovits.github.io/rationalmatrices/>.
+
+## Installation
+
+You can install the latest version of the code using the `remotes` R
+package.
+
+    remotes::install_github("bfunovits/RLDM")
+
+## Content
+
+The package provides the following sets of functions whose documentation
+can be found in the reference page
+<https://bfunovits.github.io/RLDM/reference> of the website
+<https://bfunovits.github.io/RLDM/> (created with
+<https://pkgdown.r-lib.org/>):
+
+- Classes for the construction of rational models (consisting of an
+  input covariance matrix and a rational matrix function from the
+  `rationalmatrices` package):
+  - VARMA models
+    [`armamod()`](https://bfunovits.github.io/RLDM/reference/armamod.md)
+  - State space models
+    [`stspmod()`](https://bfunovits.github.io/RLDM/reference/stspmod.md)
+  - Right matrix fraction description (RMFD) models
+    [`rmfdmod()`](https://bfunovits.github.io/RLDM/reference/rmfdmod.md)
+    (which is experimental)
+- Templates for filling the linear parameters with deep parameters
+  through an affine mapping. Consists of
+  - a matrix $H$ where the number of rows is the number of linear
+    parameters in a given model and the number of columns is the number
+    of deep parameters in a given model
+  - a column vector $h$ of appropriate dimension
+
+See
+[`help("model structures")`](https://bfunovits.github.io/RLDM/reference/model_structures.md)
+and
+[`help("local model structures")`](https://bfunovits.github.io/RLDM/reference/local_model_structures.md)
+for more details.
+
+- Generic functions to create objects which are derived from these
+  rational models
+
+  - The autocovariance sequence, see
+    [`autocov()`](https://bfunovits.github.io/RLDM/reference/autocov.md)
+  - Spectral density, see
+    [`spectrald()`](https://bfunovits.github.io/RLDM/reference/spectrald.md)
+  - The transfer function/impulse response function (IRF), see
+    [`impresp()`](https://bfunovits.github.io/RLDM/reference/impresp.md)
+    - Forecast error variance decomposition, see
+      [`fevardec()`](https://bfunovits.github.io/RLDM/reference/fevardec.md),
+      for a given IRF
+  - Frequency response (the transfer function evaluated on the unit
+    circle), see
+    [`freqresp()`](https://bfunovits.github.io/RLDM/reference/freqresp.md)
+
+- Several other generic functions which extend R’s generic functions
+
+  - [`plot()`](https://rdrr.io/r/graphics/plot.default.html),
+    [`print()`](https://rdrr.io/r/base/print.html),
+    [`str()`](https://rdrr.io/r/utils/str.html),
+    [`predict()`](https://bfunovits.github.io/RLDM/reference/predict.md)
+
+- Some helpers for estimation methods:
+  [`solve_de()`](https://bfunovits.github.io/RLDM/reference/solve_de.md),
+  [`solve_inverse_de()`](https://bfunovits.github.io/RLDM/reference/solve_de.md),
+  and more
+
+- Moment estimation methods for
+
+  - AR models, see
+    e.g. [`est_ar()`](https://bfunovits.github.io/RLDM/reference/est_ar.md)
+  - ARMA models, see the Hannan-Rissannen-Kavalieris algorithm in
+    [`est_arma_hrk3()`](https://bfunovits.github.io/RLDM/reference/est_arma_hrk3.md)
+  - state space models, see
+    e.g. [`est_stsp_cca()`](https://bfunovits.github.io/RLDM/reference/subspace-helpers.md)
+
+- Likelihood estimation methods
+
+  - [`ll()`](https://bfunovits.github.io/RLDM/reference/ll.md)
+  - [`ll_theta()`](https://bfunovits.github.io/RLDM/reference/ll_theta.md)
+    and
+    [`ll_FUN()`](https://bfunovits.github.io/RLDM/reference/ll_FUN.md)
+    for the estimation of the deep parameters of a rational model
+  - [`ll_kf()`](https://bfunovits.github.io/RLDM/reference/ll_kf.md)
+
+- Some more tooling like
+
+  - simulation in
+    [`sim()`](https://bfunovits.github.io/RLDM/reference/sim.md)
+  - model comparison in
+    [`KL_divergence()`](https://bfunovits.github.io/RLDM/reference/KL_divergence.md),
+    [`pm_test()`](https://bfunovits.github.io/RLDM/reference/pm_test.md),
+    [`compare_estimates()`](https://bfunovits.github.io/RLDM/reference/compare_estimates.md)
+
+## Getting Started
+
+RLDM includes comprehensive documentation organized by user level:
+
+1.  **New to RLDM?** Start with
+    [`vignette("0_getting_started")`](https://bfunovits.github.io/RLDM/articles/0_getting_started.md)
+    - Practical introduction with simple examples
+    - AR models and multivariate VAR/VARMA systems
+    - ~10-15 minute read with executable code
+2.  **Want a complete workflow example?** See
+    [`vignette("1_case_study")`](https://bfunovits.github.io/RLDM/articles/1_case_study.md)
+    - Blanchard-Quah economic data analysis
+    - Comparing AR, state space, and ARMA models
+    - Model selection, diagnostics, and forecasting
+3.  **Need technical details?** Consult
+    [`vignette("2_technical_reference")`](https://bfunovits.github.io/RLDM/articles/2_technical_reference.md)
+    - Complete class and method documentation
+    - Mathematical foundations
+    - Method selection guidance
+
+## Installation Notes
+
+The package depends on `rationalmatrices`. Install both:
+
+``` r
+remotes::install_github("bfunovits/rationalmatrices")
+remotes::install_github("bfunovits/RLDM")
+```
+
+Then load and explore:
+
+``` r
+library(RLDM)
+browseVignettes("RLDM")  # View all vignettes
+```
