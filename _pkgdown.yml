@@ -1,4 +1,8 @@
 url: https://bfunovits.github.io/RLDM/
+build:
+  exclude:
+  - CLAUDE.md
+  - QUALITY_ASSESSMENT.md
 template:
   bootstrap: 5
 navbar:
@@ -128,6 +132,10 @@ reference:
   - ll_theta
   - ll_kf
   - ll_kf_theta_cpp
+- title: Estimation Methods - Recursive Least Squares
+  contents:
+  - arx_rls_core
+  - rls_exp_cpp
 - title: Model Comparison
   desc: |
     Compare and evaluate estimated models.
