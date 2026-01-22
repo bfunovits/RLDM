@@ -135,7 +135,7 @@ spd1 = spectrald(impresp(arma_model, lag.max = 100))
 # since the impulse response quickly decays
 # the "truncated" spectral density should be close to the true one
 all.equal(spd, spd1)
-#> [1] "Component “spd”: Mean relative Mod difference: 1.59787e-07"
+#> [1] TRUE
 
 # compute the spectral density via the autocovariance function
 spd1 = spectrald(autocov(arma_model, lag.max = 100))
@@ -143,7 +143,7 @@ spd1 = spectrald(autocov(arma_model, lag.max = 100))
 # since the ACF quickly decays
 # the "truncated" spectral density should be close to the true one
 all.equal(spd, spd1)
-#> [1] "Component “spd”: Mean relative Mod difference: 1.345997e-07"
+#> [1] TRUE
 
 # create an equivalent state space model
 stsp_model = as.stspmod(arma_model)

@@ -161,7 +161,7 @@ spectral density.</p>
 <span class="r-in"><span><span class="co"># since the impulse response quickly decays</span></span></span>
 <span class="r-in"><span><span class="co"># the "truncated" spectral density should be close to the true one</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">spd</span>, <span class="va">spd1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Component “spd”: Mean relative Mod difference: 1.59787e-07"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># compute the spectral density via the autocovariance function</span></span></span>
 <span class="r-in"><span><span class="va">spd1</span> <span class="op">=</span> <span class="fu">spectrald</span><span class="op">(</span><span class="fu"><a href="autocov.html">autocov</a></span><span class="op">(</span><span class="va">arma_model</span>, lag.max <span class="op">=</span> <span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -169,7 +169,7 @@ spectral density.</p>
 <span class="r-in"><span><span class="co"># since the ACF quickly decays</span></span></span>
 <span class="r-in"><span><span class="co"># the "truncated" spectral density should be close to the true one</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">spd</span>, <span class="va">spd1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Component “spd”: Mean relative Mod difference: 1.345997e-07"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># create an equivalent state space model</span></span></span>
 <span class="r-in"><span><span class="va">stsp_model</span> <span class="op">=</span> <span class="fu"><a href="as.stspmod.html">as.stspmod</a></span><span class="op">(</span><span class="va">arma_model</span><span class="op">)</span></span></span>
