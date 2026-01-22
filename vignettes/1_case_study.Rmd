@@ -298,6 +298,18 @@ cat("ARMA ML (Echelon Form):\n")
 print(model)
 ```
 
+### Converting Between Representations
+
+RLDM provides functions to convert between state space and ARMA representations. Since the ML-refined models are equivalent, we can convert between them:
+
+```{r}
+# Convert state space (SSECF) to ARMA representation
+arma_from_ss <- armamod(lmfd(models$SSECF$sys),
+                       sigma_L = models$SSECF$sigma_L)
+cat("ARMA representation of SSECF model:\n")
+print(arma_from_ss)
+```
+
 ---
 
 # Model Comparison and Selection

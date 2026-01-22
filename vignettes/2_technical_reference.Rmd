@@ -153,6 +153,13 @@ Key methods:
 
 The `stspmod` class represents processes in canonical **state space** form.
 
+State space models offer several advantages over other representations:
+
+- **Minimality**: The state dimension $s$ represents the essential "memory" of the system, providing the most compact representation.
+- **Balancing**: Realizations can be balanced to improve numerical stability (`balance` parameter in template functions).
+- **Latent state interpretation**: Hidden states can represent meaningful unobserved components (trends, cycles, factors).
+- **Flexibility**: Can model complex dynamics with relatively few parameters through appropriate state dimension selection.
+
 ### Structure
 
 An `stspmod` object is an S3 list with slots:
@@ -432,6 +439,14 @@ est_stsp_ss(data, method = "cca", s = NULL,
 - Suitable when no prior knowledge of system structure
 - Good numerical properties
 
+**State Dimension Selection:** When `s = NULL` (default), CCA automatically selects state dimension using singular value criteria. For manual selection, consider:
+- **Singular Value Criterion (SVC)**: Look for a gap in singular values of the weighted Hankel matrix
+- **Information Criteria**: AIC/BIC computed for different state dimensions
+- **Cross-validation**: Out-of-sample prediction performance
+- **Interpretability**: Choose dimension that matches expected number of latent factors
+
+In practice, start with automatic selection via `est_stsp_ss()` with `s = NULL`, then inspect the singular values plot (if available) or compare information criteria across dimensions.
+
 ### Subspace Methods: `est_stsp_ss(method = "cca"/"ho"/"moesp")`
 
 Multiple subspace identification methods available through matrix fraction estimation.
@@ -564,6 +579,22 @@ For VARMA models in canonical form, **Kronecker indices** $(n_1, \ldots, n_m)$ d
 | **AR** | Baseline, simple systems | Fast, stable, interpretable | May need high order |
 | **ARMA** | Parsimonious fits | Fewer parameters | Parameter estimation harder |
 | **State Space** | Complex systems, latent factors | Flexible, interpretable states | Requires order selection |
+
+## Choosing State Space Parameterizations
+
+RLDM supports several state space parameterizations, each with different strengths:
+
+| Parameterization | When to Use | Key Features | Estimation Method |
+|------------------|-------------|--------------|-------------------|
+| **CCA (Canonical Correlation Analysis)** | Initial exploration, data-driven order selection | Automatic state dimension selection, good initial estimates | `est_stsp_ss(method = "cca")` |
+| **DDLC (Diagonal-Direct-Lead-Coefficient)** | Maximum likelihood refinement, stable optimization | Numerically stable, orthogonal to equivalence classes | ML with `tmpl_DDLC()` + `optim()` |
+| **Echelon Form** | Parsimonious canonical representation, structural restrictions | Minimal parameters via Kronecker indices, identifiable | `tmpl_stsp_echelon()` + ML |
+
+**Guidelines:**
+1. **Start with CCA** for initial model discovery and automatic order selection
+2. **Refine with DDLC** for maximum likelihood estimation with good numerical properties
+3. **Use echelon form** when you need canonical, identifiable representations with structural restrictions
+4. **Convert between forms** using `pseries2stsp()` and template functions as needed
 
 ## Model Comparison Workflow
 

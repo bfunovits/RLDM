@@ -69,12 +69,12 @@ Let's start with a simple univariate time series. We'll generate synthetic data 
 # Simulate an AR(1) process: y_t = 0.8*y_{t-1} + u_t
 #
 # In RLDM convention: y_t - 0.8*y_{t-1} = u_t
-a_coef <- matrix(-0.8)  # AR coefficient with sign convention
-b_coef <- matrix(1)     # MA term (just white noise)
+a_coef <-c(1, -0.8)  # AR coefficient with sign convention
+b_coef <- c(1)     # MA term (just white noise)
 sys <- lmfd(a_coef, b_coef)
 
 # Create ARMA model with noise variance = 1
-model_true <- armamod(sys, sigma_L = matrix(1), label = "AR(1)")
+model_true <- armamod(sys, sigma_L = 1, label = "AR(1)")
 
 # Simulate 200 observations
 y_list <- sim(model_true, n.obs = 200)
@@ -160,11 +160,14 @@ Now let's work with a **multivariate system** - a 2-dimensional VAR(1) model.
 ```{r, fig.alt="Time series plot of two correlated series from a bivariate VAR(1) process with 300 observations each"}
 # Define a 2D VAR(1) model
 #
-# [ y1_t ]   [ 0.8  0.1 ] [ y1_{t-1} ]   [ u1_t ]
-# [ y2_t ] = [ 0.2  0.7 ] [ y2_{t-1} ] + [ u2_t ]
+# [ y1_t ]   [ 0.8  0.2 ] [ y1_{t-1} ]   [ u1_t ]
+# [ y2_t ] = [ 0.1  0.7 ] [ y2_{t-1} ] + [ u2_t ]
 
 # AR matrices (note sign convention)
-A1 <- matrix(c(-0.8, -0.2, -0.1, -0.7), nrow = 2, byrow = TRUE)
+A1 <- matrix(c(1, 0, -0.8, -0.2, 
+               0, 1, -0.1, -0.7), 
+             nrow = 2, byrow = TRUE)
+A1 = array(A1, dim = c(2,2,2))            
 B0 <- diag(2)
 
 # Create VARMA system
@@ -232,6 +235,114 @@ acov <- autocov(result_var$model, lag.max = 10, type = "correlation")
 # Plot correlations
 plot(acov, main = "Sample and Model ACF")
 ```
+
+## State Space Example: Simple Dynamic System
+
+State space models provide an alternative way to represent dynamic systems using **hidden state variables**. They are particularly useful for:
+
+- **Minimal representations** of complex dynamics
+- **Interpretable latent components** (trends, cycles, factors)
+- **Numerically stable computations** through balanced realizations
+- **Flexible model structures** beyond standard ARMA forms
+
+### Create and Simulate a State Space Model
+
+Let's create a state space representation of the same AR(1) process we saw earlier ($y_t = 0.8y_{t-1} + u_t$). In state space form:
+
+$$
+s_{t+1} = 0.8 s_t + u_t \\
+y_t = s_t
+$$
+
+where $s_t$ is the state variable (in this case, simply $y_t$ itself).
+
+```{r, fig.alt="Time series plot of simulated state space AR(1) process"}
+# State space representation of AR(1) with coefficient 0.8
+A <- matrix(0.8)  # State transition
+B <- matrix(1)    # Input matrix
+C <- matrix(1)    # Observation matrix
+D <- matrix(0)    # Direct feedthrough
+
+# Create state space system
+sys_ss <- stsp(A, B, C, D)
+
+# Create model with unit noise variance
+model_ss <- stspmod(sys_ss, sigma_L = matrix(1), label = "State Space AR(1)")
+
+# Simulate 200 observations (different seed from earlier example)
+set.seed(123)
+sim_data <- sim(model_ss, n.obs = 200)
+y_ss <- sim_data$y
+
+# Plot the simulated data
+plot.ts(y_ss, main = "Simulated State Space AR(1) Process",
+        ylab = "y_t", type = 'l')
+```
+
+### Estimate State Space Model from Data
+
+Now let's estimate a state space model from this simulated data using the Canonical Correlation Analysis (CCA) method:
+
+```{r}
+# Estimate state space model using CCA
+result_ss <- est_stsp_ss(y_ss, method = "cca", mean_estimate = "zero")
+
+cat("Estimated state space model:\n")
+print(result_ss$model)
+
+cat("\nSelected state dimension:", result_ss$s, "\n")
+cat("Estimated A matrix:", result_ss$model$sys$A, "\n")
+cat("True A matrix:", A, "\n")
+```
+
+### Analyze the Estimated Model
+
+```{r, fig.alt="Impulse response function from estimated state space model"}
+# Compute impulse responses
+irf_ss <- impresp(result_ss$model, lag.max = 20)
+
+# Plot impulse responses
+plot(irf_ss, main = "Impulse Response Function")
+```
+
+```{r, fig.alt="One-step ahead predictions from estimated state space model"}
+# Make one-step ahead predictions
+pred_ss <- predict(result_ss$model, y_ss, h = 1)
+
+# Plot recent data and predictions
+n_obs <- length(y_ss)
+plot_range <- max(1, n_obs - 40):n_obs
+plot(plot_range, y_ss[plot_range], type = 'l',
+     xlab = "Time", ylab = "Value",
+     main = "Data and One-Step Predictions")
+lines(plot_range[-1], pred_ss$yhat[plot_range[-1], 1],
+      col = 'blue', lwd = 2)
+legend("topleft", c("Data", "Prediction"),
+       col = c("black", "blue"), lty = 1)
+```
+
+### Comparing State Space and AR Representations
+
+The state space representation is **equivalent** to the AR(1) model we estimated earlier. RLDM allows you to convert between representations:
+
+```{r}
+# Convert state space to ARMA representation
+arma_from_ss <- armamod(lmfd(result_ss$model$sys),
+                       sigma_L = result_ss$model$sigma_L)
+
+cat("ARMA representation of estimated state space model:\n")
+print(arma_from_ss)
+```
+
+### When to Use State Space Models
+
+State space models are particularly useful when:
+- You need **interpretable latent states** (e.g., trend, cycle, seasonal components)
+- Your system has **natural state variables** (e.g., physical systems)
+- You want **minimal representations** with balanced realizations
+- You're working with **high-dimensional systems** where state dimension can be smaller than AR order
+
+For more advanced state space modeling, including different parameterizations (CCA, DDLC, echelon form) and estimation methods, see the **Case Study** vignette.
 
 ## Where to Go Next
 
