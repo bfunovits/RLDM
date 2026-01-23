@@ -49,5 +49,5 @@ The poles and zeroes are the poles and zeroes of the rational transfer function
 \seealso{
 For more details we refer to the discussion about the computation of poles and zeros
 of rational matrices in the companion package,
-see \link[rationalmatrices:poles]{rationalmatrices::poles and zeroes}.
+see \link[rationalmatrices:poles_and_zeroes]{rationalmatrices::poles and zeroes}.
 }

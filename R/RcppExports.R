@@ -58,6 +58,34 @@ ll_kf_theta_cpp <- function(theta, y, SYS, H_SYS, h_SYS, sigma_L, H_sigma_L, h_s
     .Call(`_RLDM_ll_kf_theta_cpp`, theta, y, SYS, H_SYS, h_SYS, sigma_L, H_sigma_L, h_sigma_L, VAR, P1, tol, err)
 }
 
+#' @name pf
+#' @rdname pf
+#' @export
+pf_sir_cpp <- function(A, C, Q, R, S, y_t, P1, a1, N_particles = 1000L, resampling = "systematic", ess_threshold = 0.5) {
+    .Call(`_RLDM_pf_sir_cpp`, A, C, Q, R, S, y_t, P1, a1, N_particles, resampling, ess_threshold)
+}
+
+#' @name pf
+#' @rdname pf
+#' @export
+pf_apf_cpp <- function(A, C, Q, R, S, y_t, P1, a1, N_particles = 1000L, resampling = "systematic", ess_threshold = 0.5) {
+    .Call(`_RLDM_pf_apf_cpp`, A, C, Q, R, S, y_t, P1, a1, N_particles, resampling, ess_threshold)
+}
+
+#' @name pf
+#' @rdname pf
+#' @export
+pf_optimal_cpp <- function(A, C, Q, R, S, y_t, P1, a1, N_particles = 1000L, resampling = "systematic", ess_threshold = 0.5) {
+    .Call(`_RLDM_pf_optimal_cpp`, A, C, Q, R, S, y_t, P1, a1, N_particles, resampling, ess_threshold)
+}
+
+#' @name ll_pf
+#' @rdname ll_pf
+#' @export
+ll_pf_cpp <- function(A, C, Q, R, S, y_t, P1, a1, N_particles = 1000L, filter_type = "sir", resampling = "systematic", ess_threshold = 0.5, N_runs = 10L) {
+    .Call(`_RLDM_ll_pf_cpp`, A, C, Q, R, S, y_t, P1, a1, N_particles, filter_type, resampling, ess_threshold, N_runs)
+}
+
 showMatrix <- function(X, name) {
     invisible(.Call(`_RLDM_showMatrix`, X, name))
 }

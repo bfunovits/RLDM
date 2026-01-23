@@ -126,6 +126,62 @@ Furthermore the limits for the y-axis are computed based on the
 corresponding data subset. This option may be used to "zoom"
 into a certain range of frequencies.}
 
+\item{main}{(character or \code{\link{expression}}) main title of the plot}
+
+\item{xlab}{(character string or \code{\link{expression}}) label for the x-axis}
+
+\item{ylab}{(character or \code{\link{expression}}) label for the y-axis}
+
+\item{subfigure_main}{scalar or \code{(m x n)} matrix of type "character"
+with the titles for the subfigures. If subfigure_main is a scalar
+character string then the procedures creates a matrix of respective titles
+by replacing the "place holders" '\code{i_}' and '\code{j_}'
+with the respective row and column number.}
+
+\item{parse_subfigure_main}{boolean. If \code{TRUE} then the titles for the subfigures
+are parsed to \code{\link{expression}} before plotting. See also
+\code{\link[grDevices]{plotmath}} on the usage of expressions for
+plot annotations.}
+
+\item{style}{(character string) determines the appearance of the plot
+(background color of the plot regions, color and line style of the
+grid lines, axis color, ...) See also \code{\link[rationalmatrices]{style_parameters}}.}
+
+\item{col}{vector of line colors}
+
+\item{type}{vector of plot types. The following values are possible: 
+"p" for points,
+"l" for lines, 
+"b" for both points and lines, 
+"c" for empty points joined by lines,
+"o" for overplotted points and lines, 
+"s" and "S" for stair steps and
+"h" for histogram-like vertical lines. 
+\code{'n'} suppresses plotting.}
+
+\item{lty}{vector of line types. Line types can either be specified as integers
+(0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash)
+or as one of the character strings "blank", "solid", "dashed", "dotted", "dotdash",
+"longdash", or "twodash", where "blank" uses ‘invisible lines’ (i.e., does not draw them).}
+
+\item{lwd}{vector of line widths.}
+
+\item{pch}{vector of plotting character or symbols. See \code{\link{points}} for possible
+values.}
+
+\item{cex.points}{vector of scales for the plotting symbols.}
+
+\item{bg.points}{vector of fill color for the open plot symbols.}
+
+\item{legend}{(character or \code{\link{expression}} vector). If \code{NULL} then
+no legend is produced.}
+
+\item{legend_args}{(optional) list with parameters for the legend. 
+A legend title can be included with \code{legend_args = list(title = my_legend_title)}.
+Note that the slots \code{x}, \code{y} are ignored and the legend is always put at the
+right hand side of the plot. 
+See also \code{\link[graphics]{legend}}.}
+
 \item{...}{not used.}
 
 \item{sampling_rate}{(number) sampling rate.}

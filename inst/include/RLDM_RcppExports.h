@@ -130,6 +130,90 @@ namespace RLDM {
         return Rcpp::as<double >(rcpp_result_gen);
     }
 
+    inline Rcpp::List pf_sir_cpp(const arma::mat& A, const arma::mat& C, const arma::mat& Q, const arma::mat& R, const arma::mat& S, const arma::mat& y_t, const arma::mat& P1, const arma::colvec& a1, int N_particles = 1000, const std::string& resampling = "systematic", double ess_threshold = 0.5) {
+        typedef SEXP(*Ptr_pf_sir_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_pf_sir_cpp p_pf_sir_cpp = NULL;
+        if (p_pf_sir_cpp == NULL) {
+            validateSignature("Rcpp::List(*pf_sir_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::colvec&,int,const std::string&,double)");
+            p_pf_sir_cpp = (Ptr_pf_sir_cpp)R_GetCCallable("RLDM", "_RLDM_pf_sir_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_pf_sir_cpp(Shield<SEXP>(Rcpp::wrap(A)), Shield<SEXP>(Rcpp::wrap(C)), Shield<SEXP>(Rcpp::wrap(Q)), Shield<SEXP>(Rcpp::wrap(R)), Shield<SEXP>(Rcpp::wrap(S)), Shield<SEXP>(Rcpp::wrap(y_t)), Shield<SEXP>(Rcpp::wrap(P1)), Shield<SEXP>(Rcpp::wrap(a1)), Shield<SEXP>(Rcpp::wrap(N_particles)), Shield<SEXP>(Rcpp::wrap(resampling)), Shield<SEXP>(Rcpp::wrap(ess_threshold)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
+    }
+
+    inline Rcpp::List pf_apf_cpp(const arma::mat& A, const arma::mat& C, const arma::mat& Q, const arma::mat& R, const arma::mat& S, const arma::mat& y_t, const arma::mat& P1, const arma::colvec& a1, int N_particles = 1000, const std::string& resampling = "systematic", double ess_threshold = 0.5) {
+        typedef SEXP(*Ptr_pf_apf_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_pf_apf_cpp p_pf_apf_cpp = NULL;
+        if (p_pf_apf_cpp == NULL) {
+            validateSignature("Rcpp::List(*pf_apf_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::colvec&,int,const std::string&,double)");
+            p_pf_apf_cpp = (Ptr_pf_apf_cpp)R_GetCCallable("RLDM", "_RLDM_pf_apf_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_pf_apf_cpp(Shield<SEXP>(Rcpp::wrap(A)), Shield<SEXP>(Rcpp::wrap(C)), Shield<SEXP>(Rcpp::wrap(Q)), Shield<SEXP>(Rcpp::wrap(R)), Shield<SEXP>(Rcpp::wrap(S)), Shield<SEXP>(Rcpp::wrap(y_t)), Shield<SEXP>(Rcpp::wrap(P1)), Shield<SEXP>(Rcpp::wrap(a1)), Shield<SEXP>(Rcpp::wrap(N_particles)), Shield<SEXP>(Rcpp::wrap(resampling)), Shield<SEXP>(Rcpp::wrap(ess_threshold)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
+    }
+
+    inline Rcpp::List pf_optimal_cpp(const arma::mat& A, const arma::mat& C, const arma::mat& Q, const arma::mat& R, const arma::mat& S, const arma::mat& y_t, const arma::mat& P1, const arma::colvec& a1, int N_particles = 1000, const std::string& resampling = "systematic", double ess_threshold = 0.5) {
+        typedef SEXP(*Ptr_pf_optimal_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_pf_optimal_cpp p_pf_optimal_cpp = NULL;
+        if (p_pf_optimal_cpp == NULL) {
+            validateSignature("Rcpp::List(*pf_optimal_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::colvec&,int,const std::string&,double)");
+            p_pf_optimal_cpp = (Ptr_pf_optimal_cpp)R_GetCCallable("RLDM", "_RLDM_pf_optimal_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_pf_optimal_cpp(Shield<SEXP>(Rcpp::wrap(A)), Shield<SEXP>(Rcpp::wrap(C)), Shield<SEXP>(Rcpp::wrap(Q)), Shield<SEXP>(Rcpp::wrap(R)), Shield<SEXP>(Rcpp::wrap(S)), Shield<SEXP>(Rcpp::wrap(y_t)), Shield<SEXP>(Rcpp::wrap(P1)), Shield<SEXP>(Rcpp::wrap(a1)), Shield<SEXP>(Rcpp::wrap(N_particles)), Shield<SEXP>(Rcpp::wrap(resampling)), Shield<SEXP>(Rcpp::wrap(ess_threshold)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<Rcpp::List >(rcpp_result_gen);
+    }
+
+    inline double ll_pf_cpp(const arma::mat& A, const arma::mat& C, const arma::mat& Q, const arma::mat& R, const arma::mat& S, const arma::mat& y_t, const arma::mat& P1, const arma::colvec& a1, int N_particles = 1000, const std::string& filter_type = "sir", const std::string& resampling = "systematic", double ess_threshold = 0.5, unsigned int N_runs = 10) {
+        typedef SEXP(*Ptr_ll_pf_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP,SEXP);
+        static Ptr_ll_pf_cpp p_ll_pf_cpp = NULL;
+        if (p_ll_pf_cpp == NULL) {
+            validateSignature("double(*ll_pf_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::colvec&,int,const std::string&,const std::string&,double,unsigned int)");
+            p_ll_pf_cpp = (Ptr_ll_pf_cpp)R_GetCCallable("RLDM", "_RLDM_ll_pf_cpp");
+        }
+        RObject rcpp_result_gen;
+        {
+            RNGScope RCPP_rngScope_gen;
+            rcpp_result_gen = p_ll_pf_cpp(Shield<SEXP>(Rcpp::wrap(A)), Shield<SEXP>(Rcpp::wrap(C)), Shield<SEXP>(Rcpp::wrap(Q)), Shield<SEXP>(Rcpp::wrap(R)), Shield<SEXP>(Rcpp::wrap(S)), Shield<SEXP>(Rcpp::wrap(y_t)), Shield<SEXP>(Rcpp::wrap(P1)), Shield<SEXP>(Rcpp::wrap(a1)), Shield<SEXP>(Rcpp::wrap(N_particles)), Shield<SEXP>(Rcpp::wrap(filter_type)), Shield<SEXP>(Rcpp::wrap(resampling)), Shield<SEXP>(Rcpp::wrap(ess_threshold)), Shield<SEXP>(Rcpp::wrap(N_runs)));
+        }
+        if (rcpp_result_gen.inherits("interrupted-error"))
+            throw Rcpp::internal::InterruptedException();
+        if (Rcpp::internal::isLongjumpSentinel(rcpp_result_gen))
+            throw Rcpp::LongjumpException(rcpp_result_gen);
+        if (rcpp_result_gen.inherits("try-error"))
+            throw Rcpp::exception(Rcpp::as<std::string>(rcpp_result_gen).c_str());
+        return Rcpp::as<double >(rcpp_result_gen);
+    }
+
     inline void outputs_ARMA_cpp(const arma::mat& A1, const arma::mat& B, int t0, const arma::mat& u, arma::mat& y) {
         typedef SEXP(*Ptr_outputs_ARMA_cpp)(SEXP,SEXP,SEXP,SEXP,SEXP);
         static Ptr_outputs_ARMA_cpp p_outputs_ARMA_cpp = NULL;

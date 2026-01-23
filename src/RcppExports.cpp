@@ -50,7 +50,7 @@ RcppExport SEXP _RLDM_kf_cpp(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, SEX
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -89,7 +89,7 @@ RcppExport SEXP _RLDM_kf2_cpp(SEXP ASEXP, SEXP CSEXP, SEXP H_tSEXP, SEXP y_tSEXP
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -131,7 +131,7 @@ RcppExport SEXP _RLDM_ll_kf_cpp(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -171,7 +171,7 @@ RcppExport SEXP _RLDM_ll_kf2_cpp(SEXP ASEXP, SEXP CSEXP, SEXP H_tSEXP, SEXP y_tS
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -216,7 +216,185 @@ RcppExport SEXP _RLDM_ll_kf_theta_cpp(SEXP thetaSEXP, SEXP ySEXP, SEXP SYSSEXP, 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// pf_sir_cpp
+Rcpp::List pf_sir_cpp(const arma::mat& A, const arma::mat& C, const arma::mat& Q, const arma::mat& R, const arma::mat& S, const arma::mat& y_t, const arma::mat& P1, const arma::colvec& a1, int N_particles, const std::string& resampling, double ess_threshold);
+static SEXP _RLDM_pf_sir_cpp_try(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, SEXP SSEXP, SEXP y_tSEXP, SEXP P1SEXP, SEXP a1SEXP, SEXP N_particlesSEXP, SEXP resamplingSEXP, SEXP ess_thresholdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type C(CSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type R(RSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type S(SSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type y_t(y_tSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type P1(P1SEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type a1(a1SEXP);
+    Rcpp::traits::input_parameter< int >::type N_particles(N_particlesSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type resampling(resamplingSEXP);
+    Rcpp::traits::input_parameter< double >::type ess_threshold(ess_thresholdSEXP);
+    rcpp_result_gen = Rcpp::wrap(pf_sir_cpp(A, C, Q, R, S, y_t, P1, a1, N_particles, resampling, ess_threshold));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _RLDM_pf_sir_cpp(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, SEXP SSEXP, SEXP y_tSEXP, SEXP P1SEXP, SEXP a1SEXP, SEXP N_particlesSEXP, SEXP resamplingSEXP, SEXP ess_thresholdSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_RLDM_pf_sir_cpp_try(ASEXP, CSEXP, QSEXP, RSEXP, SSEXP, y_tSEXP, P1SEXP, a1SEXP, N_particlesSEXP, resamplingSEXP, ess_thresholdSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// pf_apf_cpp
+Rcpp::List pf_apf_cpp(const arma::mat& A, const arma::mat& C, const arma::mat& Q, const arma::mat& R, const arma::mat& S, const arma::mat& y_t, const arma::mat& P1, const arma::colvec& a1, int N_particles, const std::string& resampling, double ess_threshold);
+static SEXP _RLDM_pf_apf_cpp_try(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, SEXP SSEXP, SEXP y_tSEXP, SEXP P1SEXP, SEXP a1SEXP, SEXP N_particlesSEXP, SEXP resamplingSEXP, SEXP ess_thresholdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type C(CSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type R(RSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type S(SSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type y_t(y_tSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type P1(P1SEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type a1(a1SEXP);
+    Rcpp::traits::input_parameter< int >::type N_particles(N_particlesSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type resampling(resamplingSEXP);
+    Rcpp::traits::input_parameter< double >::type ess_threshold(ess_thresholdSEXP);
+    rcpp_result_gen = Rcpp::wrap(pf_apf_cpp(A, C, Q, R, S, y_t, P1, a1, N_particles, resampling, ess_threshold));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _RLDM_pf_apf_cpp(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, SEXP SSEXP, SEXP y_tSEXP, SEXP P1SEXP, SEXP a1SEXP, SEXP N_particlesSEXP, SEXP resamplingSEXP, SEXP ess_thresholdSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_RLDM_pf_apf_cpp_try(ASEXP, CSEXP, QSEXP, RSEXP, SSEXP, y_tSEXP, P1SEXP, a1SEXP, N_particlesSEXP, resamplingSEXP, ess_thresholdSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// pf_optimal_cpp
+Rcpp::List pf_optimal_cpp(const arma::mat& A, const arma::mat& C, const arma::mat& Q, const arma::mat& R, const arma::mat& S, const arma::mat& y_t, const arma::mat& P1, const arma::colvec& a1, int N_particles, const std::string& resampling, double ess_threshold);
+static SEXP _RLDM_pf_optimal_cpp_try(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, SEXP SSEXP, SEXP y_tSEXP, SEXP P1SEXP, SEXP a1SEXP, SEXP N_particlesSEXP, SEXP resamplingSEXP, SEXP ess_thresholdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type C(CSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type R(RSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type S(SSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type y_t(y_tSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type P1(P1SEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type a1(a1SEXP);
+    Rcpp::traits::input_parameter< int >::type N_particles(N_particlesSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type resampling(resamplingSEXP);
+    Rcpp::traits::input_parameter< double >::type ess_threshold(ess_thresholdSEXP);
+    rcpp_result_gen = Rcpp::wrap(pf_optimal_cpp(A, C, Q, R, S, y_t, P1, a1, N_particles, resampling, ess_threshold));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _RLDM_pf_optimal_cpp(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, SEXP SSEXP, SEXP y_tSEXP, SEXP P1SEXP, SEXP a1SEXP, SEXP N_particlesSEXP, SEXP resamplingSEXP, SEXP ess_thresholdSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_RLDM_pf_optimal_cpp_try(ASEXP, CSEXP, QSEXP, RSEXP, SSEXP, y_tSEXP, P1SEXP, a1SEXP, N_particlesSEXP, resamplingSEXP, ess_thresholdSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
+    }
+    UNPROTECT(1);
+    return rcpp_result_gen;
+}
+// ll_pf_cpp
+double ll_pf_cpp(const arma::mat& A, const arma::mat& C, const arma::mat& Q, const arma::mat& R, const arma::mat& S, const arma::mat& y_t, const arma::mat& P1, const arma::colvec& a1, int N_particles, const std::string& filter_type, const std::string& resampling, double ess_threshold, unsigned int N_runs);
+static SEXP _RLDM_ll_pf_cpp_try(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, SEXP SSEXP, SEXP y_tSEXP, SEXP P1SEXP, SEXP a1SEXP, SEXP N_particlesSEXP, SEXP filter_typeSEXP, SEXP resamplingSEXP, SEXP ess_thresholdSEXP, SEXP N_runsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type C(CSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type Q(QSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type R(RSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type S(SSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type y_t(y_tSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type P1(P1SEXP);
+    Rcpp::traits::input_parameter< const arma::colvec& >::type a1(a1SEXP);
+    Rcpp::traits::input_parameter< int >::type N_particles(N_particlesSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type filter_type(filter_typeSEXP);
+    Rcpp::traits::input_parameter< const std::string& >::type resampling(resamplingSEXP);
+    Rcpp::traits::input_parameter< double >::type ess_threshold(ess_thresholdSEXP);
+    Rcpp::traits::input_parameter< unsigned int >::type N_runs(N_runsSEXP);
+    rcpp_result_gen = Rcpp::wrap(ll_pf_cpp(A, C, Q, R, S, y_t, P1, a1, N_particles, filter_type, resampling, ess_threshold, N_runs));
+    return rcpp_result_gen;
+END_RCPP_RETURN_ERROR
+}
+RcppExport SEXP _RLDM_ll_pf_cpp(SEXP ASEXP, SEXP CSEXP, SEXP QSEXP, SEXP RSEXP, SEXP SSEXP, SEXP y_tSEXP, SEXP P1SEXP, SEXP a1SEXP, SEXP N_particlesSEXP, SEXP filter_typeSEXP, SEXP resamplingSEXP, SEXP ess_thresholdSEXP, SEXP N_runsSEXP) {
+    SEXP rcpp_result_gen;
+    {
+        Rcpp::RNGScope rcpp_rngScope_gen;
+        rcpp_result_gen = PROTECT(_RLDM_ll_pf_cpp_try(ASEXP, CSEXP, QSEXP, RSEXP, SSEXP, y_tSEXP, P1SEXP, a1SEXP, N_particlesSEXP, filter_typeSEXP, resamplingSEXP, ess_thresholdSEXP, N_runsSEXP));
+    }
+    Rboolean rcpp_isInterrupt_gen = Rf_inherits(rcpp_result_gen, "interrupted-error");
+    if (rcpp_isInterrupt_gen) {
+        UNPROTECT(1);
+        Rf_onintr();
+    }
+    bool rcpp_isLongjump_gen = Rcpp::internal::isLongjumpSentinel(rcpp_result_gen);
+    if (rcpp_isLongjump_gen) {
+        Rcpp::internal::resumeJump(rcpp_result_gen);
+    }
+    Rboolean rcpp_isError_gen = Rf_inherits(rcpp_result_gen, "try-error");
+    if (rcpp_isError_gen) {
+        SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
+        UNPROTECT(1);
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -295,7 +473,7 @@ RcppExport SEXP _RLDM_outputs_ARMA_cpp(SEXP A1SEXP, SEXP BSEXP, SEXP t0SEXP, SEX
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -334,7 +512,7 @@ RcppExport SEXP _RLDM_outputs_STSP_cpp(SEXP ASEXP, SEXP BSEXP, SEXP CSEXP, SEXP 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -374,7 +552,7 @@ RcppExport SEXP _RLDM_fbsolve_STSP_cpp(SEXP ASEXP, SEXP BSEXP, SEXP CSEXP, SEXP 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -411,7 +589,7 @@ RcppExport SEXP _RLDM_solve_rmfd_cpp(SEXP poly_invSEXP, SEXP poly_fwdSEXP, SEXP 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -450,7 +628,7 @@ RcppExport SEXP _RLDM_residuals_ARMA_cpp(SEXP ib0SEXP, SEXP B1SEXP, SEXP ASEXP, 
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -491,7 +669,7 @@ RcppExport SEXP _RLDM_residuals_STSP_cpp(SEXP ASEXP, SEXP BSEXP, SEXP CSEXP, SEX
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -543,7 +721,7 @@ RcppExport SEXP _RLDM_cll_theta_ARMA_cpp(SEXP thSEXP, SEXP ySEXP, SEXP skipSEXP,
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -589,7 +767,7 @@ RcppExport SEXP _RLDM_cll_theta_STSP_cpp(SEXP thSEXP, SEXP ySEXP, SEXP skipSEXP,
     if (rcpp_isError_gen) {
         SEXP rcpp_msgSEXP_gen = Rf_asChar(rcpp_result_gen);
         UNPROTECT(1);
-        Rf_error("%s", CHAR(rcpp_msgSEXP_gen));
+        (Rf_error)("%s", CHAR(rcpp_msgSEXP_gen));
     }
     UNPROTECT(1);
     return rcpp_result_gen;
@@ -604,6 +782,10 @@ static int _RLDM_RcppExport_validate(const char* sig) {
         signatures.insert("double(*ll_kf_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::colvec&,double)");
         signatures.insert("double(*ll_kf2_cpp)(arma::mat&,arma::mat&,arma::mat&,arma::mat&,arma::mat&,arma::colvec&,double)");
         signatures.insert("double(*ll_kf_theta_cpp)(const arma::vec&,const arma::mat&,arma::mat&,const arma::mat&,const arma::vec&,arma::mat&,const arma::mat&,const arma::vec&,arma::mat&,arma::mat&,double,double)");
+        signatures.insert("Rcpp::List(*pf_sir_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::colvec&,int,const std::string&,double)");
+        signatures.insert("Rcpp::List(*pf_apf_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::colvec&,int,const std::string&,double)");
+        signatures.insert("Rcpp::List(*pf_optimal_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::colvec&,int,const std::string&,double)");
+        signatures.insert("double(*ll_pf_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::colvec&,int,const std::string&,const std::string&,double,unsigned int)");
         signatures.insert("void(*outputs_ARMA_cpp)(const arma::mat&,const arma::mat&,int,const arma::mat&,arma::mat&)");
         signatures.insert("void(*outputs_STSP_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,arma::mat&,arma::mat&)");
         signatures.insert("void(*fbsolve_STSP_cpp)(const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,const arma::mat&,arma::mat&,arma::mat&,arma::mat&)");
@@ -623,6 +805,10 @@ RcppExport SEXP _RLDM_RcppExport_registerCCallable() {
     R_RegisterCCallable("RLDM", "_RLDM_ll_kf_cpp", (DL_FUNC)_RLDM_ll_kf_cpp_try);
     R_RegisterCCallable("RLDM", "_RLDM_ll_kf2_cpp", (DL_FUNC)_RLDM_ll_kf2_cpp_try);
     R_RegisterCCallable("RLDM", "_RLDM_ll_kf_theta_cpp", (DL_FUNC)_RLDM_ll_kf_theta_cpp_try);
+    R_RegisterCCallable("RLDM", "_RLDM_pf_sir_cpp", (DL_FUNC)_RLDM_pf_sir_cpp_try);
+    R_RegisterCCallable("RLDM", "_RLDM_pf_apf_cpp", (DL_FUNC)_RLDM_pf_apf_cpp_try);
+    R_RegisterCCallable("RLDM", "_RLDM_pf_optimal_cpp", (DL_FUNC)_RLDM_pf_optimal_cpp_try);
+    R_RegisterCCallable("RLDM", "_RLDM_ll_pf_cpp", (DL_FUNC)_RLDM_ll_pf_cpp_try);
     R_RegisterCCallable("RLDM", "_RLDM_outputs_ARMA_cpp", (DL_FUNC)_RLDM_outputs_ARMA_cpp_try);
     R_RegisterCCallable("RLDM", "_RLDM_outputs_STSP_cpp", (DL_FUNC)_RLDM_outputs_STSP_cpp_try);
     R_RegisterCCallable("RLDM", "_RLDM_fbsolve_STSP_cpp", (DL_FUNC)_RLDM_fbsolve_STSP_cpp_try);
@@ -641,6 +827,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RLDM_ll_kf_cpp", (DL_FUNC) &_RLDM_ll_kf_cpp, 9},
     {"_RLDM_ll_kf2_cpp", (DL_FUNC) &_RLDM_ll_kf2_cpp, 7},
     {"_RLDM_ll_kf_theta_cpp", (DL_FUNC) &_RLDM_ll_kf_theta_cpp, 12},
+    {"_RLDM_pf_sir_cpp", (DL_FUNC) &_RLDM_pf_sir_cpp, 11},
+    {"_RLDM_pf_apf_cpp", (DL_FUNC) &_RLDM_pf_apf_cpp, 11},
+    {"_RLDM_pf_optimal_cpp", (DL_FUNC) &_RLDM_pf_optimal_cpp, 11},
+    {"_RLDM_ll_pf_cpp", (DL_FUNC) &_RLDM_ll_pf_cpp, 13},
     {"_RLDM_showMatrix", (DL_FUNC) &_RLDM_showMatrix, 2},
     {"_RLDM_rls_exp_cpp", (DL_FUNC) &_RLDM_rls_exp_cpp, 6},
     {"_RLDM_rls_window_cpp", (DL_FUNC) &_RLDM_rls_window_cpp, 5},
