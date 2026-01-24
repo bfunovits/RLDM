@@ -493,6 +493,113 @@ opt <- optim(theta0, llfun, method = "BFGS", control = list(fnscale = -1, maxit 
 model_ml <- fill_template(opt$par, tmpl)
 ```
 
+## Particle Filtering
+
+### Overview
+
+Particle filters (Sequential Monte Carlo methods) extend Kalman filtering to **nonlinear and/or non-Gaussian state space models**. While the Kalman filter provides optimal closed-form solutions for linear Gaussian models, particle filters use Monte Carlo approximation to handle:
+
+- **Nonlinear state transitions**: $x_t = f(x_{t-1}, u_t)$
+- **Non-Gaussian observations**: $y_t \sim p(y | x_t)$ with arbitrary distribution
+- **Complex noise structures**
+
+The RLDM implementation includes three particle filter variants:
+
+1. **SIR (Bootstrap) filter**: Basic sampling importance resampling
+2. **APF (Auxiliary Particle Filter)**: Two-stage resampling with lookahead
+3. **Optimal proposal**: For linear Gaussian models, approaches Kalman filter performance
+
+### Basic Usage: Linear Gaussian Comparison
+
+For linear Gaussian models, particle filters approximate the Kalman filter solution:
+
+```{r eval=FALSE}
+library(RLDM)
+
+# Create a linear Gaussian state space model
+m <- 1; s <- 2; n <- s
+tmpl <- tmpl_stsp_full(m, n, s, sigma_L = "chol")
+model <- r_model(tmpl, bpoles = 1, sd = 0.5)
+data <- sim(model, n.obs = 100)
+y <- data$y
+
+# Kalman filter (optimal for linear Gaussian)
+kf_result <- kf(model, y)
+
+# Particle filters
+pf_sir <- pfilter(model, y, N_particles = 1000, method = "sir")
+pf_apf <- pfilter(model, y, N_particles = 1000, method = "apf")
+pf_opt <- pfilter(model, y, N_particles = 1000, method = "optimal")
+
+# Compare filtered states
+plot(kf_result$a[,1], type = "l", col = "black", lwd = 2,
+     main = "Filtered State Estimates")
+lines(pf_sir$filtered_states[,1], col = "blue", lty = 2)
+lines(pf_apf$filtered_states[,1], col = "red", lty = 2)
+lines(pf_opt$filtered_states[,1], col = "green", lty = 2)
+legend("topright", legend = c("Kalman", "SIR", "APF", "Optimal"),
+       col = c("black", "blue", "red", "green"), lty = c(1, 2, 2, 2), lwd = c(2, 1, 1, 1))
+```
+
+### Likelihood Approximation
+
+Particle filters can approximate the log-likelihood for nonlinear/non-Gaussian models where exact Kalman filter likelihood is unavailable:
+
+```{r eval=FALSE}
+# Kalman filter likelihood (exact for linear Gaussian)
+ll_kf <- ll_kf(model, y)
+
+# Particle filter likelihood approximation (averaged over multiple runs)
+ll_pf <- ll_pfilter(model, y, N_particles = 1000, filter_type = "apf", N_runs = 10)
+
+cat("Kalman filter LL:", ll_kf, "\n")
+cat("Particle filter LL:", ll_pf, "\n")
+cat("Difference:", ll_pf - ll_kf, "\n")
+```
+
+### Nonlinear and Non-Gaussian Examples
+
+RLDM includes example scripts demonstrating particle filter superiority for nonlinear/non-Gaussian models:
+
+1. **`inst/examples/nonlinear_sin.R`** - Nonlinear state transition: $x_t = \sin(x_{t-1}) + \eta_t$
+2. **`inst/examples/nonlinear_poisson.R`** - Non-Gaussian observation: $y_t \sim \text{Poisson}(\lambda = \exp(C x_t))$
+3. **`inst/examples/stochastic_volatility.R`** - Stochastic volatility model: $y_t = \exp(x_t/2) \varepsilon_t$
+
+Each example compares particle filter performance with approximate Kalman filter variants (Extended Kalman Filter, Gaussian approximation, log-squared transformation).
+
+### Diagnostics and Visualization
+
+The `plot.pfilter()` method provides several diagnostic plots:
+
+```{r eval=FALSE}
+pf <- pfilter(model, y, N_particles = 500, method = "sir")
+
+# Filtered state estimates
+plot(pf, type = "states")
+
+# Effective Sample Size (ESS) over time
+plot(pf, type = "ess")
+
+# Particle weight distribution at final time
+plot(pf, type = "weights")
+
+# Log-likelihood contributions per time step
+plot(pf, type = "likelihood")
+```
+
+### Performance Considerations
+
+- **Particle count**: More particles improve accuracy but increase computation (typical: 1000-10000)
+- **Resampling methods**: Systematic (default), multinomial, or stratified
+- **ESS threshold**: Adaptive resampling when ESS < threshold × N_particles (default: 0.5)
+- **Optimal proposal**: Use for linear Gaussian models to minimize weight degeneracy
+
+### References
+
+- Gordon, N. J., Salmond, D. J., & Smith, A. F. M. (1993). Novel approach to nonlinear/non-Gaussian Bayesian state estimation
+- Pitt, M. K., & Shephard, N. (1999). Filtering via simulation: Auxiliary particle filters
+- Doucet, A., Godsill, S., & Andrieu, C. (2000). On sequential Monte Carlo sampling methods for Bayesian filtering
+
 ---
 
 # Solution and Simulation

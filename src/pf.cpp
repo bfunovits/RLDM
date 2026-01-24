@@ -134,8 +134,7 @@ Rcpp::List pf_sir_cpp(const arma::mat& A, const arma::mat& C,
     } else {
       new_weights = new_weights / sum_weights;
       // Store log-likelihood contribution for this time step
-      log_likelihood_contributions(t) = max_log_weight + std::log(sum_weights) -
-                                         std::log(N_particles);
+      log_likelihood_contributions(t) = max_log_weight + std::log(sum_weights);
     }
 
     // 4. Compute effective sample size
@@ -261,8 +260,8 @@ Rcpp::List pf_apf_cpp(const arma::mat& A, const arma::mat& C,
 
   // Cholesky decompositions with regularization for singular matrices
   arma::mat Q_chol, R_chol;
+  arma::mat Q_reg = Q;
   if (s > 0) {
-    arma::mat Q_reg = Q;
     double eps = 1e-10 * arma::norm(Q, "fro");
     if (eps == 0) eps = 1e-10;
     Q_reg.diag() += eps;
@@ -281,6 +280,7 @@ Rcpp::List pf_apf_cpp(const arma::mat& A, const arma::mat& C,
   if (eps_s == 0) eps_s = 1e-10;
   S_cov_reg.diag() += eps_s;
   arma::mat S_chol = chol(S_cov_reg).t();
+
 
   // Auxiliary Particle Filter (APF) - two-stage resampling
   for (unsigned long int t = 0; t < N; t++) {
@@ -533,8 +533,7 @@ Rcpp::List pf_optimal_cpp(const arma::mat& A, const arma::mat& C,
     } else {
       new_weights = new_weights / sum_weights;
       // Store log-likelihood contribution for this time step
-      log_likelihood_contributions(t) = max_log_weight + std::log(sum_weights) -
-                                         std::log(N_particles);
+      log_likelihood_contributions(t) = max_log_weight + std::log(sum_weights);
     }
 
     // 5. Compute effective sample size

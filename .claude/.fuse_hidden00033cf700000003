@@ -16,8 +16,7 @@
       "Bash(git mv:*)",
       "Bash(R --quiet --slave -e:*)",
       "WebSearch",
-      "Bash(Rscript:*)",
-      "Bash(xargs:*)"
+      "Bash(Rscript:*)"
     ]
   }
 }
