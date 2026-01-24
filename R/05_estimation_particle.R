@@ -29,7 +29,10 @@
 #'   `Inf`) are **not** supported.
 #' @param method Character string specifying the particle filter algorithm.
 #'   Options: `"sir"` (Sampling Importance Resampling, default),
-#'   `"apf"` (Auxiliary Particle Filter).
+#'   `"apf"` (Auxiliary Particle Filter), `"optimal"` (Optimal proposal for linear Gaussian).
+#'   Note: The APF method may produce biased likelihood estimates for models with
+#'   cross-covariance between state and observation noise (S ≠ 0). For linear Gaussian
+#'   models with cross-correlation, the optimal proposal is recommended.
 #' @param N_particles Number of particles to use (default: 1000).
 #' @param resampling Resampling method: `"multinomial"`, `"systematic"` (default),
 #'   or `"stratified"`.
@@ -156,6 +159,11 @@ pfilter.stspmod = function(model, y, method = c('sir', 'apf', 'optimal'),
   R = model$sys$D %*% sigma %*% t(model$sys$D)
   S = model$sys$B %*% sigma %*% t(model$sys$D)
   Q = model$sys$B %*% sigma %*% t(model$sys$B)
+
+  # Warning for APF with cross-covariance S ≠ 0
+  if (method == 'apf' && norm(S, "F") > 1e-10) {
+    warning("APF method may produce biased likelihood estimates with cross-covariance S ≠ 0. Consider using method = 'optimal' for linear Gaussian models with cross-correlation.")
+  }
 
   if (method == 'sir') {
     out = .Call(`_RLDM_pf_sir_cpp`, model$sys$A, model$sys$C, Q, R, S,

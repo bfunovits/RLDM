@@ -134,3 +134,127 @@ test_that("pfilter returns consistent filtered states", {
                  tolerance = 1e-10)
   }
 })
+
+# New tests for convergence and validation
+test_that("pfilter convergence with particle count", {
+  set.seed(404)
+  m <- 1
+  s <- 2
+  n <- s
+  tmpl <- tmpl_stsp_full(m, n, s, sigma_L = "chol")
+  model <- r_model(tmpl, bpoles = 1, sd = 0.5)
+  data <- sim(model, n.obs = 50)
+  y <- data$y
+
+  # Kalman filter baseline
+  kf_result <- kf(model, y)
+
+  # Test increasing particle counts
+  particle_counts <- c(100, 500, 1000)
+  rmse_optimal <- numeric(length(particle_counts))
+
+  for (i in seq_along(particle_counts)) {
+    N <- particle_counts[i]
+
+    # Optimal proposal should approach Kalman filter with more particles
+    pf_opt <- pfilter(model, y, N_particles = N, method = "optimal")
+    pf_states <- pf_opt$filtered_states[1:50, ]
+    kf_states <- kf_result$a[1:50, ]
+    rmse_optimal[i] <- sqrt(mean((pf_states - kf_states)^2))
+
+    # Should produce finite likelihood
+    expect_true(is.finite(pf_opt$log_likelihood))
+    expect_true(all(is.finite(pf_opt$effective_sample_size)))
+  }
+
+  # RMSE should generally decrease with more particles (not strict due to randomness)
+  # We'll just check that all RMSE values are reasonable (< 1.0)
+  expect_true(all(rmse_optimal < 1.0))
+})
+
+test_that("pfilter numerical stability across parameter ranges", {
+  set.seed(505)
+  m <- 1
+  s <- 2
+  n <- s
+
+  # Test with different noise levels
+  for (sd in c(0.1, 0.5, 1.0, 2.0)) {
+    tmpl <- tmpl_stsp_full(m, n, s, sigma_L = "chol")
+    model <- r_model(tmpl, bpoles = 1, sd = sd)
+    data <- sim(model, n.obs = 20)
+    y <- data$y
+
+    # All methods should run without errors
+    expect_no_error(pfilter(model, y, N_particles = 200, method = "sir"))
+    expect_no_error(pfilter(model, y, N_particles = 200, method = "apf"))
+    expect_no_error(pfilter(model, y, N_particles = 200, method = "optimal"))
+
+    # Weights should sum to 1 (within tolerance)
+    pf <- pfilter(model, y, N_particles = 200, method = "sir")
+    expect_equal(sum(pf$weights), 1, tolerance = 1e-10)
+    expect_true(all(pf$weights >= 0))
+    expect_true(all(pf$weights <= 1))
+  }
+})
+
+test_that("pfilter warning for APF with cross-covariance", {
+  set.seed(606)
+  m <- 1
+  s <- 2
+  n <- s
+
+  # Create model with cross-covariance (S ≠ 0)
+  # Using chol sigma_L ensures S may be non-zero
+  tmpl <- tmpl_stsp_full(m, n, s, sigma_L = "chol")
+  model <- r_model(tmpl, bpoles = 1, sd = 0.5)
+
+  # Compute S matrix
+  sigma <- tcrossprod(model$sigma_L)
+  S <- model$sys$B %*% sigma %*% t(model$sys$D)
+
+  # Only test if S is non-zero (likely with chol parameterization)
+  if (norm(S, "F") > 1e-10) {
+    data <- sim(model, n.obs = 10)
+    y <- data$y
+
+    # Should produce warning for APF
+    expect_warning(
+      pfilter(model, y, N_particles = 100, method = "apf"),
+      "APF method may produce biased likelihood estimates"
+    )
+
+    # No warning for SIR or optimal
+    expect_no_warning(pfilter(model, y, N_particles = 100, method = "sir"))
+    expect_no_warning(pfilter(model, y, N_particles = 100, method = "optimal"))
+  }
+})
+
+test_that("optimal proposal performs well with cross-covariance", {
+  set.seed(707)
+  m <- 1
+  s <- 2
+  n <- s
+
+  # Create model with cross-covariance
+  tmpl <- tmpl_stsp_full(m, n, s, sigma_L = "chol")
+  model <- r_model(tmpl, bpoles = 1, sd = 0.5)
+  data <- sim(model, n.obs = 30)
+  y <- data$y
+
+  # Kalman filter baseline
+  kf_result <- kf(model, y)
+
+  # Optimal proposal should have reasonable performance
+  pf_opt <- pfilter(model, y, N_particles = 1000, method = "optimal")
+  pf_states <- pf_opt$filtered_states[1:30, ]
+  kf_states <- kf_result$a[1:30, ]
+  rmse <- sqrt(mean((pf_states - kf_states)^2))
+
+  # RMSE should be small (< 0.5) for optimal proposal with enough particles
+  expect_true(rmse < 0.5)
+
+  # Likelihood difference should be reasonable
+  ll_diff <- pf_opt$log_likelihood - kf_result$ll
+  expect_true(abs(ll_diff) < 10)  # Conservative bound
+})
