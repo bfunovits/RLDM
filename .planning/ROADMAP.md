@@ -29,12 +29,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Benchmark scripts are moved to inst/benchmarks directory
   3. Log files are moved to logs/ directory
   4. Proper .gitignore for R package development is established
-**Plans**: 3 plans
+**Plans**: 5 plans (3 original + 2 gap closure)
 
 Plans:
 - [ ] 01-01-PLAN.md — Foundation Setup: Create directory structure, LICENSE.md, update .gitignore/.Rbuildignore
 - [ ] 01-02-PLAN.md — File Organization: Move benchmark scripts, log files, debug/test scripts to organized locations
 - [ ] 01-03-PLAN.md — Verification & Cleanup: Final root cleanup and human verification of structure
+- [ ] 01-04-PLAN.md — Gap Closure: Human decisions and initial cleanup (gap closure)
+- [ ] 01-05-PLAN.md — Gap Closure: Complete root cleanup and final verification (gap closure)
 
 ### Phase 2: Code Organization
 **Goal**: Well-organized, maintainable code structure
@@ -95,7 +97,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Repository Foundation | 0/3 | Not started | - |
+| 1. Repository Foundation | 0/5 | Not started | - |
 | 2. Code Organization | 0/1 | Not started | - |
 | 3. Build Verification | 0/1 | Not started | - |
 | 4. Documentation Completeness | 0/1 | Not started | - |
