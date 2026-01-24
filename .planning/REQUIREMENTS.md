@@ -75,16 +75,16 @@ Which phases cover which requirements. Updated during roadmap creation.
 | REPO-01 | Phase 1 | Pending |
 | REPO-02 | Phase 1 | Pending |
 | REPO-03 | Phase 1 | Pending |
-| DOCS-01 | Phase 2 | Pending |
-| DOCS-02 | Phase 2 | Pending |
-| DOCS-03 | Phase 2 | Pending |
+| CODE-01 | Phase 2 | Pending |
+| CODE-02 | Phase 2 | Pending |
+| CODE-03 | Phase 2 | Pending |
+| CODE-04 | Phase 2 | Pending |
 | BUILD-01 | Phase 3 | Pending |
 | BUILD-02 | Phase 3 | Pending |
 | BUILD-03 | Phase 3 | Pending |
-| CODE-01 | Phase 4 | Pending |
-| CODE-02 | Phase 4 | Pending |
-| CODE-03 | Phase 4 | Pending |
-| CODE-04 | Phase 4 | Pending |
+| DOCS-01 | Phase 4 | Pending |
+| DOCS-02 | Phase 4 | Pending |
+| DOCS-03 | Phase 4 | Pending |
 | WEB-01 | Phase 5 | Pending |
 | WEB-02 | Phase 5 | Pending |
 
@@ -95,4 +95,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-24*
-*Last updated: 2026-01-24 after initial definition*
+*Last updated: 2026-01-24 after roadmap creation*
