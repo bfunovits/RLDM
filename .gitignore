@@ -30,6 +30,7 @@ Thumbs.db
 *~
 *.sublime-*
 .serena/
+.claude/
 
 # Package-specific development directories
 logs/
