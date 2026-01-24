@@ -29,6 +29,7 @@ Thumbs.db
 *.swp
 *~
 *.sublime-*
+.serena/
 
 # Package-specific development directories
 logs/
