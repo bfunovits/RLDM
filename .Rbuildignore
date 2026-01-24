@@ -7,3 +7,6 @@
 ^docs$
 ^pkgdown$
 ^\.github$
+^logs$
+^figure$
+^\.planning$
