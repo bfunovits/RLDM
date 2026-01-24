@@ -1,13 +1,45 @@
-inst/doc
+# R package build artifacts
+*.tar.gz
+*.Rcheck/
+RLDM.Rcheck/
+
+# R development files
 .Rproj.user
 .Rhistory
 .Ruserdata
-.DS_Store
+.RData
+.Rapp.history
+.Renviron
+.Rprofile
+
+# C++ build artifacts
 src/*.o
 src/*.so
 src/*.dll
+src/*.dylib
+
+# Documentation and website
+docs/
+pkgdown/
+inst/doc/
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+*.sublime-*
+
+# Package-specific development directories
+logs/
+figure/
+data-raw/
+
+# Temporary files
+*.pdf
 *.html
-*.RData
 *.bak
-docs
+*.log
+
+# Other
 *todo.md*
