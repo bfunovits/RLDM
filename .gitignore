@@ -29,6 +29,7 @@ Thumbs.db
 *.swp
 *~
 *.sublime-*
+*.code-workspace
 .serena/
 .claude/
 
