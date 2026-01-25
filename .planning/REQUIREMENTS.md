@@ -9,9 +9,9 @@ Requirements for initial cleanup and streamlining.
 
 ### Repository Structure
 
-- [ ] **REPO-01**: Move non-essential files from root to appropriate directories (benchmarks to inst/, logs to logs/)
-- [ ] **REPO-02**: Keep only essential MDs in root (README.md, LICENSE.md, CLAUDE.md, .gitignore)
-- [ ] **REPO-03**: Establish proper .gitignore for R package development
+- [x] **REPO-01**: Move non-essential files from root to appropriate directories (benchmarks to inst/, logs to logs/)
+- [x] **REPO-02**: Keep only essential MDs in root (README.md, LICENSE.md, CLAUDE.md, .gitignore)
+- [x] **REPO-03**: Establish proper .gitignore for R package development
 
 ### Documentation
 
@@ -72,9 +72,9 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| REPO-01 | Phase 1 | Pending |
-| REPO-02 | Phase 1 | Pending |
-| REPO-03 | Phase 1 | Pending |
+| REPO-01 | Phase 1 | Complete |
+| REPO-02 | Phase 1 | Complete |
+| REPO-03 | Phase 1 | Complete |
 | CODE-01 | Phase 2 | Pending |
 | CODE-02 | Phase 2 | Pending |
 | CODE-03 | Phase 2 | Pending |
@@ -95,4 +95,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-24*
-*Last updated: 2026-01-24 after roadmap creation*
+*Last updated: 2026-01-25 after phase 1 completion*
