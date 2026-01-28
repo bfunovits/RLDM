@@ -504,7 +504,7 @@ ll_theta = function(th, template, y, which, ...) {
 #'     `skip` is set to \eqn{0} for state space models and to
 #'     \eqn{\max(p,q)}{max(p,q)} for ARMA models. This parameter
 #'     is only used for the cases "concentrated", "conditional" and "gr_concentrated"
-#' @param tol (double) tolerance used by [ll_kf_cpp()].
+#' @param tol (double) tolerance used by \code{\link[=ll_kf]{ll_kf()}}.
 #' @param err (double) return value for the case "kf", if the computation
 #'        of the initial state covariance fails.
 #'
@@ -799,9 +799,8 @@ ll_FUN = function(template, y,
 #' \eqn{H=(D',B')'\Sigma^{1/2}}.
 #'
 #' @details
-#' The routines `kf_cpp`, `kf2_cpp` are \pkg{RcppArmadillo} implementations of the standard form and
-#' of the square root form of the Kalman filter. The wrapper function `kf` takes an [stspmod()] object,
-#' which describes the state space model, and then calls the approriate `RcppArmadillo` function.
+#' The Kalman filter is implemented in C++ via \pkg{RcppArmadillo} for performance. The wrapper function `kf` takes an [stspmod()] object,
+#' which describes the state space model, and then calls the appropriate internal implementation.
 #'
 #' Square root Kalman filter: For the square root
 #' \eqn{\Pi_{1|0}^{1/2}}{P[1|0]^{1/2}} the procedure first tries the Cholesky decomposition.
@@ -814,27 +813,16 @@ ll_FUN = function(template, y,
 #'   or a "time series" object (i.e. `as.matrix(y)` should return an
 #'   \eqn{(N,m)}-dimensional numeric matrix). Missing values (`NA`, `NaN` and
 #'   `Inf`) are **not** supported.
-#' @param y_t     \eqn{(m,N)} transposed data matrix `y_t = t(y)`.
-#' @param method Character string. If `method="kf"` then `kf` calls
-#'               `kf_cpp` ("standard form" of the Kalman filter) and for
-#'               `method="kf2"` the "square root" form of the Kalman filter is used,
-#'               i.e. `kf2_cpp` is called. Up to numerical errors the outputs should not
+#' @param method Character string. If `method="kf"` then the standard form of the Kalman filter is used,
+#'               and for `method="kf2"` the square root form is used. Up to numerical errors the outputs should not
 #'               depend on the chosen method.
 #' @param P1    \eqn{(s,s)} dimensional covariance matrix of the error of the initial state estimate,
 #'              i.e. \eqn{\Pi_{1|0}}{P[1|0]}.
 #'              If `NULL`, then the state covariance \eqn{P = APA'+B\Sigma B'} is used.
 #'              Note that this scheme assumes that the state space model is stable,
 #'              i.e. that the state transition matrix \eqn{A} is stable.
-#' @param P1_R  (right) square root of `P1`, i.e. `P1 = t(P1_R) \%*\% P1_R`.
 #' @param a1    \eqn{s} dimensional vector, which holds the initial estimate \eqn{a_{1|0}}{a[1|0]}
 #'              for the state at time \eqn{t=1}.  If `a1=NULL`, then a zero vector is used.
-#' @param A     \eqn{(s,s)} dimensional state transition matrix \eqn{A}.
-#' @param C     \eqn{(m,s)} dimensional matrix \eqn{C}.
-#' @param Q,R,S The variance, covariance matrices of the "state disturbances" (\eqn{Bu_t}{Bu[t]})
-#'              and the "measurement disturbances" (\eqn{Du_t}{Du[t]}) as described above.
-#'              These matrices must be of dimension \eqn{(s,s)},  \eqn{(m,m)} and \eqn{(s,m)} respectively.
-#' @param H_t    \eqn{(n,s+m)} dimensional matrix. This parameter corresponds to the transpose \eqn{H'} of
-#'              \eqn{H=(D',B')'\Sigma^{1/2}}.
 #'
 #' @return List with components
 #' \item{e}{\eqn{(N,m)} dimensional matrix with the standardized one-step
@@ -906,11 +894,8 @@ ll_FUN = function(template, y,
 #' H = rbind(model$sys$D, model$sys$B) %*% sigma_L
 #' P1_R = chol(P1)
 #'
-#' # call square root Kalman filter. Note H_t = t(H) and y_t = t(y)!
-#' out_test = kf2_cpp(model$sys$A, model$sys$C, t(H), t(data$y), P1_R, double(s))
-#' all.equal(out, out_test)
-#' # use the wrapper function
-#' out_test = kf(model, data$y, method = 'kf2')
+#' # call square root Kalman filter using wrapper function
+#' out_test = kf(model, data$y, method = 'kf2')  # using wrapper function
 #' all.equal(out, out_test)
 #'
 #' # The one step ahead predictions for y[t] may be computed by
@@ -1044,11 +1029,11 @@ kf = function(model, y, method = c('kf','kf2'), P1 = NULL, a1 = NULL) {
 #'            (y[t] - y[t|t-1])' \Sigma[t|t-1]^{-1} (y[t] - y[t|t-1]) ].}
 #'
 #' @details
-#' The core routines are  `ll_kf_cpp` and `ll_kf2_cpp` which are \pkg{RcppArmadillo} implementations
+#' The core routines are internal C++ implementations (`ll_kf_cpp` and `ll_kf2_cpp`) which are \pkg{RcppArmadillo} implementations
 #' of the standard and the square root Kalman filter. The function `ll_kf` is a wrapper function,
 #' which extracts the necessary parameters from an [stspmod()] object,
 #' computes the initial covariance matrix `P1` and the initial state
-#' estimate `a1` (if not provided) and then calls `ll_kf_cpp` or `ll2_kf_cpp`.
+#' estimate `a1` (if not provided) and then calls the internal C++ implementations.
 #'
 #' Square root Kalman filter: For the square root
 #' \eqn{\Pi_{1|0}^{1/2}}{P[1|0]^{1/2}} the procedure first tries the Cholesky decomposition.
@@ -1065,9 +1050,9 @@ kf = function(model, y, method = c('kf','kf2'), P1 = NULL, a1 = NULL) {
 #'
 #' @inheritParams kf
 #' @param method Character string. If `method="kf"` then `ll_kf` calls
-#'               `ll_kf_cpp` ("standard form" of the Kalman filter) and for
+#'               the internal C++ implementation ("standard form" of the Kalman filter) and for
 #'               `method="kf2"` the "square root" form of the Kalman filter is used,
-#'               i.e. `ll_kf2_cpp` is called. Up to numerical errors the outputs should not
+#'               i.e. the internal square root implementation is called. Up to numerical errors the outputs should not
 #'               depend on the chosen method.
 #' @param tol (small) tolerance value (or zero). In order to speed up the computations,
 #'              the algorithm(s) switch to a constant Kalman gain when there is no significant change in

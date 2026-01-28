@@ -700,7 +700,7 @@ toepl_inv = function(polm_rev, data_in, t0 = 1){
 #'
 #' @return The R implementation `solve_RMFD_R()` returns the matrix `y` with the computed outputs.
 #'     \deqn{y_t = d(z) c(z)^{-1} u_t}{y[t] = d{+}(z) c(z)^{-1} u[t]}
-#'     The RcppArmadillo implementation [solve_rmfd_cpp()] returns `NULL` but **overwrites** the input argument.
+#'     The internal RcppArmadillo implementation returns `NULL` but **overwrites** the input argument.
 #'     Note that the RcppArmadillo implementation has a different user interface (it is intended for internal use only).
 #'
 #' @export
@@ -770,7 +770,7 @@ solve_RMFD_R = function(polm_c, polm_d, data_input, t0 = 1) {
 #'
 #' @return The R implementation `solve_inverse_RMFD_R` returns the matrix `u` with the computed inputs
 #'     \deqn{u_t = d^{+}(z) c(z) y_t}{u[t] = d^{+}(z) c(z) y[t]} in its columns.
-#'     The RcppArmadillo implementation [solve_rmfd_cpp()] returns `NULL` but **overwrites** its input argument!
+#'     The internal RcppArmadillo implementation returns `NULL` but **overwrites** its input argument!
 #'     Note that the RcppArmadillo implementation has a different user interface (it is intended for internal use only).
 #'
 #' @export
