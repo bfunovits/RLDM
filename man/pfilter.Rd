@@ -114,7 +114,7 @@ model = r_model(tmpl, bpoles = 1, sd = 0.5)
 data = sim(model, n.obs = n.obs, a1 = NA)
 
 # Run particle filter
-pf_result = pf(model, data$y, N_particles = 500)
+pf_result = pfilter(model, data$y, N_particles = 500)
 
 # Compare with Kalman filter
 kf_result = kf(model, data$y)
