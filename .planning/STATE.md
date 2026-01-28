@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Phase: 3 of 5 (Build Verification) - COMPLETE
-Plan: 2 of 2 in current phase
-Status: Plan 03-02 complete, ready for Phase 4
-Last activity: 2026-01-28 — Completed 03-02-PLAN.md
+Plan: 3 of 3 in current phase (gap closure)
+Status: Plan 03-03 complete, documentation warnings fixed
+Last activity: 2026-01-28 — Completed 03-03-PLAN.md (gap closure)
 
-Progress: [█████████░] 92% (Phase 1 complete, Phase 2 complete, Phase 3 complete)
+Progress: [█████████░] 93% (Phase 1 complete, Phase 2 complete, Phase 3 complete + gap closure)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
-- Average duration: 17.2 min
-- Total execution time: 3.2 hours
+- Total plans completed: 12
+- Average duration: 18.0 min
+- Total execution time: 3.6 hours
 
 **By Phase:**
 
@@ -29,11 +29,11 @@ Progress: [█████████░] 92% (Phase 1 complete, Phase 2 comple
 |-------|-------|-------|----------|
 | 01-repository-foundation | 5 | 54 min | 10.8 min |
 | 02-code-organization | 4 | 91 min | 22.8 min |
-| 03-build-verification | 2 | 61 min | 30.5 min |
+| 03-build-verification | 3 | 92 min | 30.7 min |
 
 **Recent Trend:**
-- Last 5 plans: [02-03 (14 min), 02-04 (30 min), 03-01 (16 min), 03-02 (45 min)]
-- Trend: Build verification completed with comprehensive issue resolution, addressing namespace, documentation, and vignette issues
+- Last 5 plans: [02-04 (30 min), 03-01 (16 min), 03-02 (45 min), 03-03 (31 min)]
+- Trend: Gap closure addressing documentation warnings completed, bringing package closer to BUILD-01
 
 *Updated after each plan completion*
 
@@ -82,6 +82,8 @@ Recent decisions affecting current work:
 - [03-02 Execution]: Skip vignette building in final check due to pandoc-citeproc system dependency
 - [03-02 Execution]: Comment out problematic lmfd() conversions in vignettes (state space to ARMA requires minimal realization)
 - [03-02 Execution]: Fix documentation examples to use wrapper functions (kf(), ll_kf()) instead of internal C++ functions
+- [03-03 Execution]: Document internal C++ functions as "internal implementations" rather than by name to avoid cross-reference warnings
+- [03-03 Execution]: Wrapper function documentation should only include parameters actually in wrapper signature, not internal function parameters
 
 ### Pending Todos
 
@@ -93,13 +95,13 @@ None yet.
 
 [Issues that affect future work]
 
-- **Test infrastructure:** pfilter tests fail due to test environment setup issues (`tmpl_stsp_full` not found in test context). **CONFIRMED** - test failure persists, prevents BUILD-01 (0 errors).
+- **Stochastic test failures:** pfilter tests fail due to stochastic RMSE expectations (`rmse < 0.5` too strict). **CONFIRMED** - test failure persists, prevents BUILD-01 (0 errors). Will be addressed in gap closure plans.
 - **Vignette system dependency:** pandoc-citeproc missing prevents vignette building. **RESOLVED** - treated as external system dependency, skipped in verification.
-- **Documentation warnings:** Rd cross-reference issues (ll_kf_cpp, ll_pf, solve_rmfd_cpp) and Rd usage issues in kf.Rd remain. **PARTIALLY RESOLVED** - examples fixed, but warnings persist (3 warnings > BUILD-01 limit of ≤1).
+- **Documentation warnings:** Rd cross-reference issues (ll_kf_cpp, ll_pf, solve_rmfd_cpp) and Rd usage issues in kf.Rd remain. **RESOLVED** - all documentation warnings fixed in gap closure plan 03-03.
 - **State space to ARMA conversion:** lmfd() function doesn't support direct conversion from state space objects. **WORKAROUND** - commented out in vignettes, requires proper implementation.
 
 ## Session Continuity
 
 Last session: 2026-01-28
-Stopped at: Completed 03-02-PLAN.md (Phase 3 complete)
-Resume file: None
+Stopped at: Completed 03-03-PLAN.md (documentation fixes gap closure)
+Resume file: None (ready for next gap closure or phase)
