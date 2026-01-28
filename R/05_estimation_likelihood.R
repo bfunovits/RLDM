@@ -898,11 +898,9 @@ ll_FUN = function(template, y,
 #' Q = model$sys$B %*% sigma %*% t(model$sys$B)
 #' P1 = lyapunov(model$sys$A, Q)
 #'
-#' # call Kalman filter. Note y_t = t(y)!
-#' out = kf_cpp(model$sys$A, model$sys$C, Q, R, S, t(data$y), P1, double(s))
-#' # use the wrapper function
-#' out_test = kf(model, data$y, method = 'kf')
-#' all.equal(out, out_test)
+#' # call Kalman filter using the wrapper function
+#' out = kf(model, data$y, method = 'kf')
+#' # Note: kf_cpp is the internal C++ implementation called by kf()
 #'
 #' # compute H and square root of P1
 #' H = rbind(model$sys$D, model$sys$B) %*% sigma_L
@@ -1118,13 +1116,8 @@ kf = function(model, y, method = c('kf','kf2'), P1 = NULL, a1 = NULL) {
 #' ll_test = ll_kf(model, data$y, method = 'kf2')
 #' all.equal(ll, ll_test)
 #'
-#' # directly call Rcpp routines, note H_t = t(H) and y_t = t(y)
-#' ll_test = ll_kf_cpp(model$sys$A, model$sys$C, Q, R, S,
-#'                     t(data$y), P1, a1 = double(s), tol=1e-8)
-#' all.equal(ll, ll_test)
-#' ll_test = ll_kf2_cpp(model$sys$A, model$sys$C, t(H),
-#'                      t(data$y), P1_R, a1 = double(s), tol=1e-8)
-#' all.equal(ll, ll_test)
+#' # Note: ll_kf_cpp and ll_kf2_cpp are internal C++ implementations
+#' # called via .Call() by ll_kf()
 #'
 #' # call the "full" kf routines
 #' out = kf(model, data$y)
