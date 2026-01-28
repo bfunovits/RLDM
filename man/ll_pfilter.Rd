@@ -9,7 +9,7 @@ ll_pfilter(
   model,
   y,
   N_particles = 1000,
-  filter_type = c("sir", "apf"),
+  filter_type = c("sir", "apf", "optimal"),
   resampling = c("systematic", "multinomial", "stratified"),
   ess_threshold = 0.5,
   N_runs = 10,
@@ -20,7 +20,7 @@ ll_pfilter(
   model,
   y,
   N_particles = 1000,
-  filter_type = c("sir", "apf"),
+  filter_type = c("sir", "apf", "optimal"),
   resampling = c("systematic", "multinomial", "stratified"),
   ess_threshold = 0.5,
   N_runs = 10,
@@ -28,11 +28,29 @@ ll_pfilter(
 )
 }
 \arguments{
+\item{model}{\code{\link[=stspmod]{stspmod()}} object, which represents the state space model.
+For nonlinear models, additional parameters may be required.}
+
+\item{y}{sample, i.e. an \eqn{(N,m)} dimensional matrix,
+or a "time series" object (i.e. \code{as.matrix(y)} should return an
+\eqn{(N,m)}-dimensional numeric matrix). Missing values (\code{NA}, \code{NaN} and
+\code{Inf}) are \strong{not} supported.}
+
+\item{N_particles}{Number of particles to use (default: 1000).}
+
 \item{filter_type}{Type of particle filter to use for likelihood approximation.
 Options: \code{"sir"} (default), \code{"apf"}.}
 
+\item{resampling}{Resampling method: \code{"multinomial"}, \code{"systematic"} (default),
+or \code{"stratified"}.}
+
+\item{ess_threshold}{Effective sample size threshold for triggering resampling
+(default: 0.5). Resampling occurs when ESS < ess_threshold * N_particles.}
+
 \item{N_runs}{Number of independent particle filter runs to average over
 (default: 10). Averaging reduces the variance of the likelihood estimator.}
+
+\item{...}{Additional arguments passed to filter implementations.}
 }
 \value{
 Particle filter approximation of the log-likelihood (scaled by \eqn{1/N}).

@@ -8,7 +8,7 @@
 pfilter(
   model,
   y,
-  method = c("sir", "apf"),
+  method = c("sir", "apf", "optimal"),
   N_particles = 1000,
   resampling = c("systematic", "multinomial", "stratified"),
   ess_threshold = 0.5,
@@ -20,7 +20,7 @@ pfilter(
 \method{pfilter}{stspmod}(
   model,
   y,
-  method = c("sir", "apf"),
+  method = c("sir", "apf", "optimal"),
   N_particles = 1000,
   resampling = c("systematic", "multinomial", "stratified"),
   ess_threshold = 0.5,
@@ -40,7 +40,10 @@ or a "time series" object (i.e. \code{as.matrix(y)} should return an
 
 \item{method}{Character string specifying the particle filter algorithm.
 Options: \code{"sir"} (Sampling Importance Resampling, default),
-\code{"apf"} (Auxiliary Particle Filter).}
+\code{"apf"} (Auxiliary Particle Filter), \code{"optimal"} (Optimal proposal for linear Gaussian).
+Note: The APF method may produce biased likelihood estimates for models with
+cross-covariance between state and observation noise (S ≠ 0). For linear Gaussian
+models with cross-correlation, the optimal proposal is recommended.}
 
 \item{N_particles}{Number of particles to use (default: 1000).}
 
@@ -66,6 +69,8 @@ The \eqn{t}-th row corresponds to \eqn{E[x_t | y_{1:t}]}.}
 \item{predicted_states}{\eqn{(N+1,s)} dimensional matrix with the predicted state estimates.
 The \eqn{t}-th row corresponds to \eqn{E[x_t | y_{1:t-1}]}.}
 \item{particles}{\eqn{(s, N\_particles, N+1)} dimensional array containing the particle trajectories.}
+\item{weight_trajectories}{\eqn{(N+1, N\_particles)} dimensional matrix of particle weights over time.
+The \eqn{t}-th row corresponds to weights at time \eqn{t}.}
 \item{weights}{\eqn{(N\_particles)} dimensional vector of normalized particle weights at final time.}
 \item{log_likelihood}{Particle approximation of the log-likelihood.}
 \item{log_likelihood_contributions}{\eqn{(N)} dimensional vector of log-likelihood contributions per time step.}
