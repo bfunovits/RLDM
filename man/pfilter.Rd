@@ -42,7 +42,7 @@ or a "time series" object (i.e. \code{as.matrix(y)} should return an
 Options: \code{"sir"} (Sampling Importance Resampling, default),
 \code{"apf"} (Auxiliary Particle Filter), \code{"optimal"} (Optimal proposal for linear Gaussian).
 Note: The APF method may produce biased likelihood estimates for models with
-cross-covariance between state and observation noise (S ≠ 0). For linear Gaussian
+cross-covariance between state and observation noise (S != 0). For linear Gaussian
 models with cross-correlation, the optimal proposal is recommended.}
 
 \item{N_particles}{Number of particles to use (default: 1000).}
