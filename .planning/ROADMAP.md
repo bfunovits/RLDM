@@ -63,11 +63,14 @@ Plans:
   1. `devtools::check()` passes with 0 errors and ≤1 warning
   2. Namespace imports/exports are correctly declared
   3. Package installs cleanly from source without errors
-**Plans**: 2 plans
+**Plans**: 5 plans (2 original + 3 gap closure)
 
 Plans:
 - [ ] 03-01-PLAN.md — Environment Setup & Initial Check: Clean build artifacts, install dependencies, run initial devtools::check()
 - [ ] 03-02-PLAN.md — Issue Resolution & Final Verification: Fix namespace/documentation issues, run final check, verify success criteria
+- [ ] 03-03-PLAN.md — Gap Closure: Fix documentation errors (examples, cross-references, usage sections, LaTeX)
+- [ ] 03-04-PLAN.md — Gap Closure: Address test infrastructure and PDF manual issues
+- [ ] 03-05-PLAN.md — Gap Closure: Handle vignette system dependency and final verification
 
 ### Phase 4: Documentation Completeness
 **Goal**: Comprehensive, usable documentation
@@ -103,6 +106,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Repository Foundation | 5/5 | Complete | 2026-01-25 |
 | 2. Code Organization | 4/4 | Complete | 2026-01-28 |
-| 3. Build Verification | 0/2 | Not started | - |
+| 3. Build Verification | 0/5 | Not started | - |
 | 4. Documentation Completeness | 0/1 | Not started | - |
 | 5. Website Deployment | 0/1 | Not started | - |
