@@ -106,6 +106,7 @@
 #'         add additional graphic elements to the subfigures. The call `opar = subfig(i,j)`
 #'         creates a new (sub) plot at the (i,j)-th position with suitable margins and
 #'         axis limits. See the examples below.
+#' @importFrom graphics par plot rect text
 #' @export
 #'
 #' @rdname plot

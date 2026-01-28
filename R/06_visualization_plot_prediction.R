@@ -31,6 +31,7 @@
 #' \cr
 #' See also the examples below.
 #'
+#' @importFrom graphics par plot lines
 #' @export
 #'
 #' @seealso The utility [zoom_plot()] may be used to interactivly zoom in and scroll

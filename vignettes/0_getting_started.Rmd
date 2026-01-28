@@ -315,7 +315,7 @@ plot_range <- max(1, n_obs - 40):n_obs
 plot(plot_range, y_ss[plot_range], type = 'l',
      xlab = "Time", ylab = "Value",
      main = "Data and One-Step Predictions")
-lines(plot_range[-1], pred_ss$yhat[plot_range[-1], 1],
+lines(plot_range[-1], pred_ss$yhat[plot_range[-1], 1, 1],
       col = 'blue', lwd = 2)
 legend("topleft", c("Data", "Prediction"),
        col = c("black", "blue"), lty = 1)
