@@ -63,10 +63,11 @@ Plans:
   1. `devtools::check()` passes with 0 errors and ≤1 warning
   2. Namespace imports/exports are correctly declared
   3. Package installs cleanly from source without errors
-**Plans**: TBD
+**Plans**: 2 plans
 
 Plans:
-- [ ] 03-01: TBD
+- [ ] 03-01-PLAN.md — Environment Setup & Initial Check: Clean build artifacts, install dependencies, run initial devtools::check()
+- [ ] 03-02-PLAN.md — Issue Resolution & Final Verification: Fix namespace/documentation issues, run final check, verify success criteria
 
 ### Phase 4: Documentation Completeness
 **Goal**: Comprehensive, usable documentation
@@ -102,6 +103,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Repository Foundation | 5/5 | Complete | 2026-01-25 |
 | 2. Code Organization | 4/4 | Complete | 2026-01-28 |
-| 3. Build Verification | 0/1 | Not started | - |
+| 3. Build Verification | 0/2 | Not started | - |
 | 4. Documentation Completeness | 0/1 | Not started | - |
 | 5. Website Deployment | 0/1 | Not started | - |
