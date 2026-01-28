@@ -844,8 +844,8 @@ ll_FUN = function(template, y,
 #'           \eqn{a_{N+1|N}}{a[N+1|N]}, i.e. this matrix corresponds to \eqn{\Pi_{N+1|N}}{P[N+1|N]}.}
 #'
 #' @section Notes:
-#' The `RcppArmadillo` functions (`kf_cpp` and `kf2_cpp`) do not check the input parameters,
-#' so these function must be used with some care.
+#' The internal C++ implementations do not check the input parameters,
+#' so direct use (via `.Call()`) must be done with care.
 #'
 #' The procedures only accept "wide" state space systems (\eqn{m \leq n}{m \le n}), since for
 #' "tall" systems (\eqn{m > n}) the variance of the prediction errors

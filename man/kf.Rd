@@ -100,8 +100,8 @@ of \eqn{\Pi_{1|0}^{1/2}}{P[1|0]^{1/2}}.
 }
 \section{Notes}{
 
-The \code{RcppArmadillo} functions (\code{kf_cpp} and \code{kf2_cpp}) do not check the input parameters,
-so these function must be used with some care.
+The internal C++ implementations do not check the input parameters,
+so direct use (via \code{.Call()}) must be done with care.
 
 The procedures only accept "wide" state space systems (\eqn{m \leq n}{m \le n}), since for
 "tall" systems (\eqn{m > n}) the variance of the prediction errors
