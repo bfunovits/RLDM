@@ -194,7 +194,7 @@ pfilter.stspmod = function(model, y, method = c('sir', 'apf', 'optimal'),
 #' This function is useful for nonlinear/non-Gaussian models where the exact
 #' Kalman filter likelihood is not available.
 #'
-#' @inheritParams pf
+#' @inheritParams pfilter
 #' @param N_runs Number of independent particle filter runs to average over
 #'   (default: 10). Averaging reduces the variance of the likelihood estimator.
 #' @param filter_type Type of particle filter to use for likelihood approximation.
