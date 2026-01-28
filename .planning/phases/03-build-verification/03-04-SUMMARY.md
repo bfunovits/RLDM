@@ -62,7 +62,7 @@ Each task was committed atomically:
 2. **Task 2: Implement test fix or proper handling** - `6ccba4b` (fix: adjust pfilter test threshold for cross-covariance)
 3. **Task 3: Run test verification and update documentation** - `026890f` (docs: update STATE.md with test fix status)
 
-**Plan metadata:** `[to be added after final commit]` (docs: complete plan)
+**Plan metadata:** `cf42afd` (docs: complete stochastic test fixes plan)
 
 ## Files Created/Modified
 - `.planning/phases/03-build-verification/test-fix-analysis.md` - Root cause analysis and recommended solution
