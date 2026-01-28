@@ -20,9 +20,21 @@ using namespace Rcpp;
 // [[Rcpp::interfaces(r, cpp)]]
 
 
-//' @name pf
-//' @rdname pf
-//' @export
+/**
+ * @brief Sequential Importance Resampling (SIR) particle filter
+ * @param A State transition matrix
+ * @param C Observation matrix
+ * @param Q Process noise covariance
+ * @param R Observation noise covariance
+ * @param S Cross-covariance matrix
+ * @param y_t Observations (m x N)
+ * @param P1 Initial state covariance
+ * @param a1 Initial state estimate
+ * @param N_particles Number of particles
+ * @param resampling Resampling method
+ * @param ess_threshold Effective sample size threshold
+ * @return Rcpp::List with filter results
+ */
 // [[Rcpp::export]]
 Rcpp::List pf_sir_cpp(const arma::mat& A, const arma::mat& C,
                       const arma::mat& Q, const arma::mat& R, const arma::mat& S,
@@ -213,9 +225,6 @@ Rcpp::List pf_sir_cpp(const arma::mat& A, const arma::mat& C,
   );
 }
 
-//' @name pf
-//' @rdname pf
-//' @export
 // [[Rcpp::export]]
 Rcpp::List pf_apf_cpp(const arma::mat& A, const arma::mat& C,
                       const arma::mat& Q, const arma::mat& R, const arma::mat& S,
@@ -399,9 +408,6 @@ Rcpp::List pf_apf_cpp(const arma::mat& A, const arma::mat& C,
   );
 }
 
-//' @name pf
-//' @rdname pf
-//' @export
 // [[Rcpp::export]]
 Rcpp::List pf_optimal_cpp(const arma::mat& A, const arma::mat& C,
                       const arma::mat& Q, const arma::mat& R, const arma::mat& S,
@@ -614,9 +620,6 @@ Rcpp::List pf_optimal_cpp(const arma::mat& A, const arma::mat& C,
 }
 
 
-//' @name ll_pf
-//' @rdname ll_pf
-//' @export
 // [[Rcpp::export]]
 double ll_pf_cpp(const arma::mat& A, const arma::mat& C,
                  const arma::mat& Q, const arma::mat& R, const arma::mat& S,
