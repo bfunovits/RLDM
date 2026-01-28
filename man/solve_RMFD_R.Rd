@@ -18,7 +18,7 @@ solve_RMFD_R(polm_c, polm_d, data_input, t0 = 1)
 \value{
 The R implementation \code{solve_RMFD_R()} returns the matrix \code{y} with the computed outputs.
 \deqn{y_t = d(z) c(z)^{-1} u_t}{y[t] = d{+}(z) c(z)^{-1} u[t]}
-The RcppArmadillo implementation \code{\link[=solve_rmfd_cpp]{solve_rmfd_cpp()}} returns \code{NULL} but \strong{overwrites} the input argument.
+The internal RcppArmadillo implementation returns \code{NULL} but \strong{overwrites} the input argument.
 Note that the RcppArmadillo implementation has a different user interface (it is intended for internal use only).
 }
 \description{

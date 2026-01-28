@@ -15,9 +15,9 @@ or a "time series" object (i.e. \code{as.matrix(y)} should return an
 \code{Inf}) are \strong{not} supported.}
 
 \item{method}{Character string. If \code{method="kf"} then \code{ll_kf} calls
-\code{ll_kf_cpp} ("standard form" of the Kalman filter) and for
+the internal C++ implementation ("standard form" of the Kalman filter) and for
 \code{method="kf2"} the "square root" form of the Kalman filter is used,
-i.e. \code{ll_kf2_cpp} is called. Up to numerical errors the outputs should not
+i.e. the internal square root implementation is called. Up to numerical errors the outputs should not
 depend on the chosen method.}
 
 \item{P1}{\eqn{(s,s)} dimensional covariance matrix of the error of the initial state estimate,
@@ -88,11 +88,11 @@ The (scaled) Gaussian log Likelihood of this model then may be expressed as
            (y[t] - y[t|t-1])' \Sigma[t|t-1]^{-1} (y[t] - y[t|t-1]) ].}
 }
 \details{
-The core routines are  \code{ll_kf_cpp} and \code{ll_kf2_cpp} which are \pkg{RcppArmadillo} implementations
+The core routines are internal C++ implementations (\code{ll_kf_cpp} and \code{ll_kf2_cpp}) which are \pkg{RcppArmadillo} implementations
 of the standard and the square root Kalman filter. The function \code{ll_kf} is a wrapper function,
 which extracts the necessary parameters from an \code{\link[=stspmod]{stspmod()}} object,
 computes the initial covariance matrix \code{P1} and the initial state
-estimate \code{a1} (if not provided) and then calls \code{ll_kf_cpp} or \code{ll2_kf_cpp}.
+estimate \code{a1} (if not provided) and then calls the internal C++ implementations.
 
 Square root Kalman filter: For the square root
 \eqn{\Pi_{1|0}^{1/2}}{P[1|0]^{1/2}} the procedure first tries the Cholesky decomposition.

@@ -128,5 +128,5 @@ legend("topright", legend = c("Particle Filter", "Kalman Filter"),
 }
 \seealso{
 \code{\link[=kf]{kf()}} for Kalman filter (optimal for linear Gaussian models),
-\code{\link[=ll_pf]{ll_pf()}} for particle filter approximation of log-likelihood.
+\code{\link[=ll_pfilter]{ll_pfilter()}} for particle filter approximation of log-likelihood.
 }

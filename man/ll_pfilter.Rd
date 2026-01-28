@@ -75,7 +75,7 @@ data = sim(model, n.obs = n.obs)
 ll_exact = ll_kf(model, data$y)
 
 # Particle filter likelihood approximation
-ll_approx = ll_pf(model, data$y, N_particles = 1000, N_runs = 5)
+ll_approx = ll_pfilter(model, data$y, N_particles = 1000, N_runs = 5)
 
 # Compare (should be close for linear Gaussian model with enough particles)
 cat("Exact (Kalman):", ll_exact, "\n")

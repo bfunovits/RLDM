@@ -18,7 +18,7 @@ solve_inverse_RMFD_R(polm_c, polm_d, data_output, t0 = 1)
 \value{
 The R implementation \code{solve_inverse_RMFD_R} returns the matrix \code{u} with the computed inputs
 \deqn{u_t = d^{+}(z) c(z) y_t}{u[t] = d^{+}(z) c(z) y[t]} in its columns.
-The RcppArmadillo implementation \code{\link[=solve_rmfd_cpp]{solve_rmfd_cpp()}} returns \code{NULL} but \strong{overwrites} its input argument!
+The internal RcppArmadillo implementation returns \code{NULL} but \strong{overwrites} its input argument!
 Note that the RcppArmadillo implementation has a different user interface (it is intended for internal use only).
 }
 \description{

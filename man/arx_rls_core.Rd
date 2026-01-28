@@ -19,7 +19,7 @@ arx_rls_core(
 
 \item{X}{Matrix of doubles. Dimension = (length(y) x maximal number of regressors). NAs are not handled separately (i.e. they must be checked before this function is called).}
 
-\item{r}{Matrix of doubles (a column vector of dimension \eqn{ (#forgetting_factors \times 1) } containing the forgetting factors.}
+\item{r}{Matrix of doubles (a column vector of dimension \eqn{( \text{forgetting\_factors} \times 1)} containing the forgetting factors.}
 
 \item{n_init}{Integer. Number of observations used for initial estimate of beta.
 If no value provided, at least 21 observations (3 weeks) or 3 times the number of regressors is used.}

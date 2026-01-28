@@ -14,10 +14,8 @@ or a "time series" object (i.e. \code{as.matrix(y)} should return an
 \eqn{(N,m)}-dimensional numeric matrix). Missing values (\code{NA}, \code{NaN} and
 \code{Inf}) are \strong{not} supported.}
 
-\item{method}{Character string. If \code{method="kf"} then \code{kf} calls
-\code{kf_cpp} ("standard form" of the Kalman filter) and for
-\code{method="kf2"} the "square root" form of the Kalman filter is used,
-i.e. \code{kf2_cpp} is called. Up to numerical errors the outputs should not
+\item{method}{Character string. If \code{method="kf"} then the standard form of the Kalman filter is used,
+and for \code{method="kf2"} the square root form is used. Up to numerical errors the outputs should not
 depend on the chosen method.}
 
 \item{P1}{\eqn{(s,s)} dimensional covariance matrix of the error of the initial state estimate,
@@ -28,21 +26,6 @@ i.e. that the state transition matrix \eqn{A} is stable.}
 
 \item{a1}{\eqn{s} dimensional vector, which holds the initial estimate \eqn{a_{1|0}}{a[1|0]}
 for the state at time \eqn{t=1}.  If \code{a1=NULL}, then a zero vector is used.}
-
-\item{y_t}{\eqn{(m,N)} transposed data matrix \code{y_t = t(y)}.}
-
-\item{P1_R}{(right) square root of \code{P1}, i.e. \verb{P1 = t(P1_R) \\\%*\\\% P1_R}.}
-
-\item{A}{\eqn{(s,s)} dimensional state transition matrix \eqn{A}.}
-
-\item{C}{\eqn{(m,s)} dimensional matrix \eqn{C}.}
-
-\item{Q, R, S}{The variance, covariance matrices of the "state disturbances" (\eqn{Bu_t}{Bu[t]})
-and the "measurement disturbances" (\eqn{Du_t}{Du[t]}) as described above.
-These matrices must be of dimension \eqn{(s,s)},  \eqn{(m,m)} and \eqn{(s,m)} respectively.}
-
-\item{H_t}{\eqn{(n,s+m)} dimensional matrix. This parameter corresponds to the transpose \eqn{H'} of
-\eqn{H=(D',B')'\Sigma^{1/2}}.}
 }
 \value{
 List with components
@@ -106,9 +89,8 @@ For the square root form of the filter we need the "square roots"
 and \eqn{\Sigma = \Sigma^{1/2}(\Sigma^{1/2})'}. In addition, we define
 \eqn{H=(D',B')'\Sigma^{1/2}}.
 
-The routines \code{kf_cpp}, \code{kf2_cpp} are \pkg{RcppArmadillo} implementations of the standard form and
-of the square root form of the Kalman filter. The wrapper function \code{kf} takes an \code{\link[=stspmod]{stspmod()}} object,
-which describes the state space model, and then calls the approriate \code{RcppArmadillo} function.
+The Kalman filter is implemented in C++ via \pkg{RcppArmadillo} for performance. The wrapper function \code{kf} takes an \code{\link[=stspmod]{stspmod()}} object,
+which describes the state space model, and then calls the appropriate internal implementation.
 
 Square root Kalman filter: For the square root
 \eqn{\Pi_{1|0}^{1/2}}{P[1|0]^{1/2}} the procedure first tries the Cholesky decomposition.
@@ -156,11 +138,8 @@ out = kf(model, data$y, method = 'kf')
 H = rbind(model$sys$D, model$sys$B) \%*\% sigma_L
 P1_R = chol(P1)
 
-# call square root Kalman filter. Note H_t = t(H) and y_t = t(y)!
-out_test = kf2_cpp(model$sys$A, model$sys$C, t(H), t(data$y), P1_R, double(s))
-all.equal(out, out_test)
-# use the wrapper function
-out_test = kf(model, data$y, method = 'kf2')
+# call square root Kalman filter using wrapper function
+out_test = kf(model, data$y, method = 'kf2')  # using wrapper function
 all.equal(out, out_test)
 
 # The one step ahead predictions for y[t] may be computed by

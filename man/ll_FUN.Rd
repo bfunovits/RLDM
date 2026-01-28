@@ -28,7 +28,7 @@ numeric matrix). Missing values (\code{NA}, \code{NaN} and \code{Inf}) are
 \eqn{\max(p,q)}{max(p,q)} for ARMA models. This parameter
 is only used for the cases "concentrated", "conditional" and "gr_concentrated"}
 
-\item{tol}{(double) tolerance used by \code{\link[=ll_kf_cpp]{ll_kf_cpp()}}.}
+\item{tol}{(double) tolerance used by \code{\link[=ll_kf]{ll_kf()}}.}
 
 \item{err}{(double) return value for the case "kf", if the computation
 of the initial state covariance fails.}
