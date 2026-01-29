@@ -4,16 +4,46 @@
 \name{RLDM-package}
 \alias{RLDM}
 \alias{RLDM-package}
-\title{A Collection of Tools for VARMA and State Space Processes}
+\title{RLDM: Rational Linear Dynamic Models}
 \description{
-This package provides models for stationary processes with a rational spectral density and methods for their estimation.
+This package provides tools for stationary processes with rational spectral density.
+It implements VARMA and state space models with methods for estimation,
+simulation, prediction, and model comparison.
 }
-\section{Author(s)}{
+\details{
+The package uses Rcpp/RcppArmadillo for performance-critical computations
+including Kalman filtering and recursive least squares. It depends on the
+sister package \code{rationalmatrices} for rational matrix operations.
+}
+\section{Package Organization}{
 
+R source files use a numeric prefix system organized by purpose/workflow:
+\itemize{
+\item \strong{01_}: Model representations and classes (\code{armamod}, \code{stspmod}, \code{rmfdmod})
+\item \strong{02_}: Parameter templates (\verb{tmpl_*} functions, \code{fill_template}, \code{extract_theta})
+\item \strong{03_}: Derived properties (autocovariance, frequency response, impulse response, spectral density, poles)
+\item \strong{04_}: Time series operations (\code{solve_de}, \code{sim}, prediction/forecasting)
+\item \strong{05_}: Estimation methods (AR, ARMA, subspace, likelihood, recursive least squares)
+\item \strong{06_}: Visualization (plot methods for properties and predictions)
+\item \strong{07_}: Model comparison metrics and diagnostics
+\item \strong{08_}: Utilities (\code{print}, \code{str}, data documentation, package metadata)
+}
+}
 
-Wolfgang Scherrer and Bernd Funovits
+\section{Getting Started}{
 
-Maintainer: \href{mailto:bernd.funovits@gmail.com}{bernd.funovits@gmail.com}
+See vignettes for different user levels:
+\itemize{
+\item \code{vignette("0_getting_started")} for beginner-friendly introduction
+\item \code{vignette("1_case_study")} for practical end-to-end workflow
+\item \code{vignette("2_technical_reference")} for technical details and method selection
+}
+}
+
+\section{Citation}{
+
+When using RLDM in publications, please cite the relevant theory papers
+referenced in the vignettes. Use \code{citation("RLDM")} for package citation.
 }
 
 \seealso{
@@ -26,12 +56,6 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Bernd Funovits \email{bernd.funovits@gmail.com} (\href{https://orcid.org/0000-0002-8247-6840}{ORCID})
-
-Authors:
-\itemize{
-  \item Wolfgang Scherrer \email{wolfgang.scherrer@tuwien.ac.at}
+Wolfgang Scherrer, Bernd Funovits
+Maintainer: \href{mailto:bernd.funovits@gmail.com}{bernd.funovits@gmail.com}
 }
-
-}
-\keyword{internal}
