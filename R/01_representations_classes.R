@@ -414,6 +414,7 @@ test_stspmod = function(dim = c(1,1), s = NULL, nu = NULL, D = NULL, sigma_L = N
 #'
 #' @examples
 #' # Generate a random VARMA model in echelon form ############
+#' set.seed(123)
 #'
 #' # Compute the appropriate model template
 #' tmpl = tmpl_arma_echelon(nu = c(1,2,1))
@@ -484,8 +485,14 @@ r_model = function(template, ntrials.max = 100, bpoles = NULL, bzeroes = NULL,
 #'
 #' @return object of class [stspmod()].
 #'
-#' @rdname as.stspmod
 #' @export
+#' @examples
+#' # Convert an ARMA model to state space representation
+#' arma_model = armamod(sys = lmfd(c(1, 0.5, 0.2), c(1, -0.3)), sigma_L = diag(1))
+#' ss_model = as.stspmod(arma_model)
+#' ss_model
+#'
+#' @rdname as.stspmod
 as.stspmod = function(obj, ...){
   UseMethod("as.stspmod", obj)
 }
