@@ -95,10 +95,12 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. pkgdown website builds locally without errors
   2. Website can be deployed to GitHub Pages or similar service
-**Plans**: TBD
+**Plans**: 3 plans
 
 Plans:
-- [ ] 05-01: TBD
+- [ ] 05-01-PLAN.md — Configuration verification and fixes
+- [ ] 05-02-PLAN.md — Build test and commit
+- [ ] 05-03-PLAN.md — Verification and roadmap update
 
 ## Progress
 
@@ -111,4 +113,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Code Organization | 4/4 | Complete | 2026-01-28 |
 | 3. Build Verification | 5/5 | Complete | 2026-01-28 |
 | 4. Documentation Completeness | 4/4 | Complete | 2026-01-30 |
-| 5. Website Deployment | 0/1 | Not started | - |
+| 5. Website Deployment | 0/3 | Not started | - |
