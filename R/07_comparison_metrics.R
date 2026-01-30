@@ -88,11 +88,11 @@ KL_divergence = function(model, model_hat) {
 #'
 #' @return Matrix with four columns ("`lags`" number of lags, "`df`" degrees of freedom,
 #'         "`Q`" test statistics  and "`p`" p values).
-#' @export
-#'
 #' @examples
 #' u = matrix(rnorm(100*3), nrow = 100, ncol = 3)
 #' pm_test(u, 4, 0)
+#' @export
+#'
 pm_test = function(u, lag.max, n.par) {
   # check parameters
   u = try(as.matrix(u))

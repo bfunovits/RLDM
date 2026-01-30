@@ -338,6 +338,15 @@ est_ar = function(obj, p.max = NULL, penalty = NULL, ic = c('AIC','BIC','max'),
 #' @rdname est_ar
 #' @export
 est_ar_yw = function(gamma, p.max = (dim(gamma)[3]-1), penalty = -1) {
+#' @examples
+#' set.seed(123)
+#' # Generate example data
+#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' y <- sim(model, n.obs = 100)$y
+#' 
+#' # Run estimation
+#' result <- est_ar_yw(y)
+#' result
   # no input check!
 
   m = dim(gamma)[1]   # number of "outputs"
@@ -386,6 +395,15 @@ est_ar_yw = function(gamma, p.max = (dim(gamma)[3]-1), penalty = -1) {
 #' @rdname est_ar
 #' @export
 est_ar_dlw = function(gamma, p.max = (dim(gamma)[3]-1), penalty = -1) {
+#' @examples
+#' set.seed(123)
+#' # Generate example data
+#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' y <- sim(model, n.obs = 100)$y
+#' 
+#' # Run estimation
+#' result <- est_ar_dlw(y)
+#' result
   # no input checks!
 
   m = dim(gamma)[1]
@@ -502,6 +520,15 @@ est_ar_dlw = function(gamma, p.max = (dim(gamma)[3]-1), penalty = -1) {
 #' @rdname est_ar
 #' @export
 est_ar_ols = function(y, p.max = NULL, penalty = -1,
+#' @examples
+#' set.seed(123)
+#' # Generate example data
+#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' y <- sim(model, n.obs = 100)$y
+#' 
+#' # Run estimation
+#' result <- est_ar_ols(y)
+#' result
                       mean_estimate = c('sample.mean', 'intercept','zero'), p.min = 0L) {
   # only some basic input checks
   mean_estimate = match.arg(mean_estimate)

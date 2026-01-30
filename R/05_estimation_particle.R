@@ -71,6 +71,7 @@
 #'
 #' @examples
 #' # Linear Gaussian example: compare particle filter with Kalman filter
+#' set.seed(123)
 #' s = 2  # state dimension
 #' m = 1  # number of outputs
 #' n = m  # number of inputs
@@ -212,6 +213,7 @@ pfilter.stspmod = function(model, y, method = c('sir', 'apf', 'optimal'),
 #'
 #' @examples
 #' # Linear Gaussian example: compare particle filter likelihood with Kalman filter
+#' set.seed(123)
 #' s = 2
 #' m = 1
 #' n = m
@@ -307,10 +309,10 @@ ll_pfilter.stspmod = function(model, y, N_particles = 1000,
 #' @return Plot (invisibly returns `x`).
 #'
 #' @name plot.pfilter
-#' @export
-#'
 #' @examples
 #' # See examples in pf()
+#' @export
+#'
 plot.pfilter = function(x, type = c("states", "ess", "weights", "likelihood"), ...) {
   # This is a placeholder - implementation would be in 06_visualization.R
   # For now, provide basic plotting

@@ -15,11 +15,11 @@
 #'
 #' @return Object of class `armamod`.
 #'
-#' @export
-#'
 #' @examples
 #' x = armamod(sys = lmfd(c(1, 0.5), 1), sigma_L = diag(1))
 #' x
+#' @export
+#'
 armamod = function(sys, sigma_L = NULL, names = NULL, label = NULL) {
   if (!inherits(sys, 'lmfd')) stop('"sys" must be an lmfd object')
 
@@ -59,11 +59,11 @@ armamod = function(sys, sigma_L = NULL, names = NULL, label = NULL) {
 #' @references
 #' \insertRef{Hannan.Deistler12}{RLDM}
 #'
-#' @export
-#'
 #' @examples
 #' y = rmfdmod(sys = test_rmfd(dim = c(3,2), degrees = c(2,2)))
 #' y
+#' @export
+#'
 rmfdmod = function(sys, sigma_L = NULL, names = NULL, label = NULL) {
   # Check sys input
   if (!inherits(sys, 'rmfd')) stop('"sys" must be an rmfd object')
@@ -97,11 +97,11 @@ rmfdmod = function(sys, sigma_L = NULL, names = NULL, label = NULL) {
 #'
 #' @return Object of class `stspmod`.
 #'
-#' @export
-#'
 #' @examples
 #' x = stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
 #' x
+#' @export
+#'
 stspmod = function(sys, sigma_L = NULL, names = NULL, label = NULL) {
   if (!inherits(sys, 'stsp')) stop('"sys" must be an stsp object')
 

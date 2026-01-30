@@ -334,6 +334,7 @@ ll.stspmod = function(obj, y, which = c('concentrated', 'conditional', 'kf', 'kf
 #' @export
 #'
 #' @examples
+#' set.seed(123)
 #' # Generate a random model in echelon form model (m = 3)
 #' tmpl = tmpl_stsp_echelon(nu = c(2,1,1))
 #' model = r_model(template = tmpl, bpoles = 1, bzeroes = 1, sd = 0.25)
@@ -475,6 +476,10 @@ est_ML = function(y, tmpl, th, which = c('concentrated', 'conditional', 'kf'),
 #'         Note that this function simply calls `ll(fill_template(th, template), y, which, ...)`.
 #' @export
 ll_theta = function(th, template, y, which, ...) {
+#' @examples
+#' # Basic example
+#' result <- ll_theta()
+#' result
   model = try(fill_template(th, template))
   if (inherits(model, 'try-error')) {
     stop('ll_theta(): the parameter vector *th* and the template are not compatible!')

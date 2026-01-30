@@ -409,6 +409,13 @@ tmpl_arma_pq = function(m, n, p, q, sigma_L = c("chol", "symm", "identity", "ful
 #' @rdname model_structures
 #' @export
 tmpl_arma_echelon = function(nu, n = length(nu), sigma_L = c("chol", "symm", "identity", "full_normalized")) {
+#' @examples
+#' # Create a template
+#' tmpl <- tmpl_arma_echelon()
+#' tmpl
+#' 
+#' # Use the template with fill_template()
+#' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
 
   sigma_L = match.arg(sigma_L)
   nu = as.integer(nu)
@@ -540,6 +547,13 @@ tmpl_rmfd_pq = function(m, n, p, q, sigma_L = c("chol", "symm", "identity", "ful
 #' @rdname model_structures
 #' @export
 tmpl_rmfd_echelon = function(nu, m = length(nu), sigma_L = c("chol", "symm", "identity", "full_normalized")) {
+#' @examples
+#' # Create a template
+#' tmpl <- tmpl_rmfd_echelon()
+#' tmpl
+#' 
+#' # Use the template with fill_template()
+#' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
 
   # (m,n) transfer function k = d(z) c^(-1)(z) with degrees deg(c) = p, deg(d) = q
   sigma_L = match.arg(sigma_L)
@@ -609,6 +623,13 @@ tmpl_rmfd_echelon = function(nu, m = length(nu), sigma_L = c("chol", "symm", "id
 #' @rdname model_structures
 #' @export
 tmpl_stsp_full = function(m, n, s, sigma_L = c("chol", "symm", "identity", "full_normalized")) {
+#' @examples
+#' # Create a template
+#' tmpl <- tmpl_stsp_full()
+#' tmpl
+#' 
+#' # Use the template with fill_template()
+#' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
 
   m = as.integer(m)[1]
   n = as.integer(n)[1]
@@ -638,6 +659,13 @@ tmpl_stsp_full = function(m, n, s, sigma_L = c("chol", "symm", "identity", "full
 #' @rdname model_structures
 #' @export
 tmpl_stsp_ar = function(m, p, sigma_L = c("chol", "symm", "identity", "full_normalized")) {
+#' @examples
+#' # Create a template
+#' tmpl <- tmpl_stsp_ar()
+#' tmpl
+#' 
+#' # Use the template with fill_template()
+#' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
 
   m = as.integer(m)[1]
   p = as.integer(p)[1]
@@ -999,6 +1027,13 @@ tmpl_DDLC = function(model,
 #' @rdname local_model_structures
 #' @export
 tmpl_GRAM = function(model,
+#' @examples
+#' # Create a template
+#' tmpl <- tmpl_GRAM()
+#' tmpl
+#' 
+#' # Use the template with fill_template()
+#' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
                      balance = c('lyapunov', 'minimum phase'),
                      sigma_L = c("chol", "symm", "identity")) {
   if (!inherits(model, 'stspmod')) stop('model is not an "stspmod" object.')
@@ -1276,6 +1311,13 @@ tmpl_llm = function() {
 #' @rdname STSmodel
 #' @export
 tmpl_lltm = function() {
+#' @examples
+#' # Create a template
+#' tmpl <- tmpl_lltm()
+#' tmpl
+#' 
+#' # Use the template with fill_template()
+#' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
   model = stspmod(sys = stsp(A = matrix(c(1,0,1,1), nrow = 2, ncol = 2), B = diag(2), C = matrix(c(1,0), nrow = 1),
                              D = matrix(0, nrow = 1, ncol = 2)), sigma_L = diag(x=NA_real_, nrow = 2, ncol = 2))
   # print(model)
@@ -1287,6 +1329,13 @@ tmpl_lltm = function() {
 #' @rdname STSmodel
 #' @export
 tmpl_cycle = function(fr, rho) {
+#' @examples
+#' # Create a template
+#' tmpl <- tmpl_cycle()
+#' tmpl
+#' 
+#' # Use the template with fill_template()
+#' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
   lambda = fr*2*pi
   z0 = exp(complex(imaginary = lambda))*rho
   # a(z) = (1 - z0*z)(1 - Conj(z0)*z)
@@ -1304,6 +1353,13 @@ tmpl_cycle = function(fr, rho) {
 #' @rdname STSmodel
 #' @export
 tmpl_season = function(s) {
+#' @examples
+#' # Create a template
+#' tmpl <- tmpl_season()
+#' tmpl
+#' 
+#' # Use the template with fill_template()
+#' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
   s = as.integer(s)[1]
   if (s<=1) stop('period "s" must be an integer > 1')
   model = stspmod(sys = stsp(A = rbind(-rep(1, s-1), diag(x = 1, nrow = s-2, ncol = s-1)),
@@ -1320,6 +1376,10 @@ tmpl_season = function(s) {
 #' @rdname STSmodel
 #' @export
 cbind_templates = function(...) {
+#' @examples
+#' # Basic example
+#' result <- cbind_templates()
+#' result
   templates = list(...)
   n_templates = length(templates)
 
@@ -1537,6 +1597,10 @@ fill_template = function(th, template) {
 #' @rdname fill_template
 #' @export
 extract_theta = function(model, template,
+#' @examples
+#' # Basic example
+#' result <- extract_theta()
+#' result
                          tol = sqrt(.Machine$double.eps), on_error = c('ignore','warn','stop'), ignore_sigma_L = FALSE) {
 
   on_error = match.arg(on_error)

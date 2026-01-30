@@ -69,6 +69,10 @@
 #' @name subspace order estimates
 #' @export
 #'
+#' @examples
+#' # Basic example
+#' result <- estorder_SVC()
+#' result
 estorder_SVC = function(s.max, Hsv=NULL, n.par, n.obs, Hsize, penalty = 'lnN', ...) {
   # cat('estorder_SVC start\n')
   # print(penalty)
@@ -98,6 +102,10 @@ estorder_SVC = function(s.max, Hsv=NULL, n.par, n.obs, Hsize, penalty = 'lnN', .
 #' @name subspace order estimates
 #' @export
 estorder_IVC = function(s.max, lndetSigma=NULL, n.par, n.obs, penalty = 'BIC', ...) {
+#' @examples
+#' # Basic example
+#' result <- estorder_IVC()
+#' result
   # cat('estorder_IVC start\n')
   # print(penalty)
   if (is.null(lndetSigma)) return(NULL)
@@ -124,12 +132,20 @@ estorder_IVC = function(s.max, lndetSigma=NULL, n.par, n.obs, penalty = 'BIC', .
 #' @name subspace order estimates
 #' @export
 estorder_max = function(s.max, ...) {
+#' @examples
+#' # Basic example
+#' result <- estorder_max()
+#' result
   return(list(s = s.max, criterion = c(rep(1, s.max), 0)))
 }
 
 #' @name subspace order estimates
 #' @export
 estorder_rkH = function(s.max, Hsv = NULL, tol = sqrt(.Machine$double.eps), ...) {
+#' @examples
+#' # Basic example
+#' result <- estorder_rkH()
+#' result
   if (is.null(Hsv)) return(NULL)
   if (Hsv[1] <= .Machine$double.eps) {
     return(list(s = 0, criterion = numeric(s.max+1)))
@@ -147,6 +163,10 @@ estorder_rkH = function(s.max, Hsv = NULL, tol = sqrt(.Machine$double.eps), ...)
 #' @name subspace order estimates
 #' @export
 estorder_MOE = function(s.max, Hsv = NULL, ...) {
+#' @examples
+#' # Basic example
+#' result <- estorder_MOE()
+#' result
   if (is.null(Hsv)) return(NULL)
   criterion = Hsv
   if (Hsv[1] <= .Machine$double.eps) {
@@ -328,6 +348,15 @@ aoki = function(m, s, svd.H, gamma0, Rp, Rf) {
 #'
 #' @export
 #' @name subspace helpers
+#' @examples
+#' set.seed(123)
+#' # Generate example data
+#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' y <- sim(model, n.obs = 100)$y
+#' 
+#' # Run estimation
+#' result <- est_stsp_aoki(y)
+#' result
 est_stsp_aoki = function(gamma, s.max, p, estorder = estorder_SVC,
                          keep_models = FALSE, n.obs = NULL, ...) {
 
@@ -508,6 +537,15 @@ est_stsp_aoki = function(gamma, s.max, p, estorder = estorder_SVC,
 
 #' @export
 #' @name subspace helpers
+#' @examples
+#' set.seed(123)
+#' # Generate example data
+#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' y <- sim(model, n.obs = 100)$y
+#' 
+#' # Run estimation
+#' result <- est_stsp_cca(y)
+#' result
 est_stsp_cca = function(gamma, s.max, p, estorder = estorder_SVC,
                         keep_models = FALSE, n.obs = NULL, ...) {
 
@@ -722,6 +760,15 @@ est_stsp_cca = function(gamma, s.max, p, estorder = estorder_SVC,
 
 #' @export
 #' @name subspace helpers
+#' @examples
+#' set.seed(123)
+#' # Generate example data
+#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' y <- sim(model, n.obs = 100)$y
+#' 
+#' # Run estimation
+#' result <- est_stsp_cca_sample(y)
+#' result
 est_stsp_cca_sample = function(y, s.max, p, estorder = estorder_SVC, keep_models = FALSE,
                                mean_estimate = c('sample.mean', 'zero'), ...) {
 

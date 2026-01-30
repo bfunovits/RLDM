@@ -309,6 +309,10 @@ solve_de.rmfd = function(sys, u, u0 = NULL, y0 = NULL, ...) {
 #' @rdname solve_de
 #' @export
 solve_inverse_de = function(sys, y, ...)  {
+#' @examples
+#' # Basic example
+#' result <- solve_inverse_de()
+#' result
   UseMethod("solve_inverse_de", sys)
 }
 
@@ -705,6 +709,10 @@ toepl_inv = function(polm_rev, data_in, t0 = 1){
 #'
 #' @export
 solve_RMFD_R = function(polm_c, polm_d, data_input, t0 = 1) {
+#' @examples
+#' # Basic example
+#' result <- solve_RMFD_R()
+#' result
 
   # Unclassing polm objects
   polm_c = unclass(polm_c)
@@ -775,6 +783,10 @@ solve_RMFD_R = function(polm_c, polm_d, data_input, t0 = 1) {
 #'
 #' @export
 #' @seealso solve_RMFD_R
+#' @examples
+#' # Basic example
+#' result <- solve_inverse_RMFD_R()
+#' result
 solve_inverse_RMFD_R = function(polm_c, polm_d, data_output, t0=1) {
 
   # Unclassing polm objects
@@ -848,6 +860,10 @@ solve_inverse_RMFD_R = function(polm_c, polm_d, data_output, t0=1) {
 #'
 #' @export
 #' @name solve_ARMA
+#' @examples
+#' # Basic example
+#' result <- solve_ARMA_R()
+#' result
 solve_ARMA_R = function(a, b, u, y, t0) {
   m = nrow(y)
   n.obs = ncol(y)

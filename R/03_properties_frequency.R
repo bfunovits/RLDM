@@ -12,6 +12,10 @@
 #' @return A [rationalmatrices::zvalues()] object.
 #' @export
 #'
+#' @examples
+#' # Basic example
+#' result <- dft_3D()
+#' result
 dft_3D = function(a, n.f = dim(a)[3]) {
   n.f = as.integer(n.f)[1]
   if (n.f > 0) {
@@ -229,6 +233,13 @@ freqresp.stspmod = function(obj, n.f = 128, ...) {
 #' @rdname freqresp
 #' @export
 freqresp.impresp = function(obj, n.f = 128, ...) {
+#' @examples
+#' # Create a simple model
+#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' 
+#' # Compute impresp
+#' result <- impresp(model)
+#' result
   n.f = as.integer(n.f)[1]
   if (n.f < 0) stop('the number of frequencies "n.f" must be a non negative integer')
 

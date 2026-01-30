@@ -383,6 +383,10 @@ HR_ = function(u.hat, y, u.bench) {100*mean(((u.bench-u.hat)*u.bench) >= 0, na.r
 #' @rdname predict
 #' @export
 evaluate_prediction = function(y, yhat, h, criteria = list('RMSE'),
+#' @examples
+#' # Basic example
+#' result <- evaluate_prediction()
+#' result
                                benchmark = NULL, samples = list(1:nrow(y))) {
 
 
