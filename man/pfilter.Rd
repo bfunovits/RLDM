@@ -102,6 +102,7 @@ with \eqn{u_t \sim N(0, Q)}{u[t] ~ N(0, Q)} and \eqn{v_t \sim N(0, R)}{v[t] ~ N(
 }
 \examples{
 # Linear Gaussian example: compare particle filter with Kalman filter
+set.seed(123)
 s = 2  # state dimension
 m = 1  # number of outputs
 n = m  # number of inputs

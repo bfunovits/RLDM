@@ -18,3 +18,8 @@ A \code{\link[rationalmatrices:zvalues]{rationalmatrices::zvalues()}} object.
 Compute the Discrete Time Fourier Transform for data
 stored in a 3-dimensional array.
 }
+\examples{
+# Basic example
+result <- dft_3D()
+result
+}

@@ -25,3 +25,10 @@ The function \code{\link[=as.stsp.pseries]{as.stsp.pseries()}} calls
 Of course the \code{\link[=pseries]{pseries()}} object must contain
 sufficiently many lags. NOT YET implemented
 }
+\examples{
+# Convert an ARMA model to state space representation
+arma_model = armamod(sys = lmfd(c(1, 0.5, 0.2), c(1, -0.3)), sigma_L = diag(1))
+ss_model = as.stspmod(arma_model)
+ss_model
+
+}

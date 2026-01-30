@@ -92,6 +92,23 @@ one may also set \code{penalty} to an arbitrary numeric value! E.g.
 setting \code{penalty=-1} would ensure that  \code{estorder_SVC}  always choses
 the maximum possible order \code{s=s.max}.
 }
+\examples{
+# Basic example
+result <- estorder_SVC()
+result
+# Basic example
+result <- estorder_IVC()
+result
+# Basic example
+result <- estorder_max()
+result
+# Basic example
+result <- estorder_rkH()
+result
+# Basic example
+result <- estorder_MOE()
+result
+}
 \references{
 \insertRef{Bauer2001}{RLDM}
 }

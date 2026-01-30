@@ -44,6 +44,7 @@ Of course this is a very crude method and it may need a large number of randomly
 }
 \examples{
 # Generate a random VARMA model in echelon form ############
+set.seed(123)
 
 # Compute the appropriate model template
 tmpl = tmpl_arma_echelon(nu = c(1,2,1))

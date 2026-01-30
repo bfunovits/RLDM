@@ -81,6 +81,7 @@ the implementation of stage III would otherwise be even more cumbersome.
 }
 \examples{
 data = BQdata_xts
+set.seed(123)
 for (pp in 0:2){
   for (qq in 0:2){
     if (pp + qq == 0){next}

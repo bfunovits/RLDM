@@ -179,6 +179,32 @@ For both \code{estorder_SVC} and \code{estorder_IVC} the (optional) parameter
 Note also that for  \code{keep_models==TRUE} the estimation procedures compute \emph{all}
 models even in the case of a Hankel singular value based selection criterion.
 }
+\examples{
+set.seed(123)
+# Generate example data
+model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+y <- sim(model, n.obs = 100)$y
+
+# Run estimation
+result <- est_stsp_aoki(y)
+result
+set.seed(123)
+# Generate example data
+model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+y <- sim(model, n.obs = 100)$y
+
+# Run estimation
+result <- est_stsp_cca(y)
+result
+set.seed(123)
+# Generate example data
+model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+y <- sim(model, n.obs = 100)$y
+
+# Run estimation
+result <- est_stsp_cca_sample(y)
+result
+}
 \references{
 \insertRef{Bauer2001}{RLDM}
 }

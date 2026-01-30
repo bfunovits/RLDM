@@ -120,4 +120,7 @@ data = solve_de(model$sys, u = u, a1 = a1)
 data1 = solve_inverse_de(model$sys, y = data$y, a1 = data$a[1,])
 all.equal(data$u, data1$u)
 
+# Basic example
+result <- solve_inverse_de()
+result
 }

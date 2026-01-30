@@ -114,4 +114,10 @@ k = unclass(irf$irf)
 all.equal(k, k1)
 
 set.seed(NULL) # reset seed
+# Create a simple model
+model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+
+# Compute impresp
+result <- impresp(model)
+result
 }

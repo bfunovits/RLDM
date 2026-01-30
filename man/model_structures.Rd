@@ -300,6 +300,12 @@ tmpl = tmpl_arma_pq(m, n = m, p, q, sigma_L = "identity")
 # than for the above model structures!
 fill_template(th[1:(length(th)-3)], tmpl)
 
+# Create a template
+tmpl <- tmpl_arma_echelon()
+tmpl
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
 
 # ######################################################
 # RMFD(p,q) models y[t] = d(z) c(z)^-1 e[t]
@@ -325,6 +331,24 @@ tmpl = tmpl_rmfd_pq(m, n = m, p, q, sigma_L = "identity")
 # than for the above model structures!
 fill_template(th[1:(length(th)-3)], tmpl)
 
+# Create a template
+tmpl <- tmpl_rmfd_echelon()
+tmpl
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
+# Create a template
+tmpl <- tmpl_stsp_full()
+tmpl
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
+# Create a template
+tmpl <- tmpl_stsp_ar()
+tmpl
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
 
 # ######################################################
 # state space models in echelon form

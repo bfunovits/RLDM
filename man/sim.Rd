@@ -60,6 +60,7 @@ and the initial values, then \code{\link[=solve_de]{solve_de()}} may be used.
 }
 \examples{
 # Random Walk ############################################################################
+set.seed(123)
 model = armamod(lmfd(a = c(1,-1), b = 1))
 # generate outputs "y"
 n.obs = 100

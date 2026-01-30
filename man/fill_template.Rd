@@ -85,6 +85,9 @@ extract_theta(armamod_obj, tmpl_obj)
 (n_par_deep = dim(tmpl_obj$H)[2])
 
 fill_template(rnorm(n_par_deep), tmpl_obj)
+# Basic example
+result <- extract_theta()
+result
 }
 \seealso{
 \code{\link[=model structures]{model structures()}}, \code{\link[=ll]{ll()}}, \code{\link[=ll_theta]{ll_theta()}} and \code{\link[=ll_FUN]{ll_FUN()}}.

@@ -150,6 +150,27 @@ cbind_templates(tmpl_season(4), tmpl_stsp_ar(2, 2))
 # the third argument is a "VARMA template"
 cbind_templates(tmpl_lltm(), tmpl_cycle(1/20,1), tmpl_arma_pq(1, 1, 1, 1))
 }
+# Create a template
+tmpl <- tmpl_lltm()
+tmpl
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
+# Create a template
+tmpl <- tmpl_cycle()
+tmpl
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
+# Create a template
+tmpl <- tmpl_season()
+tmpl
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
+# Basic example
+result <- cbind_templates()
+result
 }
 \references{
 \insertRef{Harvey94}{RLDM}

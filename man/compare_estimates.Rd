@@ -55,3 +55,27 @@ Typically the data \code{y} is the "estimation data set",
 i.e. the data which has been used to estimate the models. However, one may also
 pass a new data set to the procedure.
 }
+\examples{
+# Generate some data
+set.seed(123)
+model = stspmod(sys = stsp(A = matrix(c(0.5, 0.2, 0, 0.3), 2, 2),
+                           B = matrix(c(1, 0.5), 2, 1),
+                           C = matrix(c(1, 0), 1, 2),
+                           D = matrix(1, 1, 1)),
+                sigma_L = matrix(1, 1, 1))
+y = sim(model, n.obs = 100)$y
+
+# Create two different estimates (simulated for example)
+estimate1 = list(model = model, n.par = 4)
+estimate2 = list(model = stspmod(sys = stsp(A = matrix(c(0.4, 0.1, 0, 0.35), 2, 2),
+                                           B = matrix(c(1.1, 0.4), 2, 1),
+                                           C = matrix(c(0.9, 0), 1, 2),
+                                           D = matrix(1, 1, 1)),
+                                    sigma_L = matrix(1.2, 1, 1)),
+                 n.par = 4)
+
+# Compare estimates
+estimates = list("Estimate 1" = estimate1, "Estimate 2" = estimate2)
+comparison = compare_estimates(estimates, y, n.lags = 5)
+comparison
+}

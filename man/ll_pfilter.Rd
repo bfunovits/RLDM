@@ -62,6 +62,7 @@ Kalman filter likelihood is not available.
 }
 \examples{
 # Linear Gaussian example: compare particle filter likelihood with Kalman filter
+set.seed(123)
 s = 2
 m = 1
 n = m

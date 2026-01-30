@@ -188,4 +188,7 @@ dimnames(stats) = list(criterion = dimnames.stats[[1]], sample = dimnames.stats[
 
 # use array2data.frame for "tabular" display of the results
 print(array2data.frame(stats, cols = 5, rows = c(3,4,1,2)))
+# Basic example
+result <- evaluate_prediction()
+result
 }

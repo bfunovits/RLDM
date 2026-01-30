@@ -57,6 +57,7 @@ and the "noise parameters".)
 }
 }
 \examples{
+set.seed(123)
 # Generate a random model in echelon form model (m = 3)
 tmpl = tmpl_stsp_echelon(nu = c(2,1,1))
 model = r_model(template = tmpl, bpoles = 1, bzeroes = 1, sd = 0.25)

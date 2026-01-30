@@ -32,3 +32,8 @@ The template \code{template} is filled with the deep parameters in \code{th}.
 Subsequently, the S3 method \code{\link[=ll]{ll()}} is called for the class provided in the template
 and the value of the \strong{scaled} log-likelihood function is returned, see \code{\link[=ll]{ll()}}.
 }
+\examples{
+# Basic example
+result <- ll_theta()
+result
+}

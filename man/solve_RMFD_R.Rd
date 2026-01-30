@@ -45,3 +45,8 @@ The order of the coefficients in \eqn{c(z)} is reversed and there is no \eqn{c_0
 The order of the coefficients in \eqn{d(z)} is as usual, \eqn{d_0}{d[0]} is available too.
 The data matrices are organized columnwise (to avoid memory shuffling)!
 }
+\examples{
+# Basic example
+result <- solve_RMFD_R()
+result
+}

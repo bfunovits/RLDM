@@ -140,6 +140,12 @@ d_Q = gr$Q - Q
 
 # the "disturbed" system should still be approximately balanced!
 print(round(cbind(d_P, d_P - d_Q)/eps, 6) )
+# Create a template
+tmpl <- tmpl_GRAM()
+tmpl
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
 }
 \references{
 \insertRef{McKelveyHelmerssonRibarits2004}{RLDM}

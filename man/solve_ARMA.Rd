@@ -41,3 +41,8 @@ Use this procedure with care!
 Note the non standard arguments: The order of the AR coefficients is reversed.
 The data matrices are organized column-wise (to avoid memory shuffling)!
 }
+\examples{
+# Basic example
+result <- solve_ARMA_R()
+result
+}
