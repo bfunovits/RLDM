@@ -157,13 +157,13 @@ tmpl
 # Use the template with fill_template()
 # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
 # Create a template
-tmpl <- tmpl_cycle()
+tmpl <- tmpl_cycle(fr = 1/20, rho = 1)
 tmpl
 
 # Use the template with fill_template()
 # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
 # Create a template
-tmpl <- tmpl_season()
+tmpl <- tmpl_season(s = 4)
 tmpl
 
 # Use the template with fill_template()

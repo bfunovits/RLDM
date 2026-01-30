@@ -86,7 +86,13 @@ extract_theta(armamod_obj, tmpl_obj)
 
 fill_template(rnorm(n_par_deep), tmpl_obj)
 # Basic example
-result <- extract_theta()
+# Create a template
+tmpl <- tmpl_stsp_ar(m = 2, p = 1)
+# Generate a random model with this structure
+th0 <- rnorm(tmpl$n.par, sd = 0.1)
+model <- fill_template(th0, tmpl)
+# Extract the "free" parameters from the model
+result <- extract_theta(model, tmpl)
 result
 }
 \seealso{

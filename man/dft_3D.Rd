@@ -20,6 +20,7 @@ stored in a 3-dimensional array.
 }
 \examples{
 # Basic example
-result <- dft_3D()
+a <- array(1:12, dim = c(2, 2, 3))
+result <- dft_3D(a)
 result
 }

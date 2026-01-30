@@ -4,7 +4,13 @@
 \alias{ll_theta}
 \title{Log-likelihood Given Deep Parameters}
 \usage{
-ll_theta(th, template, y, which, ...)
+ll_theta(
+  th,
+  template,
+  y,
+  which = c("concentrated", "conditional", "kf", "kf2"),
+  ...
+)
 }
 \arguments{
 \item{th}{Vector of deep parameter}
@@ -34,6 +40,14 @@ and the value of the \strong{scaled} log-likelihood function is returned, see \c
 }
 \examples{
 # Basic example
-result <- ll_theta()
+set.seed(123)
+# Create a template
+tmpl <- tmpl_stsp_ar(m = 1, p = 1)
+# Generate random parameters and data
+th <- rnorm(tmpl$n.par, sd = 0.1)
+model <- fill_template(th, tmpl)
+y <- sim(model, n.obs = 50)$y
+# Compute log-likelihood
+result <- ll_theta(th, tmpl, y)
 result
 }
