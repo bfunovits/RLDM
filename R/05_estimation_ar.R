@@ -341,11 +341,15 @@ est_ar_yw = function(gamma, p.max = (dim(gamma)[3]-1), penalty = -1) {
 #' @examples
 #' set.seed(123)
 #' # Generate example data
-#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' model <- test_stspmod(dim = c(2,2), s = 2, bpoles = 1, sigma_L = diag(2))
 #' y <- sim(model, n.obs = 100)$y
-#' 
+#'
+#' # Compute autocovariance
+#' acf_obj <- autocov(model, lag.max = 10)
+#' gamma <- acf_obj$gamma
+#'
 #' # Run estimation
-#' result <- est_ar_yw(y)
+#' result <- est_ar_yw(gamma)
 #' result
   # no input check!
 
@@ -398,11 +402,15 @@ est_ar_dlw = function(gamma, p.max = (dim(gamma)[3]-1), penalty = -1) {
 #' @examples
 #' set.seed(123)
 #' # Generate example data
-#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' model <- test_stspmod(dim = c(2,2), s = 2, bpoles = 1, sigma_L = diag(2))
 #' y <- sim(model, n.obs = 100)$y
-#' 
+#'
+#' # Compute autocovariance
+#' acf_obj <- autocov(model, lag.max = 10)
+#' gamma <- acf_obj$gamma
+#'
 #' # Run estimation
-#' result <- est_ar_dlw(y)
+#' result <- est_ar_dlw(gamma)
 #' result
   # no input checks!
 
@@ -523,9 +531,9 @@ est_ar_ols = function(y, p.max = NULL, penalty = -1,
 #' @examples
 #' set.seed(123)
 #' # Generate example data
-#' model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+#' model <- test_stspmod(dim = c(2,2), s = 2, bpoles = 1, sigma_L = diag(2))
 #' y <- sim(model, n.obs = 100)$y
-#' 
+#'
 #' # Run estimation
 #' result <- est_ar_ols(y)
 #' result

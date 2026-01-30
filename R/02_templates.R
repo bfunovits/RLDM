@@ -1331,9 +1331,9 @@ tmpl_lltm = function() {
 tmpl_cycle = function(fr, rho) {
 #' @examples
 #' # Create a template
-#' tmpl <- tmpl_cycle()
+#' tmpl <- tmpl_cycle(fr = 1/20, rho = 1)
 #' tmpl
-#' 
+#'
 #' # Use the template with fill_template()
 #' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
   lambda = fr*2*pi
@@ -1355,9 +1355,9 @@ tmpl_cycle = function(fr, rho) {
 tmpl_season = function(s) {
 #' @examples
 #' # Create a template
-#' tmpl <- tmpl_season()
+#' tmpl <- tmpl_season(s = 4)
 #' tmpl
-#' 
+#'
 #' # Use the template with fill_template()
 #' # filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
   s = as.integer(s)[1]
@@ -1599,7 +1599,13 @@ fill_template = function(th, template) {
 extract_theta = function(model, template,
 #' @examples
 #' # Basic example
-#' result <- extract_theta()
+#' # Create a template
+#' tmpl <- tmpl_stsp_ar(m = 2, p = 1)
+#' # Generate a random model with this structure
+#' th0 <- rnorm(tmpl$n.par, sd = 0.1)
+#' model <- fill_template(th0, tmpl)
+#' # Extract the "free" parameters from the model
+#' result <- extract_theta(model, tmpl)
 #' result
                          tol = sqrt(.Machine$double.eps), on_error = c('ignore','warn','stop'), ignore_sigma_L = FALSE) {
 

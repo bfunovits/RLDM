@@ -14,7 +14,8 @@
 #'
 #' @examples
 #' # Basic example
-#' result <- dft_3D()
+#' a <- array(1:12, dim = c(2, 2, 3))
+#' result <- dft_3D(a)
 #' result
 dft_3D = function(a, n.f = dim(a)[3]) {
   n.f = as.integer(n.f)[1]
