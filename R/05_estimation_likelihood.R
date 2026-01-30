@@ -478,7 +478,15 @@ est_ML = function(y, tmpl, th, which = c('concentrated', 'conditional', 'kf'),
 ll_theta = function(th, template, y, which, ...) {
 #' @examples
 #' # Basic example
-#' result <- ll_theta()
+#' set.seed(123)
+#' # Create a template
+#' tmpl <- tmpl_stsp_ar(m = 1, p = 1)
+#' # Generate random parameters and data
+#' th <- rnorm(tmpl$n.par, sd = 0.1)
+#' model <- fill_template(th, tmpl)
+#' y <- sim(model, n.obs = 50)$y
+#' # Compute log-likelihood
+#' result <- ll_theta(th, tmpl, y)
 #' result
   model = try(fill_template(th, template))
   if (inherits(model, 'try-error')) {
