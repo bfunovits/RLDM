@@ -43,6 +43,18 @@ NULL
 #'   }
 #'
 #' @export
+#' @examples
+#' # Generate simple time series data
+#' set.seed(123)
+#' n <- 100
+#' x1 <- rnorm(n)
+#' x2 <- rnorm(n)
+#' X <- cbind(x1, x2)
+#' y <- 2*x1 + 3*x2 + rnorm(n, sd = 0.5)
+#'
+#' # Run RLS with default forgetting factors
+#' result <- arx_rls_core(y, X, n_init = 20, start_of_eval = 25, end_of_train = 80)
+#' str(result)
 arx_rls_core <- function(y,
                          X,
                          r = matrix(c(0.9, 0.9500000, 0.9750000, 0.9875000, 0.9937500, 0.9968750, 0.9984375, 1), ncol = 1),

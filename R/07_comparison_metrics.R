@@ -27,6 +27,22 @@
 #'
 #' @return KL divergence.
 #' @export
+#' @examples
+#' # Create a true model and an estimated model
+#' true_model = stspmod(sys = stsp(A = matrix(c(0.5, 0, 0, 0.3), 2, 2),
+#'                                 B = matrix(c(1, 0), 2, 1),
+#'                                 C = matrix(c(1, 1), 1, 2),
+#'                                 D = matrix(1, 1, 1)),
+#'                      sigma_L = matrix(1, 1, 1))
+#' # Create a slightly different estimated model
+#' est_model = stspmod(sys = stsp(A = matrix(c(0.45, 0, 0, 0.35), 2, 2),
+#'                                B = matrix(c(1.1, 0), 2, 1),
+#'                                C = matrix(c(0.9, 1.1), 1, 2),
+#'                                D = matrix(1, 1, 1)),
+#'                     sigma_L = matrix(1.1, 1, 1))
+#' # Compute KL divergence
+#' kl = KL_divergence(true_model, est_model)
+#' kl
 KL_divergence = function(model, model_hat) {
 
   if (!inherits(model, 'stspmod')) stop('input "model" must be a "stspmod" object')
@@ -175,6 +191,29 @@ pm_test = function(u, lag.max, n.par) {
 #' @return Matrix with the computed statistics for the estimated models. This matrix has attributes
 #'         `m`, `n.obs` and `n.lags`.
 #' @export
+#' @examples
+#' # Generate some data
+#' set.seed(123)
+#' model = stspmod(sys = stsp(A = matrix(c(0.5, 0.2, 0, 0.3), 2, 2),
+#'                            B = matrix(c(1, 0.5), 2, 1),
+#'                            C = matrix(c(1, 0), 1, 2),
+#'                            D = matrix(1, 1, 1)),
+#'                 sigma_L = matrix(1, 1, 1))
+#' y = sim(model, n.obs = 100)$y
+#'
+#' # Create two different estimates (simulated for example)
+#' estimate1 = list(model = model, n.par = 4)
+#' estimate2 = list(model = stspmod(sys = stsp(A = matrix(c(0.4, 0.1, 0, 0.35), 2, 2),
+#'                                            B = matrix(c(1.1, 0.4), 2, 1),
+#'                                            C = matrix(c(0.9, 0), 1, 2),
+#'                                            D = matrix(1, 1, 1)),
+#'                                     sigma_L = matrix(1.2, 1, 1)),
+#'                  n.par = 4)
+#'
+#' # Compare estimates
+#' estimates = list("Estimate 1" = estimate1, "Estimate 2" = estimate2)
+#' comparison = compare_estimates(estimates, y, n.lags = 5)
+#' comparison
 compare_estimates = function(estimates, y, n.lags = NULL) {
   y = try(as.matrix(y))
   if ( inherits(y, 'try-error') || (!is.numeric(y)) || (!is.matrix(y)) ) {
