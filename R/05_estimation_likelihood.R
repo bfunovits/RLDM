@@ -475,7 +475,8 @@ est_ML = function(y, tmpl, th, which = c('concentrated', 'conditional', 'kf'),
 #'         a model structure defined via `template`.
 #'         Note that this function simply calls `ll(fill_template(th, template), y, which, ...)`.
 #' @export
-ll_theta = function(th, template, y, which, ...) {
+ll_theta = function(th, template, y, which = c('concentrated', 'conditional', 'kf', 'kf2'), ...) {
+  which = match.arg(which)
 #' @examples
 #' # Basic example
 #' set.seed(123)
