@@ -87,7 +87,8 @@ print(
 
 - format:
 
-  (character string) selects specific output formats. Note that `stsp()`
+  (character string) selects specific output formats. Note that
+  [`rationalmatrices::stsp()`](https://bfunovits.github.io/rationalmatrices/reference/stsp.html)
   and
   [`fevardec()`](https://bfunovits.github.io/RLDM/reference/fevardec.md)
   objects have no format option. The option `'character'` is only
@@ -110,12 +111,12 @@ print(m, digits = 2, format = "i|jz")
 #> ARMA model [2,2] with orders p = 1 and q = 1
 #> AR polynomial a(z):
 #>      z^0 [,1]  [,2] z^1 [,1]  [,2]
-#> [1,]        1     0     0.89 -0.82
-#> [2,]        0     1    -1.12 -0.69
+#> [1,]        1     0     0.64  0.78
+#> [2,]        0     1     0.47  0.40
 #> MA polynomial b(z):
 #>      z^0 [,1]  [,2] z^1 [,1]  [,2]
-#> [1,]    -1.36 -1.75    -1.63  1.75
-#> [2,]    -0.02  1.21    -0.42 -0.10
+#> [1,]    -1.00 -0.08    -0.32 -0.08
+#> [2,]    -1.46  1.37     2.18  0.40
 #> Left square root of noise covariance Sigma:
 #>      u[1] u[2]
 #> u[1]    1    0

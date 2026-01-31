@@ -62,7 +62,7 @@
                         <h4 data-toc-skip class="author">Wolfgang
 Scherrer and Bernd Funovits</h4>
             
-            <h4 data-toc-skip class="date">2026-01-22</h4>
+            <h4 data-toc-skip class="date">2026-01-31</h4>
       
 
       <div class="d-none name"><code>2_technical_reference.Rmd</code></div>
@@ -263,7 +263,7 @@ slots:</p>
 <span><span class="co"># In RLDM convention: y_t - 0.8*y_{t-1} = u_t</span></span>
 <span><span class="va">a_coef</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.8</span><span class="op">)</span>  <span class="co"># negative sign for standard convention</span></span>
 <span><span class="va">b_coef</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span><span class="va">sys</span> <span class="op">&lt;-</span> <span class="fu">lmfd</span><span class="op">(</span><span class="va">a_coef</span>, <span class="va">b_coef</span><span class="op">)</span></span>
+<span><span class="va">sys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/lmfd.html" class="external-link">lmfd</a></span><span class="op">(</span><span class="va">a_coef</span>, <span class="va">b_coef</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/armamod.html">armamod</a></span><span class="op">(</span><span class="va">sys</span>, sigma_L <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, names <span class="op">=</span> <span class="st">"Output"</span>, label <span class="op">=</span> <span class="st">"AR(1)"</span><span class="op">)</span></span>
 <span><span class="va">model</span></span>
@@ -302,6 +302,27 @@ Visualization</p>
 </h3>
 <p>The <code>stspmod</code> class represents processes in canonical
 <strong>state space</strong> form.</p>
+<p>State space models offer several advantages over other
+representations:</p>
+<ul>
+<li>
+<strong>Minimality</strong>: The state dimension
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
+represents the essential “memory” of the system, providing the most
+compact representation.</li>
+<li>
+<strong>Balancing</strong>: Realizations can be balanced to improve
+numerical stability (<code>balance</code> parameter in template
+functions).</li>
+<li>
+<strong>Latent state interpretation</strong>: Hidden states can
+represent meaningful unobserved components (trends, cycles,
+factors).</li>
+<li>
+<strong>Flexibility</strong>: Can model complex dynamics with
+relatively few parameters through appropriate state dimension
+selection.</li>
+</ul>
 <div class="section level4">
 <h4 id="structure-1">Structure<a class="anchor" aria-label="anchor" href="#structure-1"></a>
 </h4>
@@ -354,7 +375,7 @@ Visualization</p>
 <span><span class="va">C_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">D_matrix</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">sys</span> <span class="op">&lt;-</span> <span class="fu">stsp</span><span class="op">(</span><span class="va">A_matrix</span>, <span class="va">B_matrix</span>, <span class="va">C_matrix</span>, <span class="va">D_matrix</span><span class="op">)</span></span>
+<span><span class="va">sys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/stsp.html" class="external-link">stsp</a></span><span class="op">(</span><span class="va">A_matrix</span>, <span class="va">B_matrix</span>, <span class="va">C_matrix</span>, <span class="va">D_matrix</span><span class="op">)</span></span>
 <span><span class="va">model_ss</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/stspmod.html">stspmod</a></span><span class="op">(</span><span class="va">sys</span>, sigma_L <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">model_ss</span></span>
 <span><span class="co">#&gt; state space model [1,1] with s = 1 states</span></span>
@@ -370,8 +391,9 @@ Visualization</p>
 </h4>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span>class <span class="op">=</span> <span class="st">'stspmod'</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] autocov   freqresp  impresp   ll        poles     predict   print    </span></span>
-<span><span class="co">#&gt;  [8] sim       spectrald str       zeroes   </span></span>
+<span><span class="co">#&gt;  [1] autocov    freqresp   impresp    ll_pfilter ll         pfilter   </span></span>
+<span><span class="co">#&gt;  [7] poles      predict    print      sim        spectrald  str       </span></span>
+<span><span class="co">#&gt; [13] zeroes    </span></span>
 <span><span class="co">#&gt; see '?methods' for accessing help and source code</span></span></code></pre></div>
 <p>Similar to <code>armamod</code>, state space models support: -
 Autocovariance, impulse responses, spectral density computation -
@@ -708,6 +730,19 @@ space order and initial estimates.</p>
 <p><strong>Advantages:</strong> - Data-driven order selection - Suitable
 when no prior knowledge of system structure - Good numerical
 properties</p>
+<p><strong>State Dimension Selection:</strong> When
+<code>s = NULL</code> (default), CCA automatically selects state
+dimension using singular value criteria. For manual selection, consider:
+- <strong>Singular Value Criterion (SVC)</strong>: Look for a gap in
+singular values of the weighted Hankel matrix - <strong>Information
+Criteria</strong>: AIC/BIC computed for different state dimensions -
+<strong>Cross-validation</strong>: Out-of-sample prediction performance
+- <strong>Interpretability</strong>: Choose dimension that matches
+expected number of latent factors</p>
+<p>In practice, start with automatic selection via
+<code><a href="../reference/subspace-methods.html">est_stsp_ss()</a></code> with <code>s = NULL</code>, then inspect the
+singular values plot (if available) or compare information criteria
+across dimensions.</p>
 </div>
 <div class="section level4">
 <h4 id="subspace-methods-est_stsp_ssmethod-ccahomoesp">Subspace Methods:
@@ -761,6 +796,167 @@ echelon form</li>
 <span></span>
 <span><span class="co"># Reconstruct model from optimized parameters</span></span>
 <span><span class="va">model_ml</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fill_template.html">fill_template</a></span><span class="op">(</span><span class="va">opt</span><span class="op">$</span><span class="va">par</span>, <span class="va">tmpl</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level3">
+<h3 id="particle-filtering">Particle Filtering<a class="anchor" aria-label="anchor" href="#particle-filtering"></a>
+</h3>
+<div class="section level4">
+<h4 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h4>
+<p>Particle filters (Sequential Monte Carlo methods) extend Kalman
+filtering to <strong>nonlinear and/or non-Gaussian state space
+models</strong>. While the Kalman filter provides optimal closed-form
+solutions for linear Gaussian models, particle filters use Monte Carlo
+approximation to handle:</p>
+<ul>
+<li>
+<strong>Nonlinear state transitions</strong>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>t</mi></msub><mo>=</mo><mi>f</mi><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>,</mo><msub><mi>u</mi><mi>t</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_t = f(x_{t-1}, u_t)</annotation></semantics></math>
+</li>
+<li>
+<strong>Non-Gaussian observations</strong>:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>t</mi></msub><mo>∼</mo><mi>p</mi><mrow><mo stretchy="true" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="prefix">|</mo><msub><mi>x</mi><mi>t</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">y_t \sim p(y | x_t)</annotation></semantics></math>
+with arbitrary distribution</li>
+<li><strong>Complex noise structures</strong></li>
+</ul>
+<p>The RLDM implementation includes three particle filter variants:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>SIR (Bootstrap) filter</strong>: Basic sampling importance
+resampling</li>
+<li>
+<strong>APF (Auxiliary Particle Filter)</strong>: Two-stage
+resampling with lookahead</li>
+<li>
+<strong>Optimal proposal</strong>: For linear Gaussian models,
+approaches Kalman filter performance</li>
+</ol>
+</div>
+<div class="section level4">
+<h4 id="basic-usage-linear-gaussian-comparison">Basic Usage: Linear Gaussian Comparison<a class="anchor" aria-label="anchor" href="#basic-usage-linear-gaussian-comparison"></a>
+</h4>
+<p>For linear Gaussian models, particle filters approximate the Kalman
+filter solution:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bfunovits.github.io/RLDM">RLDM</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a linear Gaussian state space model</span></span>
+<span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fl">1</span>; <span class="va">s</span> <span class="op">&lt;-</span> <span class="fl">2</span>; <span class="va">n</span> <span class="op">&lt;-</span> <span class="va">s</span></span>
+<span><span class="va">tmpl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/model_structures.html">tmpl_stsp_full</a></span><span class="op">(</span><span class="va">m</span>, <span class="va">n</span>, <span class="va">s</span>, sigma_L <span class="op">=</span> <span class="st">"chol"</span><span class="op">)</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/r_model.html">r_model</a></span><span class="op">(</span><span class="va">tmpl</span>, bpoles <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">model</span>, n.obs <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="va">data</span><span class="op">$</span><span class="va">y</span></span>
+<span></span>
+<span><span class="co"># Kalman filter (optimal for linear Gaussian)</span></span>
+<span><span class="va">kf_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/kf.html">kf</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Particle filters</span></span>
+<span><span class="va">pf_sir</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pfilter.html">pfilter</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, N_particles <span class="op">=</span> <span class="fl">1000</span>, method <span class="op">=</span> <span class="st">"sir"</span><span class="op">)</span></span>
+<span><span class="va">pf_apf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pfilter.html">pfilter</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, N_particles <span class="op">=</span> <span class="fl">1000</span>, method <span class="op">=</span> <span class="st">"apf"</span><span class="op">)</span></span>
+<span><span class="va">pf_opt</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pfilter.html">pfilter</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, N_particles <span class="op">=</span> <span class="fl">1000</span>, method <span class="op">=</span> <span class="st">"optimal"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compare filtered states</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">kf_result</span><span class="op">$</span><span class="va">a</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"black"</span>, lwd <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Filtered State Estimates"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">pf_sir</span><span class="op">$</span><span class="va">filtered_states</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, col <span class="op">=</span> <span class="st">"blue"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">pf_apf</span><span class="op">$</span><span class="va">filtered_states</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, col <span class="op">=</span> <span class="st">"red"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">pf_opt</span><span class="op">$</span><span class="va">filtered_states</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>, col <span class="op">=</span> <span class="st">"green"</span>, lty <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topright"</span>, legend <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Kalman"</span>, <span class="st">"SIR"</span>, <span class="st">"APF"</span>, <span class="st">"Optimal"</span><span class="op">)</span>,</span>
+<span>       col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"blue"</span>, <span class="st">"red"</span>, <span class="st">"green"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">2</span><span class="op">)</span>, lwd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="likelihood-approximation">Likelihood Approximation<a class="anchor" aria-label="anchor" href="#likelihood-approximation"></a>
+</h4>
+<p>Particle filters can approximate the log-likelihood for
+nonlinear/non-Gaussian models where exact Kalman filter likelihood is
+unavailable:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Kalman filter likelihood (exact for linear Gaussian)</span></span>
+<span><span class="va">ll_kf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ll_kf.html">ll_kf</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Particle filter likelihood approximation (averaged over multiple runs)</span></span>
+<span><span class="va">ll_pf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ll_pfilter.html">ll_pfilter</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, N_particles <span class="op">=</span> <span class="fl">1000</span>, filter_type <span class="op">=</span> <span class="st">"apf"</span>, N_runs <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Kalman filter LL:"</span>, <span class="va">ll_kf</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Particle filter LL:"</span>, <span class="va">ll_pf</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Difference:"</span>, <span class="va">ll_pf</span> <span class="op">-</span> <span class="va">ll_kf</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="nonlinear-and-non-gaussian-examples">Nonlinear and Non-Gaussian Examples<a class="anchor" aria-label="anchor" href="#nonlinear-and-non-gaussian-examples"></a>
+</h4>
+<p>RLDM includes example scripts demonstrating particle filter
+superiority for nonlinear/non-Gaussian models:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong><code>inst/examples/nonlinear_sin.R</code></strong> -
+Nonlinear state transition:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>t</mi></msub><mo>=</mo><mo>sin</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>+</mo><msub><mi>η</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">x_t = \sin(x_{t-1}) + \eta_t</annotation></semantics></math>
+</li>
+<li>
+<strong><code>inst/examples/nonlinear_poisson.R</code></strong> -
+Non-Gaussian observation:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>t</mi></msub><mo>∼</mo><mtext mathvariant="normal">Poisson</mtext><mrow><mo stretchy="true" form="prefix">(</mo><mi>λ</mi><mo>=</mo><mo>exp</mo><mrow><mo stretchy="true" form="prefix">(</mo><mi>C</mi><msub><mi>x</mi><mi>t</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo stretchy="true" form="postfix">)</mo></mrow></mrow><annotation encoding="application/x-tex">y_t \sim \text{Poisson}(\lambda = \exp(C x_t))</annotation></semantics></math>
+</li>
+<li>
+<strong><code>inst/examples/stochastic_volatility.R</code></strong>
+- Stochastic volatility model:
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>t</mi></msub><mo>=</mo><mo>exp</mo><mrow><mo stretchy="true" form="prefix">(</mo><msub><mi>x</mi><mi>t</mi></msub><mi>/</mi><mn>2</mn><mo stretchy="true" form="postfix">)</mo></mrow><msub><mi>ε</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">y_t = \exp(x_t/2) \varepsilon_t</annotation></semantics></math>
+</li>
+</ol>
+<p>Each example compares particle filter performance with approximate
+Kalman filter variants (Extended Kalman Filter, Gaussian approximation,
+log-squared transformation).</p>
+</div>
+<div class="section level4">
+<h4 id="diagnostics-and-visualization">Diagnostics and Visualization<a class="anchor" aria-label="anchor" href="#diagnostics-and-visualization"></a>
+</h4>
+<p>The <code><a href="../reference/plot.pfilter.html">plot.pfilter()</a></code> method provides several diagnostic
+plots:</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pf</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/pfilter.html">pfilter</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, N_particles <span class="op">=</span> <span class="fl">500</span>, method <span class="op">=</span> <span class="st">"sir"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Filtered state estimates</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pf</span>, type <span class="op">=</span> <span class="st">"states"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Effective Sample Size (ESS) over time</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pf</span>, type <span class="op">=</span> <span class="st">"ess"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Particle weight distribution at final time</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pf</span>, type <span class="op">=</span> <span class="st">"weights"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Log-likelihood contributions per time step</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">pf</span>, type <span class="op">=</span> <span class="st">"likelihood"</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="performance-considerations">Performance Considerations<a class="anchor" aria-label="anchor" href="#performance-considerations"></a>
+</h4>
+<ul>
+<li>
+<strong>Particle count</strong>: More particles improve accuracy but
+increase computation (typical: 1000-10000)</li>
+<li>
+<strong>Resampling methods</strong>: Systematic (default),
+multinomial, or stratified</li>
+<li>
+<strong>ESS threshold</strong>: Adaptive resampling when ESS &lt;
+threshold × N_particles (default: 0.5)</li>
+<li>
+<strong>Optimal proposal</strong>: Use for linear Gaussian models to
+minimize weight degeneracy</li>
+</ul>
+</div>
+<div class="section level4">
+<h4 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h4>
+<ul>
+<li>Gordon, N. J., Salmond, D. J., &amp; Smith, A. F. M. (1993). Novel
+approach to nonlinear/non-Gaussian Bayesian state estimation</li>
+<li>Pitt, M. K., &amp; Shephard, N. (1999). Filtering via simulation:
+Auxiliary particle filters</li>
+<li>Doucet, A., Godsill, S., &amp; Andrieu, C. (2000). On sequential
+Monte Carlo sampling methods for Bayesian filtering</li>
+</ul>
 <hr>
 </div>
 </div>
@@ -776,7 +972,7 @@ echelon form</li>
 </h4>
 <p>Simulate forward from initial conditions:</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>t</mi></msub><mo>=</mo><msub><mi>k</mi><mn>0</mn></msub><msub><mi>u</mi><mi>t</mi></msub><mo>+</mo><msub><mi>k</mi><mn>1</mn></msub><msub><mi>u</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>k</mi><mn>2</mn></msub><msub><mi>u</mi><mrow><mi>t</mi><mo>−</mo><mn>2</mn></mrow></msub><mo>+</mo><mi>⋯</mi></mrow><annotation encoding="application/x-tex">y_t = k_0 u_t + k_1 u_{t-1} + k_2 u_{t-2} + \cdots</annotation></semantics></math></p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve_de.html">solve_de</a></span><span class="op">(</span><span class="va">sys</span>, <span class="va">u</span>, y_init <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
@@ -784,7 +980,7 @@ echelon form</li>
 </h4>
 <p>Extract residuals given data (solve backwards):</p>
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>u</mi><mi>t</mi></msub><mo>=</mo><mi>a</mi><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><mi>b</mi><msup><mrow><mo stretchy="true" form="prefix">(</mo><mi>z</mi><mo stretchy="true" form="postfix">)</mo></mrow><mrow><mo>−</mo><mn>1</mn></mrow></msup><msub><mi>y</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">u_t = a(z)^{-1} b(z)^{-1} y_t</annotation></semantics></math></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/solve_de.html">solve_inverse_de</a></span><span class="op">(</span><span class="va">sys</span>, <span class="va">y</span><span class="op">)</span><span class="op">$</span><span class="va">u</span></span></code></pre></div>
 <hr>
 </div>
@@ -896,6 +1092,55 @@ dimension:
 </table>
 </div>
 <div class="section level3">
+<h3 id="choosing-state-space-parameterizations">Choosing State Space Parameterizations<a class="anchor" aria-label="anchor" href="#choosing-state-space-parameterizations"></a>
+</h3>
+<p>RLDM supports several state space parameterizations, each with
+different strengths:</p>
+<table class="table">
+<colgroup>
+<col width="28%">
+<col width="20%">
+<col width="21%">
+<col width="29%">
+</colgroup>
+<thead><tr class="header">
+<th>Parameterization</th>
+<th>When to Use</th>
+<th>Key Features</th>
+<th>Estimation Method</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>CCA (Canonical Correlation Analysis)</strong></td>
+<td>Initial exploration, data-driven order selection</td>
+<td>Automatic state dimension selection, good initial estimates</td>
+<td><code>est_stsp_ss(method = "cca")</code></td>
+</tr>
+<tr class="even">
+<td><strong>DDLC (Diagonal-Direct-Lead-Coefficient)</strong></td>
+<td>Maximum likelihood refinement, stable optimization</td>
+<td>Numerically stable, orthogonal to equivalence classes</td>
+<td>ML with <code><a href="../reference/local_model_structures.html">tmpl_DDLC()</a></code> + <code><a href="https://rdrr.io/r/stats/optim.html" class="external-link">optim()</a></code>
+</td>
+</tr>
+<tr class="odd">
+<td><strong>Echelon Form</strong></td>
+<td>Parsimonious canonical representation, structural restrictions</td>
+<td>Minimal parameters via Kronecker indices, identifiable</td>
+<td>
+<code><a href="../reference/model_structures.html">tmpl_stsp_echelon()</a></code> + ML</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Guidelines:</strong> 1. <strong>Start with CCA</strong> for
+initial model discovery and automatic order selection 2. <strong>Refine
+with DDLC</strong> for maximum likelihood estimation with good numerical
+properties 3. <strong>Use echelon form</strong> when you need canonical,
+identifiable representations with structural restrictions 4.
+<strong>Convert between forms</strong> using <code><a href="https://bfunovits.github.io/rationalmatrices/reference/pseries2stsp.html" class="external-link">pseries2stsp()</a></code>
+and template functions as needed</p>
+</div>
+<div class="section level3">
 <h3 id="model-comparison-workflow">Model Comparison Workflow<a class="anchor" aria-label="anchor" href="#model-comparison-workflow"></a>
 </h3>
 <ol style="list-style-type: decimal">
@@ -956,7 +1201,7 @@ spectral plots</li>
 </div>
 </div>
 <div class="section level2">
-<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+<h2 id="references-1">References<a class="anchor" aria-label="anchor" href="#references-1"></a>
 </h2>
 <p><span class="citation">(Scherrer and Deistler 2019)</span></p>
 <div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">

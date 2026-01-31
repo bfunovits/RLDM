@@ -93,6 +93,7 @@ may be used.
 
 ``` r
 # Random Walk ############################################################################
+set.seed(123)
 model = armamod(lmfd(a = c(1,-1), b = 1))
 # generate outputs "y"
 n.obs = 100

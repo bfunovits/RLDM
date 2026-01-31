@@ -181,10 +181,13 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"bfunovits/rationalmatrices"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"bfunovits/RLDM"</span><span class="op">)</span></span></code></pre></div>
+<p><strong>Vignette Building:</strong> To build vignettes locally, you need <code>pandoc-citeproc</code> installed on your system: - Ubuntu/Debian: <code>sudo apt-get install pandoc-citeproc</code> - macOS: <code>brew install pandoc-citeproc</code> - Windows: Included in pandoc installer</p>
+<p>Pre-built vignettes are available on the <a href="https://bfunovits.github.io/RLDM/">package website</a>.</p>
 <p>Then load and explore:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://bfunovits.github.io/RLDM">RLDM</a></span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span><span class="st">"RLDM"</span><span class="op">)</span>  <span class="co"># View all vignettes</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span><span class="st">"RLDM"</span><span class="op">)</span>  <span class="co"># View all vignettes (if built locally)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html" class="external-link">vignette</a></span><span class="op">(</span><span class="st">"0_getting_started"</span><span class="op">)</span>  <span class="co"># Access specific vignette</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -198,7 +201,8 @@
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://www.r-project.org/Licenses/GPL-3" class="external-link">GPL-3</a></small></li>
 </ul>
 </div>
 

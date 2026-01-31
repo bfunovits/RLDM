@@ -167,11 +167,7 @@ $$\frac{-1}{2N}\sum_{t=1}^{N}\left(m\log(2\pi) + \log\det\Sigma_{t|t-1} +
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ll_kf</span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kf"</span>, <span class="st">"kf2"</span><span class="op">)</span>, P1 <span class="op">=</span> <span class="cn">NULL</span>, a1 <span class="op">=</span> <span class="cn">NULL</span>, tol <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ll_kf_cpp</span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span>, <span class="va">Q</span>, <span class="va">R</span>, <span class="va">S</span>, <span class="va">y_t</span>, <span class="va">P1</span>, <span class="va">a1</span>, <span class="va">tol</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">ll_kf2_cpp</span><span class="op">(</span><span class="va">A</span>, <span class="va">C</span>, <span class="va">H_t</span>, <span class="va">y_t</span>, <span class="va">P1_R</span>, <span class="va">a1</span>, <span class="va">tol</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ll_kf</span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, method <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"kf"</span>, <span class="st">"kf2"</span><span class="op">)</span>, P1 <span class="op">=</span> <span class="cn">NULL</span>, a1 <span class="op">=</span> <span class="cn">NULL</span>, tol <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -191,9 +187,9 @@ or a "time series" object (i.e. <code>as.matrix(y)</code> should return an
 
 <dt id="arg-method">method<a class="anchor" aria-label="anchor" href="#arg-method"></a></dt>
 <dd><p>Character string. If <code>method="kf"</code> then <code>ll_kf</code> calls
-<code>ll_kf_cpp</code> ("standard form" of the Kalman filter) and for
+the internal C++ implementation ("standard form" of the Kalman filter) and for
 <code>method="kf2"</code> the "square root" form of the Kalman filter is used,
-i.e. <code>ll_kf2_cpp</code> is called. Up to numerical errors the outputs should not
+i.e. the internal square root implementation is called. Up to numerical errors the outputs should not
 depend on the chosen method.</p></dd>
 
 
@@ -216,33 +212,6 @@ the algorithm(s) switch to a constant Kalman gain when there is no significant c
 state error covariance. This behavior is controlled by the parameter <code>tol</code> and
 may be switched off by setting <code>tol=0</code>.</p></dd>
 
-
-<dt id="arg-a">A<a class="anchor" aria-label="anchor" href="#arg-a"></a></dt>
-<dd><p>\((s,s)\) dimensional state transition matrix \(A\).</p></dd>
-
-
-<dt id="arg-c">C<a class="anchor" aria-label="anchor" href="#arg-c"></a></dt>
-<dd><p>\((m,s)\) dimensional matrix \(C\).</p></dd>
-
-
-<dt id="arg-q-r-s">Q, R, S<a class="anchor" aria-label="anchor" href="#arg-q-r-s"></a></dt>
-<dd><p>The variance, covariance matrices of the "state disturbances" (\(Bu_t\))
-and the "measurement disturbances" (\(Du_t\)) as described above.
-These matrices must be of dimension \((s,s)\),  \((m,m)\) and \((s,m)\) respectively.</p></dd>
-
-
-<dt id="arg-y-t">y_t<a class="anchor" aria-label="anchor" href="#arg-y-t"></a></dt>
-<dd><p>\((m,N)\) transposed data matrix <code>y_t = t(y)</code>.</p></dd>
-
-
-<dt id="arg-h-t">H_t<a class="anchor" aria-label="anchor" href="#arg-h-t"></a></dt>
-<dd><p>\((n,s+m)\) dimensional matrix. This parameter corresponds to the transpose \(H'\) of
-\(H=(D',B')'\Sigma^{1/2}\).</p></dd>
-
-
-<dt id="arg-p-r">P1_R<a class="anchor" aria-label="anchor" href="#arg-p-r"></a></dt>
-<dd><p>(right) square root of <code>P1</code>, i.e. <code>P1 = t(P1_R) \%*\% P1_R</code>.</p></dd>
-
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -250,11 +219,11 @@ These matrices must be of dimension \((s,s)\),  \((m,m)\) and \((s,m)\) respecti
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The core routines are  <code>ll_kf_cpp</code> and <code>ll_kf2_cpp</code> which are <span class="pkg">RcppArmadillo</span> implementations
+    <p>The core routines are internal C++ implementations (<code>ll_kf_cpp</code> and <code>ll_kf2_cpp</code>) which are <span class="pkg">RcppArmadillo</span> implementations
 of the standard and the square root Kalman filter. The function <code>ll_kf</code> is a wrapper function,
 which extracts the necessary parameters from an <code><a href="stspmod.html">stspmod()</a></code> object,
 computes the initial covariance matrix <code>P1</code> and the initial state
-estimate <code>a1</code> (if not provided) and then calls <code>ll_kf_cpp</code> or <code>ll2_kf_cpp</code>.</p>
+estimate <code>a1</code> (if not provided) and then calls the internal C++ implementations.</p>
 <p>Square root Kalman filter: For the square root
 \(\Pi_{1|0}^{1/2}\) the procedure first tries the Cholesky decomposition.
 If this fails (since \(\Pi_{1|0}^{1/2}\) is (close to) singular),
@@ -295,7 +264,7 @@ of \(\Pi_{1|0}^{1/2}\).</p>
 <span class="r-in"><span><span class="va">R</span> <span class="op">=</span> <span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">D</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">sigma</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">D</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">S</span> <span class="op">=</span> <span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">B</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">sigma</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">D</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Q</span> <span class="op">=</span> <span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">B</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">sigma</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">B</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">P1</span> <span class="op">=</span> <span class="fu">lyapunov</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">A</span>, <span class="va">Q</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">P1</span> <span class="op">=</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/lyapunov.html" class="external-link">lyapunov</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">A</span>, <span class="va">Q</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># compute H and square root of P1</span></span></span>
 <span class="r-in"><span><span class="va">H</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">D</span>, <span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">B</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/matmult.html" class="external-link">%*%</a></span> <span class="va">sigma_L</span></span></span>
@@ -309,15 +278,8 @@ of \(\Pi_{1|0}^{1/2}\).</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">ll</span>, <span class="va">ll_test</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># directly call Rcpp routines, note H_t = t(H) and y_t = t(y)</span></span></span>
-<span class="r-in"><span><span class="va">ll_test</span> <span class="op">=</span> <span class="fu">ll_kf_cpp</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">A</span>, <span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">C</span>, <span class="va">Q</span>, <span class="va">R</span>, <span class="va">S</span>,</span></span>
-<span class="r-in"><span>                    <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>, <span class="va">P1</span>, a1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>, tol<span class="op">=</span><span class="fl">1e-8</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">ll</span>, <span class="va">ll_test</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span><span class="va">ll_test</span> <span class="op">=</span> <span class="fu">ll_kf2_cpp</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">A</span>, <span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">C</span>, <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">H</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                     <span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>, <span class="va">P1_R</span>, a1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/double.html" class="external-link">double</a></span><span class="op">(</span><span class="va">s</span><span class="op">)</span>, tol<span class="op">=</span><span class="fl">1e-8</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">ll</span>, <span class="va">ll_test</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-in"><span><span class="co"># Note: ll_kf_cpp and ll_kf2_cpp are internal C++ implementations</span></span></span>
+<span class="r-in"><span><span class="co"># called via .Call() by ll_kf()</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># call the "full" kf routines</span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">=</span> <span class="fu"><a href="kf.html">kf</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></span>

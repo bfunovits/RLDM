@@ -64,7 +64,7 @@ for given inputs \(u_t\) which are contained column-wis in the data matrix <code
 
 
 <dl><dt id="arg-polm-c-polm-d">polm_c, polm_d<a class="anchor" aria-label="anchor" href="#arg-polm-c-polm-d"></a></dt>
-<dd><p>polm objects. Describe jointly RMFD.
+<dd><p><a href="https://bfunovits.github.io/rationalmatrices/reference/polm.html" class="external-link">rationalmatrices::polm</a> objects. Describe jointly RMFD.
 \(c(z)\) is square, has the identity as zero-lag coefficient, and its coefficients will be reversed in the procedure: \((c_p,...,c_1)\).
 \(d(z)\) might be tall, and its zero-lag coefficient matrix is in general free.</p></dd>
 
@@ -81,7 +81,7 @@ for given inputs \(u_t\) which are contained column-wis in the data matrix <code
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>The R implementation <code>solve_RMFD_R()</code> returns the matrix <code>y</code> with the computed outputs.
 $$y_t = d(z) c(z)^{-1} u_t$$
-The RcppArmadillo implementation <code><a href="solve_rmfd_cpp.html">solve_rmfd_cpp()</a></code> returns <code>NULL</code> but <strong>overwrites</strong> the input argument.
+The internal RcppArmadillo implementation returns <code>NULL</code> but <strong>overwrites</strong> the input argument.
 Note that the RcppArmadillo implementation has a different user interface (it is intended for internal use only).</p>
     </div>
     <div class="section level2">
@@ -101,6 +101,15 @@ The order of the coefficients in \(d(z)\) is as usual, \(d_0\) is available too.
 The data matrices are organized columnwise (to avoid memory shuffling)!</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Basic example</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">solve_RMFD_R</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in solve_RMFD_R():</span> argument "polm_c" is missing, with no default</span>
+<span class="r-in"><span><span class="va">result</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'result' not found</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

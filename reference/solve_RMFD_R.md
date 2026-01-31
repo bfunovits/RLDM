@@ -16,10 +16,11 @@ solve_RMFD_R(polm_c, polm_d, data_input, t0 = 1)
 
 - polm_c, polm_d:
 
-  polm objects. Describe jointly RMFD. \\c(z)\\ is square, has the
-  identity as zero-lag coefficient, and its coefficients will be
-  reversed in the procedure: \\(c_p,...,c_1)\\. \\d(z)\\ might be tall,
-  and its zero-lag coefficient matrix is in general free.
+  [rationalmatrices::polm](https://bfunovits.github.io/rationalmatrices/reference/polm.html)
+  objects. Describe jointly RMFD. \\c(z)\\ is square, has the identity
+  as zero-lag coefficient, and its coefficients will be reversed in the
+  procedure: \\(c_p,...,c_1)\\. \\d(z)\\ might be tall, and its zero-lag
+  coefficient matrix is in general free.
 
 - data_input:
 
@@ -32,12 +33,10 @@ solve_RMFD_R(polm_c, polm_d, data_input, t0 = 1)
 ## Value
 
 The R implementation `solve_RMFD_R()` returns the matrix `y` with the
-computed outputs. \$\$y_t = d(z) c(z)^{-1} u_t\$\$ The RcppArmadillo
-implementation
-[`solve_rmfd_cpp()`](https://bfunovits.github.io/RLDM/reference/solve_rmfd_cpp.md)
-returns `NULL` but **overwrites** the input argument. Note that the
-RcppArmadillo implementation has a different user interface (it is
-intended for internal use only).
+computed outputs. \$\$y_t = d(z) c(z)^{-1} u_t\$\$ The internal
+RcppArmadillo implementation returns `NULL` but **overwrites** the input
+argument. Note that the RcppArmadillo implementation has a different
+user interface (it is intended for internal use only).
 
 ## Details
 
@@ -60,3 +59,13 @@ Note the non standard arguments: The polynomial matrices \\c(z)\\ and
 required to be the identity matrix). The order of the coefficients in
 \\d(z)\\ is as usual, \\d_0\\ is available too. The data matrices are
 organized columnwise (to avoid memory shuffling)!
+
+## Examples
+
+``` r
+# Basic example
+result <- solve_RMFD_R()
+#> Error in solve_RMFD_R(): argument "polm_c" is missing, with no default
+result
+#> Error: object 'result' not found
+```

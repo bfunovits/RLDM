@@ -152,6 +152,17 @@ Visualization
 The `stspmod` class represents processes in canonical **state space**
 form.
 
+State space models offer several advantages over other representations:
+
+- **Minimality**: The state dimension $s$ represents the essential
+  “memory” of the system, providing the most compact representation.
+- **Balancing**: Realizations can be balanced to improve numerical
+  stability (`balance` parameter in template functions).
+- **Latent state interpretation**: Hidden states can represent
+  meaningful unobserved components (trends, cycles, factors).
+- **Flexibility**: Can model complex dynamics with relatively few
+  parameters through appropriate state dimension selection.
+
 #### Structure
 
 An `stspmod` object is an S3 list with slots:
@@ -199,8 +210,9 @@ model_ss
 
 ``` r
 methods(class = 'stspmod')
-#>  [1] autocov   freqresp  impresp   ll        poles     predict   print    
-#>  [8] sim       spectrald str       zeroes   
+#>  [1] autocov    freqresp   impresp    ll_pfilter ll         pfilter   
+#>  [7] poles      predict    print      sim        spectrald  str       
+#> [13] zeroes    
 #> see '?methods' for accessing help and source code
 ```
 
@@ -460,6 +472,20 @@ est_stsp_ss(data, method = "cca", s = NULL,
 **Advantages:** - Data-driven order selection - Suitable when no prior
 knowledge of system structure - Good numerical properties
 
+**State Dimension Selection:** When `s = NULL` (default), CCA
+automatically selects state dimension using singular value criteria. For
+manual selection, consider: - **Singular Value Criterion (SVC)**: Look
+for a gap in singular values of the weighted Hankel matrix -
+**Information Criteria**: AIC/BIC computed for different state
+dimensions - **Cross-validation**: Out-of-sample prediction
+performance - **Interpretability**: Choose dimension that matches
+expected number of latent factors
+
+In practice, start with automatic selection via
+[`est_stsp_ss()`](https://bfunovits.github.io/RLDM/reference/subspace-methods.md)
+with `s = NULL`, then inspect the singular values plot (if available) or
+compare information criteria across dimensions.
+
 #### Subspace Methods: `est_stsp_ss(method = "cca"/"ho"/"moesp")`
 
 Multiple subspace identification methods available through matrix
@@ -511,6 +537,139 @@ opt <- optim(theta0, llfun, method = "BFGS", control = list(fnscale = -1, maxit 
 # Reconstruct model from optimized parameters
 model_ml <- fill_template(opt$par, tmpl)
 ```
+
+### Particle Filtering
+
+#### Overview
+
+Particle filters (Sequential Monte Carlo methods) extend Kalman
+filtering to **nonlinear and/or non-Gaussian state space models**. While
+the Kalman filter provides optimal closed-form solutions for linear
+Gaussian models, particle filters use Monte Carlo approximation to
+handle:
+
+- **Nonlinear state transitions**:
+  $x_{t} = f\left( x_{t - 1},u_{t} \right)$
+- **Non-Gaussian observations**: $y_{t} \sim p\left( y|x_{t} \right)$
+  with arbitrary distribution
+- **Complex noise structures**
+
+The RLDM implementation includes three particle filter variants:
+
+1.  **SIR (Bootstrap) filter**: Basic sampling importance resampling
+2.  **APF (Auxiliary Particle Filter)**: Two-stage resampling with
+    lookahead
+3.  **Optimal proposal**: For linear Gaussian models, approaches Kalman
+    filter performance
+
+#### Basic Usage: Linear Gaussian Comparison
+
+For linear Gaussian models, particle filters approximate the Kalman
+filter solution:
+
+``` r
+library(RLDM)
+
+# Create a linear Gaussian state space model
+m <- 1; s <- 2; n <- s
+tmpl <- tmpl_stsp_full(m, n, s, sigma_L = "chol")
+model <- r_model(tmpl, bpoles = 1, sd = 0.5)
+data <- sim(model, n.obs = 100)
+y <- data$y
+
+# Kalman filter (optimal for linear Gaussian)
+kf_result <- kf(model, y)
+
+# Particle filters
+pf_sir <- pfilter(model, y, N_particles = 1000, method = "sir")
+pf_apf <- pfilter(model, y, N_particles = 1000, method = "apf")
+pf_opt <- pfilter(model, y, N_particles = 1000, method = "optimal")
+
+# Compare filtered states
+plot(kf_result$a[,1], type = "l", col = "black", lwd = 2,
+     main = "Filtered State Estimates")
+lines(pf_sir$filtered_states[,1], col = "blue", lty = 2)
+lines(pf_apf$filtered_states[,1], col = "red", lty = 2)
+lines(pf_opt$filtered_states[,1], col = "green", lty = 2)
+legend("topright", legend = c("Kalman", "SIR", "APF", "Optimal"),
+       col = c("black", "blue", "red", "green"), lty = c(1, 2, 2, 2), lwd = c(2, 1, 1, 1))
+```
+
+#### Likelihood Approximation
+
+Particle filters can approximate the log-likelihood for
+nonlinear/non-Gaussian models where exact Kalman filter likelihood is
+unavailable:
+
+``` r
+# Kalman filter likelihood (exact for linear Gaussian)
+ll_kf <- ll_kf(model, y)
+
+# Particle filter likelihood approximation (averaged over multiple runs)
+ll_pf <- ll_pfilter(model, y, N_particles = 1000, filter_type = "apf", N_runs = 10)
+
+cat("Kalman filter LL:", ll_kf, "\n")
+cat("Particle filter LL:", ll_pf, "\n")
+cat("Difference:", ll_pf - ll_kf, "\n")
+```
+
+#### Nonlinear and Non-Gaussian Examples
+
+RLDM includes example scripts demonstrating particle filter superiority
+for nonlinear/non-Gaussian models:
+
+1.  **`inst/examples/nonlinear_sin.R`** - Nonlinear state transition:
+    $x_{t} = \sin\left( x_{t - 1} \right) + \eta_{t}$
+2.  **`inst/examples/nonlinear_poisson.R`** - Non-Gaussian observation:
+    $y_{t} \sim \text{Poisson}\left( \lambda = \exp\left( Cx_{t} \right) \right)$
+3.  **`inst/examples/stochastic_volatility.R`** - Stochastic volatility
+    model: $y_{t} = \exp\left( x_{t}/2 \right)\varepsilon_{t}$
+
+Each example compares particle filter performance with approximate
+Kalman filter variants (Extended Kalman Filter, Gaussian approximation,
+log-squared transformation).
+
+#### Diagnostics and Visualization
+
+The
+[`plot.pfilter()`](https://bfunovits.github.io/RLDM/reference/plot.pfilter.md)
+method provides several diagnostic plots:
+
+``` r
+pf <- pfilter(model, y, N_particles = 500, method = "sir")
+
+# Filtered state estimates
+plot(pf, type = "states")
+
+# Effective Sample Size (ESS) over time
+plot(pf, type = "ess")
+
+# Particle weight distribution at final time
+plot(pf, type = "weights")
+
+# Log-likelihood contributions per time step
+plot(pf, type = "likelihood")
+```
+
+#### Performance Considerations
+
+- **Particle count**: More particles improve accuracy but increase
+  computation (typical: 1000-10000)
+- **Resampling methods**: Systematic (default), multinomial, or
+  stratified
+- **ESS threshold**: Adaptive resampling when ESS \< threshold ×
+  N_particles (default: 0.5)
+- **Optimal proposal**: Use for linear Gaussian models to minimize
+  weight degeneracy
+
+#### References
+
+- Gordon, N. J., Salmond, D. J., & Smith, A. F. M. (1993). Novel
+  approach to nonlinear/non-Gaussian Bayesian state estimation
+- Pitt, M. K., & Shephard, N. (1999). Filtering via simulation:
+  Auxiliary particle filters
+- Doucet, A., Godsill, S., & Andrieu, C. (2000). On sequential Monte
+  Carlo sampling methods for Bayesian filtering
 
 ------------------------------------------------------------------------
 
@@ -599,6 +758,25 @@ They specify the echelon structure
 | **AR**          | Baseline, simple systems        | Fast, stable, interpretable    | May need high order         |
 | **ARMA**        | Parsimonious fits               | Fewer parameters               | Parameter estimation harder |
 | **State Space** | Complex systems, latent factors | Flexible, interpretable states | Requires order selection    |
+
+### Choosing State Space Parameterizations
+
+RLDM supports several state space parameterizations, each with different
+strengths:
+
+| Parameterization                            | When to Use                                                    | Key Features                                                | Estimation Method                                                                                                                               |
+|---------------------------------------------|----------------------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| **CCA (Canonical Correlation Analysis)**    | Initial exploration, data-driven order selection               | Automatic state dimension selection, good initial estimates | `est_stsp_ss(method = "cca")`                                                                                                                   |
+| **DDLC (Diagonal-Direct-Lead-Coefficient)** | Maximum likelihood refinement, stable optimization             | Numerically stable, orthogonal to equivalence classes       | ML with [`tmpl_DDLC()`](https://bfunovits.github.io/RLDM/reference/local_model_structures.md) + [`optim()`](https://rdrr.io/r/stats/optim.html) |
+| **Echelon Form**                            | Parsimonious canonical representation, structural restrictions | Minimal parameters via Kronecker indices, identifiable      | [`tmpl_stsp_echelon()`](https://bfunovits.github.io/RLDM/reference/model_structures.md) + ML                                                    |
+
+**Guidelines:** 1. **Start with CCA** for initial model discovery and
+automatic order selection 2. **Refine with DDLC** for maximum likelihood
+estimation with good numerical properties 3. **Use echelon form** when
+you need canonical, identifiable representations with structural
+restrictions 4. **Convert between forms** using
+[`pseries2stsp()`](https://bfunovits.github.io/rationalmatrices/reference/pseries2stsp.html)
+and template functions as needed
 
 ### Model Comparison Workflow
 

@@ -41,3 +41,24 @@ h(0) = I\\. The procedure computes the covariance matrix, \\\Delta =
 if the transfer function \\h^{-1}(z) k(z)\\ is not stable. Therefore the
 true models has to be stable and the estimated model has to strictly
 miniphase.
+
+## Examples
+
+``` r
+# Create a true model and an estimated model
+true_model = stspmod(sys = stsp(A = matrix(c(0.5, 0, 0, 0.3), 2, 2),
+                                B = matrix(c(1, 0), 2, 1),
+                                C = matrix(c(1, 1), 1, 2),
+                                D = matrix(1, 1, 1)),
+                     sigma_L = matrix(1, 1, 1))
+# Create a slightly different estimated model
+est_model = stspmod(sys = stsp(A = matrix(c(0.45, 0, 0, 0.35), 2, 2),
+                               B = matrix(c(1.1, 0), 2, 1),
+                               C = matrix(c(0.9, 1.1), 1, 2),
+                               D = matrix(1, 1, 1)),
+                    sigma_L = matrix(1.1, 1, 1))
+# Compute KL divergence
+kl = KL_divergence(true_model, est_model)
+kl
+#> [1] 0.008339709
+```

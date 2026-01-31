@@ -81,7 +81,7 @@ for given data \(y_t\) which are contained column-wise in the matrix <code>data_
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>The R implementation <code>solve_inverse_RMFD_R</code> returns the matrix <code>u</code> with the computed inputs
 $$u_t = d^{+}(z) c(z) y_t$$ in its columns.
-The RcppArmadillo implementation <code><a href="solve_rmfd_cpp.html">solve_rmfd_cpp()</a></code> returns <code>NULL</code> but <strong>overwrites</strong> its input argument!
+The internal RcppArmadillo implementation returns <code>NULL</code> but <strong>overwrites</strong> its input argument!
 Note that the RcppArmadillo implementation has a different user interface (it is intended for internal use only).</p>
     </div>
     <div class="section level2">
@@ -105,6 +105,15 @@ The data matrices are organized columnwise (to avoid memory shuffling)!</p>
     <div class="dont-index"><p>solve_RMFD_R</p></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Basic example</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">solve_inverse_RMFD_R</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in solve_inverse_RMFD_R():</span> argument "polm_c" is missing, with no default</span>
+<span class="r-in"><span><span class="va">result</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'result' not found</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

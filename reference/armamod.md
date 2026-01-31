@@ -13,7 +13,10 @@ armamod(sys, sigma_L = NULL, names = NULL, label = NULL)
 
 - sys:
 
-  `rationalmatrices::lmfd()` or `rationalmatrices::rmfd()` object
+  [`rationalmatrices::lmfd()`](https://bfunovits.github.io/rationalmatrices/reference/lmfd.html)
+  or
+  [`rationalmatrices::rmfd()`](https://bfunovits.github.io/rationalmatrices/reference/rmfd.html)
+  object
 
 - sigma_L:
 

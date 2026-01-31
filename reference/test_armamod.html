@@ -128,24 +128,24 @@ it may fail or need a very large number of randomly generated matrices.</p>
 <span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="fu">test_armamod</span><span class="op">(</span>dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, degrees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, digits <span class="op">=</span> <span class="fl">2</span>, bpoles <span class="op">=</span> <span class="fl">1</span>, bzeroes <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits</a></span><span class="op">(</span><span class="va">model</span>, <span class="st">'try-error'</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu">poles</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu">zeroes</span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/poles_and_zeroes.html" class="external-link">poles</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/poles_and_zeroes.html" class="external-link">zeroes</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ARMA model [2,2] with orders p = 1 and q = 1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> AR polynomial a(z):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      z^0 [,1]  [,2] z^1 [,1]  [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]        1     0     0.12 -0.11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]        0     1     0.84 -0.27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]        1     0    -0.24  0.59</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]        0     1     0.12  0.55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> MA polynomial b(z):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      z^0 [,1]  [,2] z^1 [,1]  [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]        1     0     0.01 -0.47</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]        0     1    -0.18 -0.01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]        1     0    -0.38 -0.44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]        0     1     0.13 -0.31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Left square root of noise covariance Sigma:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      u[1] u[2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[1] 1.98 0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] 0.45 0.68</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4.082483 4.082483</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 3.436041 3.436041</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[1] 0.55 0.00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] 1.43 0.79</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 1.584130 3.112729</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2.390457 2.390457</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

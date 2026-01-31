@@ -35,8 +35,10 @@ solve_inverse_de(sys, y, u0 = NULL, y0 = NULL, ...)
 
 - sys:
 
-  `rationalmatrices::lmfd()` or `rationalmatrices::stsp()` object which
-  describes the difference equation.
+  [`rationalmatrices::lmfd()`](https://bfunovits.github.io/rationalmatrices/reference/lmfd.html)
+  or
+  [`rationalmatrices::stsp()`](https://bfunovits.github.io/rationalmatrices/reference/stsp.html)
+  object which describes the difference equation.
 
 - u:
 
@@ -145,4 +147,10 @@ data = solve_de(model$sys, u = u, a1 = a1)
 data1 = solve_inverse_de(model$sys, y = data$y, a1 = data$a[1,])
 all.equal(data$u, data1$u)
 #> [1] TRUE
+
+# Basic example
+result <- solve_inverse_de()
+#> Error in solve_inverse_de(): argument "sys" is missing, with no default
+result
+#> Error: object 'result' not found
 ```

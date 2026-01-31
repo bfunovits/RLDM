@@ -8,9 +8,12 @@ form, i.e. the transformed model satisfies
 - the model is stable and minimum phase.
 
 The procedure "flips" bad poles and zeroes by the helper functions
-`reflect_zeroes()` and `reflect_poles()`. The transformed model is an
-equivalent description of the process in terms of second order moments.
-This means that the spectral density is not changed.
+[`rationalmatrices::reflect_zeroes()`](https://bfunovits.github.io/rationalmatrices/reference/reflect_zeroes.html)
+and
+[`rationalmatrices::reflect_poles()`](https://bfunovits.github.io/rationalmatrices/reference/reflect_poles.html).
+The transformed model is an equivalent description of the process in
+terms of second order moments. This means that the spectral density is
+not changed.
 
 ## Usage
 

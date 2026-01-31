@@ -61,7 +61,7 @@
       <h1>Getting Started with RLDM</h1>
                         <h4 data-toc-skip class="author">RLDM Team</h4>
             
-            <h4 data-toc-skip class="date">2026-01-22</h4>
+            <h4 data-toc-skip class="date">2026-01-31</h4>
       
 
       <div class="d-none name"><code>0_getting_started.Rmd</code></div>
@@ -127,12 +127,12 @@ synthetic data from an AR(2) process and estimate the model.</p>
 <code class="sourceCode R"><span><span class="co"># Simulate an AR(1) process: y_t = 0.8*y_{t-1} + u_t</span></span>
 <span><span class="co">#</span></span>
 <span><span class="co"># In RLDM convention: y_t - 0.8*y_{t-1} = u_t</span></span>
-<span><span class="va">a_coef</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.8</span><span class="op">)</span>  <span class="co"># AR coefficient with sign convention</span></span>
-<span><span class="va">b_coef</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>     <span class="co"># MA term (just white noise)</span></span>
-<span><span class="va">sys</span> <span class="op">&lt;-</span> <span class="fu">lmfd</span><span class="op">(</span><span class="va">a_coef</span>, <span class="va">b_coef</span><span class="op">)</span></span>
+<span><span class="va">a_coef</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="op">-</span><span class="fl">0.8</span><span class="op">)</span>  <span class="co"># AR coefficient with sign convention</span></span>
+<span><span class="va">b_coef</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>     <span class="co"># MA term (just white noise)</span></span>
+<span><span class="va">sys</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/lmfd.html" class="external-link">lmfd</a></span><span class="op">(</span><span class="va">a_coef</span>, <span class="va">b_coef</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create ARMA model with noise variance = 1</span></span>
-<span><span class="va">model_true</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/armamod.html">armamod</a></span><span class="op">(</span><span class="va">sys</span>, sigma_L <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"AR(1)"</span><span class="op">)</span></span>
+<span><span class="va">model_true</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/armamod.html">armamod</a></span><span class="op">(</span><span class="va">sys</span>, sigma_L <span class="op">=</span> <span class="fl">1</span>, label <span class="op">=</span> <span class="st">"AR(1)"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Simulate 200 observations</span></span>
 <span><span class="va">y_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">model_true</span>, n.obs <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
@@ -154,24 +154,24 @@ order:</p>
 <span></span>
 <span><span class="co"># Display basic information</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Selected AR order:"</span>, <span class="va">result</span><span class="op">$</span><span class="va">p</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Selected AR order: 0</span></span>
+<span><span class="co">#&gt; Selected AR order: 1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Number of parameters:"</span>, <span class="va">result</span><span class="op">$</span><span class="va">p</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Number of parameters: 0</span></span>
+<span><span class="co">#&gt; Number of parameters: 1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Information Criterion:"</span>, <span class="va">result</span><span class="op">$</span><span class="va">stats</span><span class="op">[</span><span class="va">result</span><span class="op">$</span><span class="va">p</span> <span class="op">+</span> <span class="fl">1</span>, <span class="st">"ic"</span><span class="op">]</span>, <span class="st">"\n\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Information Criterion: 0.3897879</span></span>
+<span><span class="co">#&gt; Information Criterion: -0.03234463</span></span>
 <span></span>
 <span><span class="co"># View the estimated model</span></span>
 <span><span class="va">result</span><span class="op">$</span><span class="va">model</span></span>
-<span><span class="co">#&gt; ARMA model [1,1] with orders p = 0 and q = 0</span></span>
+<span><span class="co">#&gt; ARMA model [1,1] with orders p = 1 and q = 0</span></span>
 <span><span class="co">#&gt; AR polynomial a(z):</span></span>
-<span><span class="co">#&gt;      z^0 [,1]</span></span>
-<span><span class="co">#&gt; [1,]        1</span></span>
+<span><span class="co">#&gt;      z^0 [,1]   z^1 [,1]</span></span>
+<span><span class="co">#&gt; [1,]        1 -0.7855093</span></span>
 <span><span class="co">#&gt; MA polynomial b(z):</span></span>
 <span><span class="co">#&gt;      z^0 [,1]</span></span>
 <span><span class="co">#&gt; [1,]        1</span></span>
 <span><span class="co">#&gt; Left square root of noise covariance Sigma:</span></span>
-<span><span class="co">#&gt;          u[1]</span></span>
-<span><span class="co">#&gt; u[1] 1.215182</span></span></code></pre></div>
+<span><span class="co">#&gt;           u[1]</span></span>
+<span><span class="co">#&gt; u[1] 0.9790502</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="model-diagnostics">Model Diagnostics<a class="anchor" aria-label="anchor" href="#model-diagnostics"></a>
@@ -235,15 +235,18 @@ order:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define a 2D VAR(1) model</span></span>
 <span><span class="co">#</span></span>
-<span><span class="co"># [ y1_t ]   [ 0.8  0.1 ] [ y1_{t-1} ]   [ u1_t ]</span></span>
-<span><span class="co"># [ y2_t ] = [ 0.2  0.7 ] [ y2_{t-1} ] + [ u2_t ]</span></span>
+<span><span class="co"># [ y1_t ]   [ 0.8  0.2 ] [ y1_{t-1} ]   [ u1_t ]</span></span>
+<span><span class="co"># [ y2_t ] = [ 0.1  0.7 ] [ y2_{t-1} ] + [ u2_t ]</span></span>
 <span></span>
 <span><span class="co"># AR matrices (note sign convention)</span></span>
-<span><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.8</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.7</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">A1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0</span>, <span class="op">-</span><span class="fl">0.8</span>, <span class="op">-</span><span class="fl">0.2</span>, </span>
+<span>               <span class="fl">0</span>, <span class="fl">1</span>, <span class="op">-</span><span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.7</span><span class="op">)</span>, </span>
+<span>             nrow <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">A1</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="va">A1</span>, dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span>            </span>
 <span><span class="va">B0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Create VARMA system</span></span>
-<span><span class="va">sys_var</span> <span class="op">&lt;-</span> <span class="fu">lmfd</span><span class="op">(</span><span class="va">A1</span>, <span class="va">B0</span><span class="op">)</span></span>
+<span><span class="va">sys_var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/lmfd.html" class="external-link">lmfd</a></span><span class="op">(</span><span class="va">A1</span>, <span class="va">B0</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Noise covariance (correlation between u1 and u2)</span></span>
 <span><span class="va">rho</span> <span class="op">&lt;-</span> <span class="fl">0.5</span></span>
@@ -268,25 +271,25 @@ order:</p>
 <span><span class="va">result_var</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/est_ar.html">est_ar</a></span><span class="op">(</span><span class="va">y_var</span>, p.max <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Selected VAR order:"</span>, <span class="va">result_var</span><span class="op">$</span><span class="va">p</span>, <span class="st">"\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Selected VAR order: 0</span></span>
+<span><span class="co">#&gt; Selected VAR order: 1</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Total parameters:"</span>, <span class="va">result_var</span><span class="op">$</span><span class="va">p</span> <span class="op">*</span> <span class="fl">2</span><span class="op">^</span><span class="fl">2</span>, <span class="st">"\n\n"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Total parameters: 0</span></span>
+<span><span class="co">#&gt; Total parameters: 4</span></span>
 <span></span>
 <span><span class="co"># View estimated model</span></span>
 <span><span class="va">result_var</span><span class="op">$</span><span class="va">model</span></span>
-<span><span class="co">#&gt; ARMA model [2,2] with orders p = 0 and q = 0</span></span>
+<span><span class="co">#&gt; ARMA model [2,2] with orders p = 1 and q = 0</span></span>
 <span><span class="co">#&gt; AR polynomial a(z):</span></span>
-<span><span class="co">#&gt;      z^0 [,1]  [,2]</span></span>
-<span><span class="co">#&gt; [1,]        1     0</span></span>
-<span><span class="co">#&gt; [2,]        0     1</span></span>
+<span><span class="co">#&gt;      z^0 [,1]  [,2]    z^1 [,1]       [,2]</span></span>
+<span><span class="co">#&gt; [1,]        1     0 -0.73515671 -0.2815920</span></span>
+<span><span class="co">#&gt; [2,]        0     1 -0.06168781 -0.7129382</span></span>
 <span><span class="co">#&gt; MA polynomial b(z):</span></span>
 <span><span class="co">#&gt;      z^0 [,1]  [,2]</span></span>
 <span><span class="co">#&gt; [1,]        1     0</span></span>
 <span><span class="co">#&gt; [2,]        0     1</span></span>
 <span><span class="co">#&gt; Left square root of noise covariance Sigma:</span></span>
-<span><span class="co">#&gt;           u[1]     u[2]</span></span>
-<span><span class="co">#&gt; u[1] 1.1841356 0.000000</span></span>
-<span><span class="co">#&gt; u[2] 0.1760054 1.273754</span></span></code></pre></div>
+<span><span class="co">#&gt;           u[1]      u[2]</span></span>
+<span><span class="co">#&gt; u[1] 1.0159564 0.0000000</span></span>
+<span><span class="co">#&gt; u[2] 0.4655142 0.8032231</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="analyze-the-system">Analyze the System<a class="anchor" aria-label="anchor" href="#analyze-the-system"></a>
@@ -320,6 +323,152 @@ behavior:</p>
 <span><span class="co"># Plot correlations</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">acov</span>, main <span class="op">=</span> <span class="st">"Sample and Model ACF"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="0_getting_started_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" alt="Four-panel autocorrelation function plot comparing sample ACF to model-implied ACF for the bivariate VAR(1) system" width="672"></p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="state-space-example-simple-dynamic-system">State Space Example: Simple Dynamic System<a class="anchor" aria-label="anchor" href="#state-space-example-simple-dynamic-system"></a>
+</h2>
+<p>State space models provide an alternative way to represent dynamic
+systems using <strong>hidden state variables</strong>. They are
+particularly useful for:</p>
+<ul>
+<li>
+<strong>Minimal representations</strong> of complex dynamics</li>
+<li>
+<strong>Interpretable latent components</strong> (trends, cycles,
+factors)</li>
+<li>
+<strong>Numerically stable computations</strong> through balanced
+realizations</li>
+<li>
+<strong>Flexible model structures</strong> beyond standard ARMA
+forms</li>
+</ul>
+<div class="section level3">
+<h3 id="create-and-simulate-a-state-space-model">Create and Simulate a State Space Model<a class="anchor" aria-label="anchor" href="#create-and-simulate-a-state-space-model"></a>
+</h3>
+<p>Let’s create a state space representation of the same AR(1) process
+we saw earlier
+(<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>t</mi></msub><mo>=</mo><mn>0.8</mn><msub><mi>y</mi><mrow><mi>t</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><msub><mi>u</mi><mi>t</mi></msub></mrow><annotation encoding="application/x-tex">y_t = 0.8y_{t-1} + u_t</annotation></semantics></math>).
+In state space form:</p>
+<p><span class="math display">$$
+s_{t+1} = 0.8 s_t + u_t \\
+y_t = s_t
+$$</span></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>s</mi><mi>t</mi></msub><annotation encoding="application/x-tex">s_t</annotation></semantics></math>
+is the state variable (in this case, simply
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>y</mi><mi>t</mi></msub><annotation encoding="application/x-tex">y_t</annotation></semantics></math>
+itself).</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># State space representation of AR(1) with coefficient 0.8</span></span>
+<span><span class="va">A</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0.8</span><span class="op">)</span>  <span class="co"># State transition</span></span>
+<span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>    <span class="co"># Input matrix</span></span>
+<span><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>    <span class="co"># Observation matrix</span></span>
+<span><span class="va">D</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span>    <span class="co"># Direct feedthrough</span></span>
+<span></span>
+<span><span class="co"># Create state space system</span></span>
+<span><span class="va">sys_ss</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/stsp.html" class="external-link">stsp</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span>, <span class="va">C</span>, <span class="va">D</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create model with unit noise variance</span></span>
+<span><span class="va">model_ss</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/stspmod.html">stspmod</a></span><span class="op">(</span><span class="va">sys_ss</span>, sigma_L <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, label <span class="op">=</span> <span class="st">"State Space AR(1)"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Simulate 200 observations (different seed from earlier example)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span><span class="va">sim_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim.html">sim</a></span><span class="op">(</span><span class="va">model_ss</span>, n.obs <span class="op">=</span> <span class="fl">200</span><span class="op">)</span></span>
+<span><span class="va">y_ss</span> <span class="op">&lt;-</span> <span class="va">sim_data</span><span class="op">$</span><span class="va">y</span></span>
+<span></span>
+<span><span class="co"># Plot the simulated data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/plot.ts.html" class="external-link">plot.ts</a></span><span class="op">(</span><span class="va">y_ss</span>, main <span class="op">=</span> <span class="st">"Simulated State Space AR(1) Process"</span>,</span>
+<span>        ylab <span class="op">=</span> <span class="st">"y_t"</span>, type <span class="op">=</span> <span class="st">'l'</span><span class="op">)</span></span></code></pre></div>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-12-1.png" class="r-plt" alt="Time series plot of simulated state space AR(1) process" width="672"></p>
+</div>
+<div class="section level3">
+<h3 id="estimate-state-space-model-from-data">Estimate State Space Model from Data<a class="anchor" aria-label="anchor" href="#estimate-state-space-model-from-data"></a>
+</h3>
+<p>Now let’s estimate a state space model from this simulated data using
+the Canonical Correlation Analysis (CCA) method:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimate state space model using CCA</span></span>
+<span><span class="va">result_ss</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/subspace-methods.html">est_stsp_ss</a></span><span class="op">(</span><span class="va">y_ss</span>, method <span class="op">=</span> <span class="st">"cca"</span>, mean_estimate <span class="op">=</span> <span class="st">"zero"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Estimated state space model:\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Estimated state space model:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">result_ss</span><span class="op">$</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; state space model [1,1] with s = 1 states</span></span>
+<span><span class="co">#&gt;            s[1]       u[1]</span></span>
+<span><span class="co">#&gt; s[1]  0.7490384 -0.7084876</span></span>
+<span><span class="co">#&gt; x[1] -1.0359971  1.0000000</span></span>
+<span><span class="co">#&gt; Left square root of noise covariance Sigma:</span></span>
+<span><span class="co">#&gt;          u[1]</span></span>
+<span><span class="co">#&gt; u[1] 0.935128</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"\nSelected state dimension:"</span>, <span class="va">result_ss</span><span class="op">$</span><span class="va">s</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Selected state dimension: 1</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Estimated A matrix:"</span>, <span class="va">result_ss</span><span class="op">$</span><span class="va">model</span><span class="op">$</span><span class="va">sys</span><span class="op">$</span><span class="va">A</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Estimated A matrix: 0.7490384</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"True A matrix:"</span>, <span class="va">A</span>, <span class="st">"\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; True A matrix: 0.8</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="analyze-the-estimated-model">Analyze the Estimated Model<a class="anchor" aria-label="anchor" href="#analyze-the-estimated-model"></a>
+</h3>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Compute impulse responses</span></span>
+<span><span class="va">irf_ss</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/impresp.html">impresp</a></span><span class="op">(</span><span class="va">result_ss</span><span class="op">$</span><span class="va">model</span>, lag.max <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot impulse responses</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">irf_ss</span>, main <span class="op">=</span> <span class="st">"Impulse Response Function"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-14-1.png" class="r-plt" alt="Impulse response function from estimated state space model" width="672"></p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Make one-step ahead predictions</span></span>
+<span><span class="va">pred_ss</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict.html">predict</a></span><span class="op">(</span><span class="va">result_ss</span><span class="op">$</span><span class="va">model</span>, <span class="va">y_ss</span>, h <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Plot recent data and predictions</span></span>
+<span><span class="va">n_obs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">y_ss</span><span class="op">)</span></span>
+<span><span class="va">plot_range</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="fl">1</span>, <span class="va">n_obs</span> <span class="op">-</span> <span class="fl">40</span><span class="op">)</span><span class="op">:</span><span class="va">n_obs</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">plot_range</span>, <span class="va">y_ss</span><span class="op">[</span><span class="va">plot_range</span><span class="op">]</span>, type <span class="op">=</span> <span class="st">'l'</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"Time"</span>, ylab <span class="op">=</span> <span class="st">"Value"</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"Data and One-Step Predictions"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html" class="external-link">lines</a></span><span class="op">(</span><span class="va">plot_range</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="va">pred_ss</span><span class="op">$</span><span class="va">yhat</span><span class="op">[</span><span class="va">plot_range</span><span class="op">[</span><span class="op">-</span><span class="fl">1</span><span class="op">]</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">]</span>,</span>
+<span>      col <span class="op">=</span> <span class="st">'blue'</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html" class="external-link">legend</a></span><span class="op">(</span><span class="st">"topleft"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Data"</span>, <span class="st">"Prediction"</span><span class="op">)</span>,</span>
+<span>       col <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>, <span class="st">"blue"</span><span class="op">)</span>, lty <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<p><img src="0_getting_started_files/figure-html/unnamed-chunk-15-1.png" class="r-plt" alt="One-step ahead predictions from estimated state space model" width="672"></p>
+</div>
+<div class="section level3">
+<h3 id="comparing-state-space-and-ar-representations">Comparing State Space and AR Representations<a class="anchor" aria-label="anchor" href="#comparing-state-space-and-ar-representations"></a>
+</h3>
+<p>The state space representation is <strong>equivalent</strong> to the
+AR(1) model we estimated earlier. RLDM allows you to convert between
+representations:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Convert state space to ARMA representation</span></span>
+<span><span class="co"># Note: lmfd() conversion from state space to ARMA requires minimal realization</span></span>
+<span><span class="co"># and is not directly supported. This conversion is commented out to avoid build errors.</span></span>
+<span><span class="co"># arma_from_ss &lt;- armamod(lmfd(result_ss$model$sys),</span></span>
+<span><span class="co">#                        sigma_L = result_ss$model$sigma_L)</span></span>
+<span><span class="co"># cat("ARMA representation of estimated state space model:\n")</span></span>
+<span><span class="co"># print(arma_from_ss)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Note: Direct conversion from state space to ARMA representation requires\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Note: Direct conversion from state space to ARMA representation requires</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"minimal realization and is not shown in this vignette.\n"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; minimal realization and is not shown in this vignette.</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="when-to-use-state-space-models">When to Use State Space Models<a class="anchor" aria-label="anchor" href="#when-to-use-state-space-models"></a>
+</h3>
+<p>State space models are particularly useful when: - You need
+<strong>interpretable latent states</strong> (e.g., trend, cycle,
+seasonal components) - Your system has <strong>natural state
+variables</strong> (e.g., physical systems) - You want <strong>minimal
+representations</strong> with balanced realizations - You’re working
+with <strong>high-dimensional systems</strong> where state dimension can
+be smaller than AR order</p>
+<p>For more advanced state space modeling, including different
+parameterizations (CCA, DDLC, echelon form) and estimation methods, see
+the <strong>Case Study</strong> vignette.</p>
 </div>
 </div>
 <div class="section level2">

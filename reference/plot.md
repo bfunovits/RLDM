@@ -146,6 +146,96 @@ plot(
   subset. This option may be used to "zoom" into a certain range of
   frequencies.
 
+- main:
+
+  (character or [`expression`](https://rdrr.io/r/base/expression.html))
+  main title of the plot
+
+- xlab:
+
+  (character string or
+  [`expression`](https://rdrr.io/r/base/expression.html)) label for the
+  x-axis
+
+- ylab:
+
+  (character or [`expression`](https://rdrr.io/r/base/expression.html))
+  label for the y-axis
+
+- subfigure_main:
+
+  scalar or `(m x n)` matrix of type "character" with the titles for the
+  subfigures. If subfigure_main is a scalar character string then the
+  procedures creates a matrix of respective titles by replacing the
+  "place holders" '`i_`' and '`j_`' with the respective row and column
+  number.
+
+- parse_subfigure_main:
+
+  boolean. If `TRUE` then the titles for the subfigures are parsed to
+  [`expression`](https://rdrr.io/r/base/expression.html) before
+  plotting. See also
+  [`plotmath`](https://rdrr.io/r/grDevices/plotmath.html) on the usage
+  of expressions for plot annotations.
+
+- style:
+
+  (character string) determines the appearance of the plot (background
+  color of the plot regions, color and line style of the grid lines,
+  axis color, ...) See also
+  [`style_parameters`](https://bfunovits.github.io/rationalmatrices/reference/style_parameters.html).
+
+- col:
+
+  vector of line colors
+
+- type:
+
+  vector of plot types. The following values are possible: "p" for
+  points, "l" for lines, "b" for both points and lines, "c" for empty
+  points joined by lines, "o" for overplotted points and lines, "s" and
+  "S" for stair steps and "h" for histogram-like vertical lines. `'n'`
+  suppresses plotting.
+
+- lty:
+
+  vector of line types. Line types can either be specified as integers
+  (0=blank, 1=solid (default), 2=dashed, 3=dotted, 4=dotdash,
+  5=longdash, 6=twodash) or as one of the character strings "blank",
+  "solid", "dashed", "dotted", "dotdash", "longdash", or "twodash",
+  where "blank" uses ‘invisible lines’ (i.e., does not draw them).
+
+- lwd:
+
+  vector of line widths.
+
+- pch:
+
+  vector of plotting character or symbols. See
+  [`points`](https://rdrr.io/r/graphics/points.html) for possible
+  values.
+
+- cex.points:
+
+  vector of scales for the plotting symbols.
+
+- bg.points:
+
+  vector of fill color for the open plot symbols.
+
+- legend:
+
+  (character or [`expression`](https://rdrr.io/r/base/expression.html)
+  vector). If `NULL` then no legend is produced.
+
+- legend_args:
+
+  (optional) list with parameters for the legend. A legend title can be
+  included with `legend_args = list(title = my_legend_title)`. Note that
+  the slots `x`, `y` are ignored and the legend is always put at the
+  right hand side of the plot. See also
+  [`legend`](https://rdrr.io/r/graphics/legend.html).
+
 - ...:
 
   not used.
@@ -260,7 +350,7 @@ The parameter "`which`" determines what to plot in the case of
   processes.
 
 These plot methods use the internal helper function
-`rationalmatrices::plot_3D()`.
+[`rationalmatrices::plot_3D()`](https://bfunovits.github.io/rationalmatrices/reference/plot_3D.html).
 
 ## Examples
 

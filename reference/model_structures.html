@@ -285,7 +285,7 @@ For <code>sigma_L="full_normalized"</code> the diagonal elements of the matrix \
 <span class="r-in"><span><span class="co"># Let us consider scalar ARMA(5,1) models</span></span></span>
 <span class="r-in"><span><span class="co"># for quarterly data with a strong seasonal component.</span></span></span>
 <span class="r-in"><span><span class="co"># In order to have parsimonious models we want a[2]=a[3]=0:</span></span></span>
-<span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="armamod.html">armamod</a></span><span class="op">(</span><span class="fu">lmfd</span><span class="op">(</span>a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="cn">NA</span>,<span class="cn">NA</span><span class="op">)</span>, b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="armamod.html">armamod</a></span><span class="op">(</span><span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/lmfd.html" class="external-link">lmfd</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="cn">NA</span>,<span class="cn">NA</span><span class="op">)</span>, b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="cn">NA</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">tmpl</span> <span class="op">=</span> <span class="fu">model2template</span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Let's see how the "free" parameters are mapped to the model parameters</span></span></span>
@@ -337,9 +337,9 @@ For <code>sigma_L="full_normalized"</code> the diagonal elements of the matrix \
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># If the orders/class of template and model does not fit</span></span></span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="armamod.html">armamod</a></span><span class="op">(</span><span class="fu">lmfd</span><span class="op">(</span>a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="armamod.html">armamod</a></span><span class="op">(</span><span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/lmfd.html" class="external-link">lmfd</a></span><span class="op">(</span>a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="fill_template.html">extract_theta</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">tmpl</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="stspmod.html">stspmod</a></span><span class="op">(</span><span class="fu">stsp</span><span class="op">(</span>D <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="stspmod.html">stspmod</a></span><span class="op">(</span><span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/stsp.html" class="external-link">stsp</a></span><span class="op">(</span>D <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="fill_template.html">extract_theta</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">tmpl</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
@@ -348,7 +348,7 @@ For <code>sigma_L="full_normalized"</code> the diagonal elements of the matrix \
 <span class="r-in"><span><span class="co"># ######################################################</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># consider a state space model (with 1 state) for a 3-dimensional process</span></span></span>
-<span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="stspmod.html">stspmod</a></span><span class="op">(</span><span class="fu">stsp</span><span class="op">(</span>A <span class="op">=</span> <span class="fl">1</span>, B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, D <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="stspmod.html">stspmod</a></span><span class="op">(</span><span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/stsp.html" class="external-link">stsp</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">1</span>, B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, C <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, D <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># We may specify an arbitrary structure for the left square root (L = sigma_L)</span></span></span>
 <span class="r-in"><span><span class="co"># of the noise covariance Sigma. Any NA entry is considered as a "free" parameter.</span></span></span>
@@ -510,6 +510,48 @@ For <code>sigma_L="full_normalized"</code> the diagonal elements of the matrix \
 <span class="r-out co"><span class="r-pr">#&gt;</span> u[1]    1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> u[2]    0    1</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create a template</span></span></span>
+<span class="r-in"><span><span class="va">tmpl</span> <span class="op">&lt;-</span> <span class="fu">tmpl_arma_echelon</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tmpl_arma_echelon():</span> argument "nu" is missing, with no default</span>
+<span class="r-in"><span><span class="va">tmpl</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $h</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 0 0 1 0 0 0 0 1 0 0 1 0 0 0 0 1 0 0 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $H</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]    1    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]    0    1    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]    0    0    1    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]    0    0    0    1    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,]    0    0    0    0    1    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,]    0    0    0    0    0    1    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,]    0    0    0    0    0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]    0    0    0    0    0    0    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $class</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "armamod"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $order</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 2 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $n.par</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use the template with fill_template()</span></span></span>
+<span class="r-in"><span><span class="co"># filled &lt;- fill_template(tmpl, theta = rnorm(tmpl$n.par))</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ######################################################</span></span></span>
 <span class="r-in"><span><span class="co"># RMFD(p,q) models y[t] = d(z) c(z)^-1 e[t]</span></span></span>
@@ -574,6 +616,132 @@ For <code>sigma_L="full_normalized"</code> the diagonal elements of the matrix \
 <span class="r-out co"><span class="r-pr">#&gt;</span> u[1]    1    0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> u[2]    0    1</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create a template</span></span></span>
+<span class="r-in"><span><span class="va">tmpl</span> <span class="op">&lt;-</span> <span class="fu">tmpl_rmfd_echelon</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tmpl_rmfd_echelon():</span> argument "nu" is missing, with no default</span>
+<span class="r-in"><span><span class="va">tmpl</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $h</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 0 0 0 1 0 0 0 0 1 0 0 0 1 0 0 1 0 0 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $H</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]    1    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]    0    1    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]    0    0    1    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]    0    0    0    1    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]    0    0    0    0    1    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,]    0    0    0    0    0    1    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,]    0    0    0    0    0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]    0    0    0    0    0    0    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $class</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rmfdmod"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $order</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 2 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $n.par</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use the template with fill_template()</span></span></span>
+<span class="r-in"><span><span class="co"># filled &lt;- fill_template(tmpl, theta = rnorm(tmpl$n.par))</span></span></span>
+<span class="r-in"><span><span class="co"># Create a template</span></span></span>
+<span class="r-in"><span><span class="va">tmpl</span> <span class="op">&lt;-</span> <span class="fu">tmpl_stsp_full</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tmpl_stsp_full():</span> argument "m" is missing, with no default</span>
+<span class="r-in"><span><span class="va">tmpl</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $h</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 0 0 0 1 0 0 0 0 1 0 0 0 1 0 0 1 0 0 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $H</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]    1    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]    0    1    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]    0    0    1    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]    0    0    0    1    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]    0    0    0    0    1    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,]    0    0    0    0    0    1    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,]    0    0    0    0    0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]    0    0    0    0    0    0    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $class</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rmfdmod"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $order</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 2 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $n.par</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use the template with fill_template()</span></span></span>
+<span class="r-in"><span><span class="co"># filled &lt;- fill_template(tmpl, theta = rnorm(tmpl$n.par))</span></span></span>
+<span class="r-in"><span><span class="co"># Create a template</span></span></span>
+<span class="r-in"><span><span class="va">tmpl</span> <span class="op">&lt;-</span> <span class="fu">tmpl_stsp_ar</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in tmpl_stsp_ar():</span> argument "m" is missing, with no default</span>
+<span class="r-in"><span><span class="va">tmpl</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $h</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 0 0 0 1 0 0 0 0 1 0 0 0 1 0 0 1 0 0 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $H</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [2,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3,]    1    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4,]    0    1    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7,]    0    0    1    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8,]    0    0    0    1    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11,]    0    0    0    0    1    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12,]    0    0    0    0    0    1    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [14,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15,]    0    0    0    0    0    0    1    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16,]    0    0    0    0    0    0    0    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [17,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [18,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [20,]    0    0    0    0    0    0    0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $class</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rmfdmod"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $order</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2 2 1 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $n.par</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use the template with fill_template()</span></span></span>
+<span class="r-in"><span><span class="co"># filled &lt;- fill_template(tmpl, theta = rnorm(tmpl$n.par))</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># ######################################################</span></span></span>
 <span class="r-in"><span><span class="co"># state space models in echelon form</span></span></span>
@@ -590,37 +758,37 @@ For <code>sigma_L="full_normalized"</code> the diagonal elements of the matrix \
 <span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="fill_template.html">fill_template</a></span><span class="op">(</span><span class="va">th</span>, <span class="va">tmpl</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> state space model [3,3] with s = 9 states</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           s[1]       s[2]       s[3]       s[4]       s[5]        s[6]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.000000  0.0000000  0.0000000  1.0000000  0.0000000  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.000000  0.0000000  0.0000000  0.0000000  1.0000000  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3]  0.000000  0.0000000  0.0000000  0.0000000  0.0000000  1.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.000000  0.0000000  0.0000000  0.0000000  0.0000000  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[5] -1.229153  0.2556706  1.0504372 -1.0628182 -0.6775323  1.38303260</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[6]  0.000000  0.0000000  0.0000000  0.0000000  0.0000000  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[7]  1.754942 -1.8281670 -0.1409875 -0.6164041  1.0829308 -0.04739599</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[8]  0.000000  0.0000000  0.0000000  0.0000000  0.0000000  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[9]  0.789922  1.1386980 -0.4779014  0.2460182 -0.7205951 -1.04820069</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.000000  0.0000000  0.0000000  0.0000000  0.0000000  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.000000  1.0000000  0.0000000  0.0000000  0.0000000  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.000000  0.0000000  1.0000000  0.0000000  0.0000000  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            s[7]       s[8]         s[9]        u[1]        u[2]       u[3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.0000000  0.0000000  0.000000000 -0.59102707 -1.84756891  2.2379831</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.0000000  0.0000000  0.000000000 -0.44574410  0.01679591  0.9091784</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3]  0.0000000  0.0000000  0.000000000  0.55427835  0.82874573  1.7200899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  1.0000000  0.0000000  0.000000000 -0.38192322  1.58208478 -0.2087060</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[5]  0.4091870  0.0000000  0.000000000  0.20242605  0.31036002  0.6408392</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[6]  0.0000000  1.0000000  0.000000000 -0.51279042  0.49153314  0.4987534</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[7] -0.3478686 -0.5027389  0.000000000  0.16240910  0.05084881  0.6901537</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[8]  0.0000000  0.0000000  1.000000000  0.01816816  1.63516828  1.6480944</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[9]  0.1416559  0.7635246 -0.006776399  1.63912365 -1.05083484  0.4031096</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  0.0000000  0.0000000  0.000000000  1.00000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.0000000  0.0000000  0.000000000  0.00000000  1.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.0000000  0.0000000  0.000000000  0.00000000  0.00000000  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             s[1]        s[2]       s[3]        s[4]     s[5]       s[6]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.00000000  0.00000000  0.0000000  1.00000000 0.000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.00000000  0.00000000  0.0000000  0.00000000 1.000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3]  0.00000000  0.00000000  0.0000000  0.00000000 0.000000  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.00000000  0.00000000  0.0000000  0.00000000 0.000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[5] -0.56187636  1.59850877  0.6307541 -0.52111732 1.300199 -0.1331510</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[6]  0.00000000  0.00000000  0.0000000  0.00000000 0.000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[7] -0.34391723 -0.08856511 -0.1136399 -0.48987045 2.293079 -1.7565274</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[8]  0.00000000  0.00000000  0.0000000  0.00000000 0.000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[9]  0.09049665  1.08079950 -1.5329020  0.04715443 1.547581 -0.3887799</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.00000000  0.00000000  0.0000000  0.00000000 0.000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.00000000  1.00000000  0.0000000  0.00000000 0.000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.00000000  0.00000000  1.0000000  0.00000000 0.000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            s[7]       s[8]     s[9]        u[1]       u[2]        u[3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1] 0.00000000  0.0000000 0.000000 -0.44655722  0.1181445 -0.57746800</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] 0.00000000  0.0000000 0.000000  0.17480270  0.1340386  2.00248273</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] 0.00000000  0.0000000 0.000000  0.07455118  0.2210195  0.06670087</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[4] 1.00000000  0.0000000 0.000000  0.42816676  1.6408462  1.86685184</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[5] 0.08920722  0.0000000 0.000000  0.02467498 -0.2190504 -1.35090269</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[6] 0.00000000  1.0000000 0.000000 -1.66747510  0.1680654  0.02098359</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[7] 0.84501300  0.6843094 0.000000  0.73649596  1.1683839  1.24991457</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[8] 0.00000000  0.0000000 1.000000  0.38602657  1.0541810 -0.71524219</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[9] 0.96252797 -1.3952743 0.849643 -0.26565163  1.1452631 -0.75268897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[1] 0.00000000  0.0000000 0.000000  1.00000000  0.0000000  0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[2] 0.00000000  0.0000000 0.000000  0.00000000  1.0000000  0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[3] 0.00000000  0.0000000 0.000000  0.00000000  0.0000000  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Left square root of noise covariance Sigma:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             u[1]        u[2]      u[3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[1] -2.09030869  0.00000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.01272456 -1.03278192 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[3]  1.29127069 -0.07057778 0.1253465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            u[1]       u[2]      u[3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[1] -0.9385387  0.0000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -1.0525133  0.3311792 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[3] -0.4371595 -2.0142105 0.2119804</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># we can extract the free parameters from this given model</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">th</span>, <span class="fu"><a href="fill_template.html">extract_theta</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">tmpl</span>, on_error <span class="op">=</span> <span class="st">'stop'</span><span class="op">)</span><span class="op">)</span></span></span>
@@ -634,7 +802,7 @@ For <code>sigma_L="full_normalized"</code> the diagonal elements of the matrix \
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># check the Kronecker indices</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu">rationalmatrices</span><span class="fu">::</span><span class="fu">pseries2nu</span><span class="op">(</span><span class="va">k</span><span class="op">$</span><span class="va">irf</span><span class="op">)</span>, <span class="va">nu</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="fu">rationalmatrices</span><span class="fu">::</span><span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/Kronecker-Indices.html" class="external-link">pseries2nu</a></span><span class="op">(</span><span class="va">k</span><span class="op">$</span><span class="va">irf</span><span class="op">)</span>, <span class="va">nu</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

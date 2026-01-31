@@ -32,6 +32,44 @@ Rcpp::compileAttributes()      # Regenerate RcppExports.cpp/R
 devtools::load_all()           # Reload with new compiled code
 ```
 
+## Testing
+
+**Test Patterns:** - Use
+`testthat::test_file("tests/testthat/test-*.R")` to run specific test
+files - Use `devtools::test(filter = "pattern")` to run tests matching a
+pattern (e.g., `devtools::test(filter = "pfilter")`) - Common
+assertions: `expect_no_error()`, `expect_true(inherits(obj, "class"))`,
+`expect_named()`, `expect_equal()` - Set seeds with
+[`set.seed()`](https://rdrr.io/r/base/Random.html) for reproducible
+stochastic tests - Convergence tests: compare particle filter results to
+Kalman filter baseline with increasing particle counts - Validation
+bounds: Use reasonable thresholds (e.g., RMSE \< 0.5, likelihood
+difference \< 10) rather than strict convergence
+
+**Example test structure:**
+
+``` r
+test_that("function runs without errors", {
+  set.seed(123)
+  model <- r_model(tmpl_stsp_full(...))
+  data <- sim(model, n.obs = 20)
+  expect_no_error(result <- pfilter(model, data$y))
+  expect_true(inherits(result, "pfilter"))
+  expect_named(result, c("filtered_states", "predicted_states", ...))
+})
+```
+
+## Benchmarking
+
+- Use `microbenchmark` package for timing comparisons
+  ([`library(microbenchmark)`](https://github.com/joshuaulrich/microbenchmark/))
+- Create benchmark scripts that save results to `.RData` files for later
+  analysis
+- Compare performance across parameter ranges (particle counts, noise
+  levels, cross-covariance)
+- Validate against theoretical expectations (e.g., optimal proposal
+  should approach Kalman filter with increasing particles)
+
 ## Architecture
 
 ### Model Classes (S3)

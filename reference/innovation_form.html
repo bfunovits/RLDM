@@ -3,13 +3,13 @@
 Convert a given state space model into innovation form, i.e. the transformed model satisfies
 \(D=I\)
 the model is stable and minimum phase.
-The procedure "flips" bad poles and zeroes by the helper functions reflect_zeroes() and reflect_poles().
+The procedure "flips" bad poles and zeroes by the helper functions rationalmatrices::reflect_zeroes() and rationalmatrices::reflect_poles().
 The transformed model is an equivalent description of the process in terms of second order moments.
 This means that the spectral density is not changed.'><meta property="og:description" content='
 Convert a given state space model into innovation form, i.e. the transformed model satisfies
 \(D=I\)
 the model is stable and minimum phase.
-The procedure "flips" bad poles and zeroes by the helper functions reflect_zeroes() and reflect_poles().
+The procedure "flips" bad poles and zeroes by the helper functions rationalmatrices::reflect_zeroes() and rationalmatrices::reflect_poles().
 The transformed model is an equivalent description of the process in terms of second order moments.
 This means that the spectral density is not changed.'><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -54,7 +54,7 @@ This means that the spectral density is not changed.'><script src="https://cdn.j
     <p><a href="https://lifecycle.r-lib.org/articles/stages.html#experimental" class="external-link"><img src="figures/lifecycle-experimental.svg" alt="[Experimental]"></a>
 Convert a given state space model into innovation form, i.e. the transformed model satisfies</p><ul><li><p>\(D=I\)</p></li>
 <li><p>the model is stable and minimum phase.</p></li>
-</ul><p>The procedure "flips" bad poles and zeroes by the helper functions <code>reflect_zeroes()</code> and <code>reflect_poles()</code>.
+</ul><p>The procedure "flips" bad poles and zeroes by the helper functions <code><a href="https://bfunovits.github.io/rationalmatrices/reference/reflect_zeroes.html" class="external-link">rationalmatrices::reflect_zeroes()</a></code> and <code><a href="https://bfunovits.github.io/rationalmatrices/reference/reflect_poles.html" class="external-link">rationalmatrices::reflect_poles()</a></code>.
 The transformed model is an equivalent description of the process in terms of second order moments.
 This means that the spectral density is not changed.</p>
     </div>
@@ -126,10 +126,10 @@ estimated from this sample.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.3246241 0.1801707 0.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> u[3]  0.9493687 0.6805352 1.089781</span>
 <span class="r-in"><span><span class="co"># the model has two non-minimum phase zeroes and two non-stable poles.</span></span></span>
-<span class="r-in"><span><span class="va">z</span> <span class="op">=</span> <span class="fu">zeroes</span><span class="op">(</span><span class="va">model</span>, print_message <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">z</span> <span class="op">=</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/poles_and_zeroes.html" class="external-link">zeroes</a></span><span class="op">(</span><span class="va">model</span>, print_message <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">z</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2430920 0.3822571 1.4472231 1.4472231 1.7947154</span>
-<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu">poles</span><span class="op">(</span><span class="va">model</span>, print_message <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">p</span> <span class="op">=</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/poles_and_zeroes.html" class="external-link">poles</a></span><span class="op">(</span><span class="va">model</span>, print_message <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">p</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3184163 0.3801766 1.1047541 1.1047541 7.2894009</span>
 <span class="r-in"><span></span></span>
@@ -155,9 +155,9 @@ estimated from this sample.</p></dd>
 <span class="r-in"><span>  <span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1</span><span class="op">]</span> <span class="op">=</span> <span class="fl">1</span><span class="op">/</span><span class="va">x</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">abs</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">1</span><span class="op">]</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>poles.inno <span class="op">=</span> <span class="va">out</span><span class="op">$</span><span class="va">p</span>, flipped <span class="op">=</span> <span class="va">out</span><span class="op">$</span><span class="va">p_flipped</span>,</span></span>
-<span class="r-in"><span>           poles.ori <span class="op">=</span> <span class="va">p</span><span class="op">[</span><span class="fu">match_vectors</span><span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">p</span>, <span class="va">p</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>           poles.ori <span class="op">=</span> <span class="va">p</span><span class="op">[</span><span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/match_vectors.html" class="external-link">match_vectors</a></span><span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">p</span>, <span class="va">p</span><span class="op">)</span><span class="op">]</span>,</span></span>
 <span class="r-in"><span>           zeroes.inno <span class="op">=</span> <span class="va">out</span><span class="op">$</span><span class="va">z</span>, flipped <span class="op">=</span> <span class="va">out</span><span class="op">$</span><span class="va">z_flipped</span>,</span></span>
-<span class="r-in"><span>           zeroes.ori <span class="op">=</span> <span class="va">z</span><span class="op">[</span><span class="fu">match_vectors</span><span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">z</span>, <span class="fu">flip</span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-in"><span>           zeroes.ori <span class="op">=</span> <span class="va">z</span><span class="op">[</span><span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/match_vectors.html" class="external-link">match_vectors</a></span><span class="op">(</span><span class="va">out</span><span class="op">$</span><span class="va">z</span>, <span class="fu">flip</span><span class="op">(</span><span class="va">z</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>              poles.inno flipped             poles.ori          zeroes.inno</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  0.6456403-0.8964543i   FALSE  0.6456403-0.8964543i -1.7947154+0.000000i</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  0.6456403+0.8964543i   FALSE  0.6456403+0.8964543i  0.8583822-1.165176i</span>

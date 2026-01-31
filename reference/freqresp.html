@@ -81,7 +81,7 @@ of the "true" frequency response due to the finite number of coefficients.</p></
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p><code>freqresp</code> object, i.e. a list with slots</p>
 <dl><dt>frr</dt>
-<dd><p><code>rationalmatrices::zvalues()</code> object.</p></dd>
+<dd><p><code><a href="https://bfunovits.github.io/rationalmatrices/reference/zvalues.html" class="external-link">rationalmatrices::zvalues()</a></code> object.</p></dd>
 
 <dt>sigma_L</dt>
 <dd><p>(n,n)-dimensional matrix which contains a left square root
@@ -166,6 +166,28 @@ and store the result (together with <code>sigma_L</code>) in a <strong>freqresp<
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span> <span class="co"># reset seed</span></span></span>
+<span class="r-in"><span><span class="co"># Create a simple model</span></span></span>
+<span class="r-in"><span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="stspmod.html">stspmod</a></span><span class="op">(</span>sys <span class="op">=</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/test_stsp.html" class="external-link">test_stsp</a></span><span class="op">(</span>dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, s <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>, sigma_L <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Compute impresp</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="impresp.html">impresp</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">result</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Orthogonalized impulse response [2,2] with 12 lags</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      lag=0 [,1]  [,2] lag=1 [,1]      [,2] lag=2 [,1]      [,2] lag=3 [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]          1     0 2.31922561 0.9184289  3.2725996  1.334717  4.5180896</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]          0     1 0.05508214 0.1351102 -0.2140766 -0.145617 -0.1453791</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             [,2] lag=4 [,1]       [,2] lag=5 [,1]       [,2] lag=6 [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  1.82274572  6.2889458  2.5476557  8.7268722  3.5297893 12.1239602</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.02798134 -0.2813503 -0.1299755 -0.3492069 -0.1328716 -0.5067076</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,2] lag=7 [,1]       [,2] lag=8 [,1]       [,2] lag=9 [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  4.9066852 16.8360492  6.8122169 23.3833901  9.4621904  32.474899</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.2094463 -0.6923714 -0.2778591 -0.9675215 -0.3927085  -1.340614</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            [,2] lag=10 [,1]       [,2] lag=11 [,1]      [,2] lag=12 [,1]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 13.1406995   45.102258 18.2504701    62.63902 25.346547   86.994749</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.5418424   -1.863502 -0.7543867    -2.58723 -1.046738   -3.593655</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] 35.202022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -1.454245</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

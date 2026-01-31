@@ -128,9 +128,18 @@ remotes::install_github("bfunovits/rationalmatrices")
 remotes::install_github("bfunovits/RLDM")
 ```
 
+**Vignette Building:** To build vignettes locally, you need
+`pandoc-citeproc` installed on your system: - Ubuntu/Debian:
+`sudo apt-get install pandoc-citeproc` - macOS:
+`brew install pandoc-citeproc` - Windows: Included in pandoc installer
+
+Pre-built vignettes are available on the [package
+website](https://bfunovits.github.io/RLDM/).
+
 Then load and explore:
 
 ``` r
 library(RLDM)
-browseVignettes("RLDM")  # View all vignettes
+browseVignettes("RLDM")  # View all vignettes (if built locally)
+vignette("0_getting_started")  # Access specific vignette
 ```

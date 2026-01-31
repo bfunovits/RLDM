@@ -79,8 +79,8 @@ autocov(
 
 - acf:
 
-  `rationalmatrices::pseries()` object, which stores the covariances
-  (correlations).
+  [`rationalmatrices::pseries()`](https://bfunovits.github.io/rationalmatrices/reference/pseries.html)
+  object, which stores the covariances (correlations).
 
 - type:
 

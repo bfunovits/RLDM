@@ -84,7 +84,9 @@ eigenvalues of modulus less than one are the eigenvalues of the matrix
 
 In addition `riccati` is also used to compute the stochastically
 balanced realization of a state space model, see
-`rationalmatrices::grammians()` and `rationalmatrices::balance()`.
+[`rationalmatrices::grammians()`](https://bfunovits.github.io/rationalmatrices/reference/grammians.html)
+and
+[`rationalmatrices::balance()`](https://bfunovits.github.io/rationalmatrices/reference/balance.html).
 
 Note that this function is mainly used as a utility function and
 therefore no checks on the given input parameters are performed.

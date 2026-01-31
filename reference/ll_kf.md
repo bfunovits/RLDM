@@ -48,10 +48,6 @@ as \$\$\frac{-1}{2N}\sum\_{t=1}^{N}\left(m\log(2\pi) +
 
 ``` r
 ll_kf(model, y, method = c("kf", "kf2"), P1 = NULL, a1 = NULL, tol = 0)
-
-ll_kf_cpp(A, C, Q, R, S, y_t, P1, a1, tol)
-
-ll_kf2_cpp(A, C, H_t, y_t, P1_R, a1, tol)
 ```
 
 ## Arguments
@@ -70,11 +66,11 @@ ll_kf2_cpp(A, C, H_t, y_t, P1_R, a1, tol)
 
 - method:
 
-  Character string. If `method="kf"` then `ll_kf` calls `ll_kf_cpp`
-  ("standard form" of the Kalman filter) and for `method="kf2"` the
-  "square root" form of the Kalman filter is used, i.e. `ll_kf2_cpp` is
-  called. Up to numerical errors the outputs should not depend on the
-  chosen method.
+  Character string. If `method="kf"` then `ll_kf` calls the internal C++
+  implementation ("standard form" of the Kalman filter) and for
+  `method="kf2"` the "square root" form of the Kalman filter is used,
+  i.e. the internal square root implementation is called. Up to
+  numerical errors the outputs should not depend on the chosen method.
 
 - P1:
 
@@ -98,48 +94,20 @@ ll_kf2_cpp(A, C, H_t, y_t, P1_R, a1, tol)
   behavior is controlled by the parameter `tol` and may be switched off
   by setting `tol=0`.
 
-- A:
-
-  \\(s,s)\\ dimensional state transition matrix \\A\\.
-
-- C:
-
-  \\(m,s)\\ dimensional matrix \\C\\.
-
-- Q, R, S:
-
-  The variance, covariance matrices of the "state disturbances"
-  (\\Bu_t\\) and the "measurement disturbances" (\\Du_t\\) as described
-  above. These matrices must be of dimension \\(s,s)\\, \\(m,m)\\ and
-  \\(s,m)\\ respectively.
-
-- y_t:
-
-  \\(m,N)\\ transposed data matrix `y_t = t(y)`.
-
-- H_t:
-
-  \\(n,s+m)\\ dimensional matrix. This parameter corresponds to the
-  transpose \\H'\\ of \\H=(D',B')'\Sigma^{1/2}\\.
-
-- P1_R:
-
-  (right) square root of `P1`, i.e. `P1 = t(P1_R) \%*\% P1_R`.
-
 ## Value
 
 (double) The Gaussian log Likelihood of the model.
 
 ## Details
 
-The core routines are `ll_kf_cpp` and `ll_kf2_cpp` which are
-RcppArmadillo implementations of the standard and the square root Kalman
-filter. The function `ll_kf` is a wrapper function, which extracts the
-necessary parameters from an
+The core routines are internal C++ implementations (`ll_kf_cpp` and
+`ll_kf2_cpp`) which are RcppArmadillo implementations of the standard
+and the square root Kalman filter. The function `ll_kf` is a wrapper
+function, which extracts the necessary parameters from an
 [`stspmod()`](https://bfunovits.github.io/RLDM/reference/stspmod.md)
 object, computes the initial covariance matrix `P1` and the initial
-state estimate `a1` (if not provided) and then calls `ll_kf_cpp` or
-`ll2_kf_cpp`.
+state estimate `a1` (if not provided) and then calls the internal C++
+implementations.
 
 Square root Kalman filter: For the square root \\\Pi\_{1\|0}^{1/2}\\ the
 procedure first tries the Cholesky decomposition. If this fails (since
@@ -193,15 +161,8 @@ ll_test = ll_kf(model, data$y, method = 'kf2')
 all.equal(ll, ll_test)
 #> [1] TRUE
 
-# directly call Rcpp routines, note H_t = t(H) and y_t = t(y)
-ll_test = ll_kf_cpp(model$sys$A, model$sys$C, Q, R, S,
-                    t(data$y), P1, a1 = double(s), tol=1e-8)
-all.equal(ll, ll_test)
-#> [1] TRUE
-ll_test = ll_kf2_cpp(model$sys$A, model$sys$C, t(H),
-                     t(data$y), P1_R, a1 = double(s), tol=1e-8)
-all.equal(ll, ll_test)
-#> [1] TRUE
+# Note: ll_kf_cpp and ll_kf2_cpp are internal C++ implementations
+# called via .Call() by ll_kf()
 
 # call the "full" kf routines
 out = kf(model, data$y)

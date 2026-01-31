@@ -96,7 +96,9 @@ List with slots:
 
 - model:
 
-  a `stsp()` object, which represents the estimated state space model.
+  a
+  [`rationalmatrices::stsp()`](https://bfunovits.github.io/rationalmatrices/reference/stsp.html)
+  object, which represents the estimated state space model.
 
 - models:
 
@@ -225,3 +227,38 @@ Bauer D (2001). “Order estimation for subspace methods.” *Automatica*,
 **37**(10), 1561 - 1573.
 [doi:10.1016/S0005-1098(01)00118-2](https://doi.org/10.1016/S0005-1098%2801%2900118-2)
 .
+
+## Examples
+
+``` r
+set.seed(123)
+# Generate example data
+model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+y <- sim(model, n.obs = 100)$y
+
+# Run estimation
+result <- est_stsp_aoki(y)
+#> Error in est_stsp_aoki(y): input "gamma" is not a valid 3-D array.
+result
+#> Error: object 'result' not found
+set.seed(123)
+# Generate example data
+model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+y <- sim(model, n.obs = 100)$y
+
+# Run estimation
+result <- est_stsp_cca(y)
+#> Error in est_stsp_cca(y): input "gamma" is not a valid 3-D array.
+result
+#> Error: object 'result' not found
+set.seed(123)
+# Generate example data
+model <- stspmod(sys = test_stsp(dim = c(2,2), s = 2), sigma_L = diag(2))
+y <- sim(model, n.obs = 100)$y
+
+# Run estimation
+result <- est_stsp_cca_sample(y)
+#> Error in est_stsp_cca_sample(y): argument "p" is missing, with no default
+result
+#> Error: object 'result' not found
+```

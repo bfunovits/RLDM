@@ -74,8 +74,9 @@ If the Kronecker indices (parameter `nu`) are given, then a state space
 model in echelon canonical form is generated. This means that some of
 the entries of the \\A,B,C\\ matrices are fixed to be one or zero and
 the others are considerd as "free". See also
-`rationalmatrices::Kronecker-Indices()`. The entries of the \\A, B, C\\
-matrices, which are not a priori fixed are randomly generated.
+[`rationalmatrices::Kronecker-Indices()`](https://bfunovits.github.io/rationalmatrices/reference/Kronecker-Indices.html).
+The entries of the \\A, B, C\\ matrices, which are not a priori fixed
+are randomly generated.
 
 If only the state dimension \\s\\ (parameter `s`) is given, then all
 entries of the \\A, B, C\\ matrices are considered as "free".
@@ -115,15 +116,15 @@ if (!inherits(model, 'try-error')) {
 }
 #> state space model [2,2] with s = 3 states
 #>       s[1]  s[2]  s[3]  u[1]  u[2]
-#> s[1]  0.11 -0.20  0.18 -0.14 -0.15
-#> s[2] -0.42 -0.18  0.00 -0.89  0.42
-#> s[3] -0.52 -0.07 -0.54  0.19 -0.08
-#> x[1] -0.16  0.27 -0.38  1.00  0.00
-#> x[2] -0.30  0.14  0.07  0.00  1.00
+#> s[1] -0.85  0.97 -0.85 -0.28  0.52
+#> s[2] -0.24 -0.13 -0.78 -0.16  0.06
+#> s[3] -0.10  0.42  0.54  0.49 -0.57
+#> x[1]  1.46  0.23 -0.02  1.00  0.00
+#> x[2]  0.58  0.79 -1.28  0.00  1.00
 #> Left square root of noise covariance Sigma:
-#>      u[1] u[2]
-#> u[1] 1.23  0.0
-#> u[2] 0.47  3.9
+#>       u[1] u[2]
+#> u[1]  2.74 0.00
+#> u[2] -0.96 0.56
 #> [1] TRUE
 #> [1] TRUE
 #> [1] 2 1
@@ -142,18 +143,18 @@ if (!inherits(model, 'try-error')) {
 }
 #> state space model [3,2] with s = 5 states
 #>       s[1]  s[2]  s[3]  s[4] s[5]  u[1]  u[2]
-#> s[1]  0.00  0.00  1.00  0.00 0.00  0.84 -0.44
-#> s[2]  0.00  0.00  0.00  1.00 0.00 -0.26 -0.92
-#> s[3] -0.30 -0.46  0.46 -0.03 0.00  0.98 -0.43
-#> s[4]  0.00  0.00  0.00  0.00 1.00  0.49  0.44
-#> s[5]  0.12  0.38 -0.50 -0.13 0.26  0.16  0.40
+#> s[1]  0.00  0.00  1.00  0.00 0.00 -0.14  0.78
+#> s[2]  0.00  0.00  0.00  1.00 0.00 -0.01 -0.46
+#> s[3] -0.05  0.37  0.45 -0.33 0.00 -0.35  0.11
+#> s[4]  0.00  0.00  0.00  0.00 1.00  0.49  0.11
+#> s[5]  0.22 -0.10 -0.10 -0.10 0.15 -0.45 -0.12
 #> x[1]  1.00  0.00  0.00  0.00 0.00  1.00  0.00
-#> x[2]  0.00  1.00  0.00  0.00 0.00 -0.33  1.00
-#> x[3] -0.50 -0.56  0.00  0.00 0.00 -0.27  0.06
+#> x[2]  0.00  1.00  0.00  0.00 0.00 -0.41  1.00
+#> x[3]  0.16  0.22  0.00  0.00 0.00  0.11 -0.58
 #> Left square root of noise covariance Sigma:
 #>       u[1] u[2]
-#> u[1]  1.09 0.00
-#> u[2] -0.52 0.73
+#> u[1]  2.01  0.0
+#> u[2] -0.19  1.2
 #> [1] TRUE
 #> [1] 2 3 0
 ```

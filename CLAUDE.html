@@ -63,6 +63,27 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span>           <span class="co"># Reload with new compiled code</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="testing">Testing<a class="anchor" aria-label="anchor" href="#testing"></a></h2>
+<p><strong>Test Patterns:</strong> - Use <code>testthat::test_file("tests/testthat/test-*.R")</code> to run specific test files - Use <code>devtools::test(filter = "pattern")</code> to run tests matching a pattern (e.g., <code>devtools::test(filter = "pfilter")</code>) - Common assertions: <code>expect_no_error()</code>, <code>expect_true(inherits(obj, "class"))</code>, <code>expect_named()</code>, <code>expect_equal()</code> - Set seeds with <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code> for reproducible stochastic tests - Convergence tests: compare particle filter results to Kalman filter baseline with increasing particle counts - Validation bounds: Use reasonable thresholds (e.g., RMSE &lt; 0.5, likelihood difference &lt; 10) rather than strict convergence</p>
+<p><strong>Example test structure:</strong></p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">test_that</span><span class="op">(</span><span class="st">"function runs without errors"</span>, <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span>  <span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/r_model.html">r_model</a></span><span class="op">(</span><span class="fu"><a href="reference/model_structures.html">tmpl_stsp_full</a></span><span class="op">(</span><span class="va">...</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim.html">sim</a></span><span class="op">(</span><span class="va">model</span>, n.obs <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span>  <span class="fu">expect_no_error</span><span class="op">(</span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/pfilter.html">pfilter</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">expect_true</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">inherits</a></span><span class="op">(</span><span class="va">result</span>, <span class="st">"pfilter"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">expect_named</span><span class="op">(</span><span class="va">result</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"filtered_states"</span>, <span class="st">"predicted_states"</span>, <span class="va">...</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="benchmarking">Benchmarking<a class="anchor" aria-label="anchor" href="#benchmarking"></a></h2>
+<ul><li>Use <code>microbenchmark</code> package for timing comparisons (<code><a href="https://github.com/joshuaulrich/microbenchmark/" class="external-link">library(microbenchmark)</a></code>)</li>
+<li>Create benchmark scripts that save results to <code>.RData</code> files for later analysis</li>
+<li>Compare performance across parameter ranges (particle counts, noise levels, cross-covariance)</li>
+<li>Validate against theoretical expectations (e.g., optimal proposal should approach Kalman filter with increasing particles)</li>
+</ul></div>
+<div class="section level2">
 <h2 id="architecture">Architecture<a class="anchor" aria-label="anchor" href="#architecture"></a></h2>
 <div class="section level3">
 <h3 id="model-classes-s3">Model Classes (S3)<a class="anchor" aria-label="anchor" href="#model-classes-s3"></a></h3>

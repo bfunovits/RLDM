@@ -49,12 +49,12 @@ synthetic data from an AR(2) process and estimate the model.
 # Simulate an AR(1) process: y_t = 0.8*y_{t-1} + u_t
 #
 # In RLDM convention: y_t - 0.8*y_{t-1} = u_t
-a_coef <- matrix(-0.8)  # AR coefficient with sign convention
-b_coef <- matrix(1)     # MA term (just white noise)
+a_coef <-c(1, -0.8)  # AR coefficient with sign convention
+b_coef <- c(1)     # MA term (just white noise)
 sys <- lmfd(a_coef, b_coef)
 
 # Create ARMA model with noise variance = 1
-model_true <- armamod(sys, sigma_L = matrix(1), label = "AR(1)")
+model_true <- armamod(sys, sigma_L = 1, label = "AR(1)")
 
 # Simulate 200 observations
 y_list <- sim(model_true, n.obs = 200)
@@ -80,24 +80,24 @@ result <- est_ar(y, p.max = 10)
 
 # Display basic information
 cat("Selected AR order:", result$p, "\n")
-#> Selected AR order: 0
+#> Selected AR order: 1
 cat("Number of parameters:", result$p, "\n")
-#> Number of parameters: 0
+#> Number of parameters: 1
 cat("Information Criterion:", result$stats[result$p + 1, "ic"], "\n\n")
-#> Information Criterion: 0.3897879
+#> Information Criterion: -0.03234463
 
 # View the estimated model
 result$model
-#> ARMA model [1,1] with orders p = 0 and q = 0
+#> ARMA model [1,1] with orders p = 1 and q = 0
 #> AR polynomial a(z):
-#>      z^0 [,1]
-#> [1,]        1
+#>      z^0 [,1]   z^1 [,1]
+#> [1,]        1 -0.7855093
 #> MA polynomial b(z):
 #>      z^0 [,1]
 #> [1,]        1
 #> Left square root of noise covariance Sigma:
-#>          u[1]
-#> u[1] 1.215182
+#>           u[1]
+#> u[1] 0.9790502
 ```
 
 ### Model Diagnostics
@@ -172,11 +172,14 @@ model.
 ``` r
 # Define a 2D VAR(1) model
 #
-# [ y1_t ]   [ 0.8  0.1 ] [ y1_{t-1} ]   [ u1_t ]
-# [ y2_t ] = [ 0.2  0.7 ] [ y2_{t-1} ] + [ u2_t ]
+# [ y1_t ]   [ 0.8  0.2 ] [ y1_{t-1} ]   [ u1_t ]
+# [ y2_t ] = [ 0.1  0.7 ] [ y2_{t-1} ] + [ u2_t ]
 
 # AR matrices (note sign convention)
-A1 <- matrix(c(-0.8, -0.2, -0.1, -0.7), nrow = 2, byrow = TRUE)
+A1 <- matrix(c(1, 0, -0.8, -0.2, 
+               0, 1, -0.1, -0.7), 
+             nrow = 2, byrow = TRUE)
+A1 = array(A1, dim = c(2,2,2))            
 B0 <- diag(2)
 
 # Create VARMA system
@@ -208,25 +211,25 @@ each](0_getting_started_files/figure-html/unnamed-chunk-7-1.png)
 result_var <- est_ar(y_var, p.max = 5)
 
 cat("Selected VAR order:", result_var$p, "\n")
-#> Selected VAR order: 0
+#> Selected VAR order: 1
 cat("Total parameters:", result_var$p * 2^2, "\n\n")
-#> Total parameters: 0
+#> Total parameters: 4
 
 # View estimated model
 result_var$model
-#> ARMA model [2,2] with orders p = 0 and q = 0
+#> ARMA model [2,2] with orders p = 1 and q = 0
 #> AR polynomial a(z):
-#>      z^0 [,1]  [,2]
-#> [1,]        1     0
-#> [2,]        0     1
+#>      z^0 [,1]  [,2]    z^1 [,1]       [,2]
+#> [1,]        1     0 -0.73515671 -0.2815920
+#> [2,]        0     1 -0.06168781 -0.7129382
 #> MA polynomial b(z):
 #>      z^0 [,1]  [,2]
 #> [1,]        1     0
 #> [2,]        0     1
 #> Left square root of noise covariance Sigma:
-#>           u[1]     u[2]
-#> u[1] 1.1841356 0.000000
-#> u[2] 0.1760054 1.273754
+#>           u[1]      u[2]
+#> u[1] 1.0159564 0.0000000
+#> u[2] 0.4655142 0.8032231
 ```
 
 ### Analyze the System
@@ -275,6 +278,146 @@ plot(acov, main = "Sample and Model ACF")
 ![Four-panel autocorrelation function plot comparing sample ACF to
 model-implied ACF for the bivariate VAR(1)
 system](0_getting_started_files/figure-html/unnamed-chunk-11-1.png)
+
+## State Space Example: Simple Dynamic System
+
+State space models provide an alternative way to represent dynamic
+systems using **hidden state variables**. They are particularly useful
+for:
+
+- **Minimal representations** of complex dynamics
+- **Interpretable latent components** (trends, cycles, factors)
+- **Numerically stable computations** through balanced realizations
+- **Flexible model structures** beyond standard ARMA forms
+
+### Create and Simulate a State Space Model
+
+Let’s create a state space representation of the same AR(1) process we
+saw earlier ($y_{t} = 0.8y_{t - 1} + u_{t}$). In state space form:
+
+\$\$ s\_{t+1} = 0.8 s_t + u_t \\ y_t = s_t \$\$
+
+where $s_{t}$ is the state variable (in this case, simply $y_{t}$
+itself).
+
+``` r
+# State space representation of AR(1) with coefficient 0.8
+A <- matrix(0.8)  # State transition
+B <- matrix(1)    # Input matrix
+C <- matrix(1)    # Observation matrix
+D <- matrix(0)    # Direct feedthrough
+
+# Create state space system
+sys_ss <- stsp(A, B, C, D)
+
+# Create model with unit noise variance
+model_ss <- stspmod(sys_ss, sigma_L = matrix(1), label = "State Space AR(1)")
+
+# Simulate 200 observations (different seed from earlier example)
+set.seed(123)
+sim_data <- sim(model_ss, n.obs = 200)
+y_ss <- sim_data$y
+
+# Plot the simulated data
+plot.ts(y_ss, main = "Simulated State Space AR(1) Process",
+        ylab = "y_t", type = 'l')
+```
+
+![Time series plot of simulated state space AR(1)
+process](0_getting_started_files/figure-html/unnamed-chunk-12-1.png)
+
+### Estimate State Space Model from Data
+
+Now let’s estimate a state space model from this simulated data using
+the Canonical Correlation Analysis (CCA) method:
+
+``` r
+# Estimate state space model using CCA
+result_ss <- est_stsp_ss(y_ss, method = "cca", mean_estimate = "zero")
+
+cat("Estimated state space model:\n")
+#> Estimated state space model:
+print(result_ss$model)
+#> state space model [1,1] with s = 1 states
+#>            s[1]       u[1]
+#> s[1]  0.7490384 -0.7084876
+#> x[1] -1.0359971  1.0000000
+#> Left square root of noise covariance Sigma:
+#>          u[1]
+#> u[1] 0.935128
+
+cat("\nSelected state dimension:", result_ss$s, "\n")
+#> 
+#> Selected state dimension: 1
+cat("Estimated A matrix:", result_ss$model$sys$A, "\n")
+#> Estimated A matrix: 0.7490384
+cat("True A matrix:", A, "\n")
+#> True A matrix: 0.8
+```
+
+### Analyze the Estimated Model
+
+``` r
+# Compute impulse responses
+irf_ss <- impresp(result_ss$model, lag.max = 20)
+
+# Plot impulse responses
+plot(irf_ss, main = "Impulse Response Function")
+```
+
+![Impulse response function from estimated state space
+model](0_getting_started_files/figure-html/unnamed-chunk-14-1.png)
+
+``` r
+# Make one-step ahead predictions
+pred_ss <- predict(result_ss$model, y_ss, h = 1)
+
+# Plot recent data and predictions
+n_obs <- length(y_ss)
+plot_range <- max(1, n_obs - 40):n_obs
+plot(plot_range, y_ss[plot_range], type = 'l',
+     xlab = "Time", ylab = "Value",
+     main = "Data and One-Step Predictions")
+lines(plot_range[-1], pred_ss$yhat[plot_range[-1], 1, 1],
+      col = 'blue', lwd = 2)
+legend("topleft", c("Data", "Prediction"),
+       col = c("black", "blue"), lty = 1)
+```
+
+![One-step ahead predictions from estimated state space
+model](0_getting_started_files/figure-html/unnamed-chunk-15-1.png)
+
+### Comparing State Space and AR Representations
+
+The state space representation is **equivalent** to the AR(1) model we
+estimated earlier. RLDM allows you to convert between representations:
+
+``` r
+# Convert state space to ARMA representation
+# Note: lmfd() conversion from state space to ARMA requires minimal realization
+# and is not directly supported. This conversion is commented out to avoid build errors.
+# arma_from_ss <- armamod(lmfd(result_ss$model$sys),
+#                        sigma_L = result_ss$model$sigma_L)
+# cat("ARMA representation of estimated state space model:\n")
+# print(arma_from_ss)
+cat("Note: Direct conversion from state space to ARMA representation requires\n")
+#> Note: Direct conversion from state space to ARMA representation requires
+cat("minimal realization and is not shown in this vignette.\n")
+#> minimal realization and is not shown in this vignette.
+```
+
+### When to Use State Space Models
+
+State space models are particularly useful when: - You need
+**interpretable latent states** (e.g., trend, cycle, seasonal
+components) - Your system has **natural state variables** (e.g.,
+physical systems) - You want **minimal representations** with balanced
+realizations - You’re working with **high-dimensional systems** where
+state dimension can be smaller than AR order
+
+For more advanced state space modeling, including different
+parameterizations (CCA, DDLC, echelon form) and estimation methods, see
+the **Case Study** vignette.
 
 ## Where to Go Next
 

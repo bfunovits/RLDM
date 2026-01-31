@@ -52,7 +52,7 @@
 
 
 <dl><dt id="arg-sys">sys<a class="anchor" aria-label="anchor" href="#arg-sys"></a></dt>
-<dd><p><code>rationalmatrices::rmfd()</code> object</p></dd>
+<dd><p><code><a href="https://bfunovits.github.io/rationalmatrices/reference/rmfd.html" class="external-link">rationalmatrices::rmfd()</a></code> object</p></dd>
 
 
 <dt id="arg-sigma-l">sigma_L<a class="anchor" aria-label="anchor" href="#arg-sigma-l"></a></dt>
@@ -92,18 +92,18 @@ Originally published: John Wiley &amp; Sons, New York, 1988.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">y</span> <span class="op">=</span> <span class="fu">rmfdmod</span><span class="op">(</span>sys <span class="op">=</span> <span class="fu">test_rmfd</span><span class="op">(</span>dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>, degrees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">y</span> <span class="op">=</span> <span class="fu">rmfdmod</span><span class="op">(</span>sys <span class="op">=</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/test_rmfd.html" class="external-link">test_rmfd</a></span><span class="op">(</span>dim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>, degrees <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">y</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> RMFD model [3,2] with orders p = 2 and q = 2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> right factor polynomial c(z):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      z^0 [,1]  [,2]   z^1 [,1]      [,2]  z^2 [,1]      [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]        1     0 -0.5349281 1.5632988 0.8315751 1.2387464</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]        0     1  2.0605885 0.7144591 1.5079436 0.1634034</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      z^0 [,1]  [,2]   z^1 [,1]       [,2]   z^2 [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]        1     0 -0.6002596  1.5326106 -1.0264209  0.2568837</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,]        0     1  2.1873330 -0.2357004 -0.7104066 -0.2466919</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> left factor polynomial d(z):</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        z^0 [,1]       [,2]   z^1 [,1]       [,2]   z^2 [,1]       [,2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1,]  0.8804698 -0.3063182 -0.2733697 -0.1739394 -1.9072101 -1.6174181</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.7263570  0.9326638  1.2064370  1.3499435  0.4256843  0.3100937</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3,]  0.4788533  1.9304179  1.0867108 -0.6818069  1.0034773  0.7847326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         z^0 [,1]       [,2]   z^1 [,1]        [,2]   z^2 [,1]       [,2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1,] -0.34754260 -0.7849045  0.9189966 -1.61788271  0.3011534 -0.8497043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2,] -0.95161857 -1.6679419 -0.5753470 -0.05556197  0.1056762 -1.0241288</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3,] -0.04502772 -0.3802265  0.6079643  0.51940720 -0.6407060  0.1176466</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Left square root of noise covariance Sigma:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>      u[1] u[2]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> u[1]    1    0</span>

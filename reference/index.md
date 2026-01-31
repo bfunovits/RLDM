@@ -6,7 +6,7 @@ Models for rational transfer functions including input covariance.
 
 - [`RLDM`](https://bfunovits.github.io/RLDM/reference/RLDM-package.md)
   [`RLDM-package`](https://bfunovits.github.io/RLDM/reference/RLDM-package.md)
-  : A Collection of Tools for VARMA and State Space Processes
+  : RLDM: Rational Linear Dynamic Models
 - [`armamod()`](https://bfunovits.github.io/RLDM/reference/armamod.md) :
   Constructor for LMFD (ARMA) Models
 - [`rmfdmod()`](https://bfunovits.github.io/RLDM/reference/rmfdmod.md)
@@ -135,27 +135,6 @@ Solve difference equations and simulate.
   [`toepl_inv()`](https://bfunovits.github.io/RLDM/reference/toepl_fwd.md)
   : Toeplitz Calculations
 
-## RcppArmadillo Implementations - Solving
-
-- [`outputs_ARMA_cpp()`](https://bfunovits.github.io/RLDM/reference/outputs_ARMA_cpp.md)
-  : Outputs of an ARMA systems
-- [`outputs_STSP_cpp()`](https://bfunovits.github.io/RLDM/reference/outputs_STSP_cpp.md)
-  : Outputs of a statespace system
-- [`residuals_ARMA_cpp()`](https://bfunovits.github.io/RLDM/reference/residuals_ARMA_cpp.md)
-  : Residuals of an ARMA system
-- [`residuals_STSP_cpp()`](https://bfunovits.github.io/RLDM/reference/residuals_STSP_cpp.md)
-  : Residuals of a statespace system
-- [`cll_theta_ARMA_cpp()`](https://bfunovits.github.io/RLDM/reference/cll_theta_ARMA_cpp.md)
-  : Compute the (concentrated) conditional log likelihood for ARMA
-  models described by a model template.
-- [`cll_theta_STSP_cpp()`](https://bfunovits.github.io/RLDM/reference/cll_theta_STSP_cpp.md)
-  : Compute the (concentrated) conditional log likelihood for a
-  statespace system described by a model template.
-- [`fbsolve_STSP_cpp()`](https://bfunovits.github.io/RLDM/reference/fbsolve_STSP_cpp.md)
-  : Forward-backward solution of statespace systems
-- [`solve_rmfd_cpp()`](https://bfunovits.github.io/RLDM/reference/solve_rmfd_cpp.md)
-  : Simulating Output from an RMFD Model (or obtain residuals)
-
 ## Estimation Methods - AR
 
 - [`est_ar()`](https://bfunovits.github.io/RLDM/reference/est_ar.md)
@@ -196,21 +175,13 @@ Solve difference equations and simulate.
   Log Likelihood Function Factory
 - [`ll_theta()`](https://bfunovits.github.io/RLDM/reference/ll_theta.md)
   **\[superseded\]** : Log-likelihood Given Deep Parameters
-- [`ll_kf()`](https://bfunovits.github.io/RLDM/reference/ll_kf.md)
-  [`ll_kf_cpp()`](https://bfunovits.github.io/RLDM/reference/ll_kf.md)
-  [`ll_kf2_cpp()`](https://bfunovits.github.io/RLDM/reference/ll_kf.md)
-  : Gaussian log Likelihood of a State Space Model
-- [`ll_kf_theta_cpp()`](https://bfunovits.github.io/RLDM/reference/ll_kf_theta_cpp.md)
-  : Compute the log likelihood for a statespace system described by a
-  model template.
+- [`ll_kf()`](https://bfunovits.github.io/RLDM/reference/ll_kf.md) :
+  Gaussian log Likelihood of a State Space Model
 
 ## Estimation Methods - Recursive Least Squares
 
 - [`arx_rls_core()`](https://bfunovits.github.io/RLDM/reference/arx_rls_core.md)
   : RLS function
-- [`rls_exp_cpp()`](https://bfunovits.github.io/RLDM/reference/rls_exp_cpp.md)
-  [`rls_window_cpp()`](https://bfunovits.github.io/RLDM/reference/rls_exp_cpp.md)
-  : (Multivariate) Recursive Least Squares
 
 ## Model Comparison
 
@@ -227,12 +198,16 @@ Compare and evaluate estimated models.
 
 Kalman filter and matrix equation solvers.
 
-- [`kf()`](https://bfunovits.github.io/RLDM/reference/kf.md)
-  [`kf_cpp()`](https://bfunovits.github.io/RLDM/reference/kf.md)
-  [`kf2_cpp()`](https://bfunovits.github.io/RLDM/reference/kf.md) :
-  Kalman Filter
+- [`kf()`](https://bfunovits.github.io/RLDM/reference/kf.md) : Kalman
+  Filter
 - [`riccati()`](https://bfunovits.github.io/RLDM/reference/riccati.md) :
   Solve a discrete time, algebraic Riccati equation
+- [`pfilter()`](https://bfunovits.github.io/RLDM/reference/pfilter.md) :
+  Sequential Monte Carlo (Particle Filter) Methods
+- [`ll_pfilter()`](https://bfunovits.github.io/RLDM/reference/ll_pfilter.md)
+  : Particle Filter Approximation of Log-Likelihood
+- [`plot(`*`<pfilter>`*`)`](https://bfunovits.github.io/RLDM/reference/plot.pfilter.md)
+  : Diagnostics for Particle Filter Results
 
 ## Datasets
 

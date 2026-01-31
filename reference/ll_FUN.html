@@ -93,7 +93,7 @@ is only used for the cases "concentrated", "conditional" and "gr_concentrated"</
 
 
 <dt id="arg-tol">tol<a class="anchor" aria-label="anchor" href="#arg-tol"></a></dt>
-<dd><p>(double) tolerance used by <code><a href="ll_kf.html">ll_kf_cpp()</a></code>.</p></dd>
+<dd><p>(double) tolerance used by <code><a href="ll_kf.html">ll_kf()</a></code>.</p></dd>
 
 
 <dt id="arg-err">err<a class="anchor" aria-label="anchor" href="#arg-err"></a></dt>
@@ -116,27 +116,27 @@ of the initial state covariance fails.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sigma_L</span><span class="op">)</span> <span class="op">=</span> <span class="fl">1</span> <span class="co"># scale the diagonal entries of sigma_L</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> state space model [3,3] with s = 4 states</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             s[1]         s[2]        s[3]        s[4]        u[1]       u[2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.00000000  0.000000000  0.00000000  1.00000000 -0.47579669  0.1941772</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2]  0.17834782 -0.001085635 -0.28582940 -0.01480361  0.09693782 -0.2800847</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3]  0.09380898  0.013628061 -0.07131278  0.27512558  0.23146018 -0.1110135</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[4] -0.10879216 -0.278774721 -0.17177456  0.33897889  0.02478557  0.5165047</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.00000000  0.000000000  0.00000000  0.00000000  1.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.00000000  1.000000000  0.00000000  0.00000000  0.00000000  1.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.00000000  0.000000000  1.00000000  0.00000000  0.00000000  0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             u[3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.09142169</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] -0.10341404</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3]  0.04197707</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.10486197</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            s[1]        s[2]       s[3]        s[4]        u[1]        u[2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.0000000  0.00000000  0.0000000  1.00000000 -0.17320930  0.09682150</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] -0.3306545  0.01350771 -0.1972378 -0.03578361  0.04348014 -0.41792942</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] -0.3057982 -0.05233582 -0.2495277  0.09318245 -0.08048530 -0.41472250</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[4] -0.1700720 -0.02146930  0.3660467 -0.24492897  0.06221162 -0.03184861</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.0000000  0.00000000  0.0000000  0.00000000  1.00000000  0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.0000000  1.00000000  0.0000000  0.00000000  0.00000000  1.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.0000000  0.00000000  1.0000000  0.00000000  0.00000000  0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            u[3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.2189791</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] -0.1172880</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] -0.1764870</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.2875431</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  1.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Left square root of noise covariance Sigma:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             u[1]     u[2] u[3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[1]  1.00000000 0.000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.02632044 1.000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[3]  0.06769402 0.110399    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            u[1]       u[2] u[3]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[1]  1.0000000  0.0000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.1510780  1.0000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[3]  0.1920143 -0.1237398    1</span>
 <span class="r-in"><span><span class="co"># extract the corresponding free/deep parameters</span></span></span>
 <span class="r-in"><span><span class="va">th</span> <span class="op">=</span> <span class="fu"><a href="fill_template.html">extract_theta</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">tmpl</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -146,45 +146,45 @@ of the initial state covariance fails.</p></dd>
 <span class="r-in"><span><span class="co"># conditional log likelihood</span></span></span>
 <span class="r-in"><span><span class="co"># the following statements return the same ll value!</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ll.html">ll</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, <span class="st">'conditional'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.283411</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.115462</span>
 <span class="r-in"><span><span class="fu"><a href="ll_theta.html">ll_theta</a></span><span class="op">(</span><span class="va">th</span>, <span class="va">tmpl</span>, <span class="va">y</span>, <span class="st">'conditional'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.283411</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.115462</span>
 <span class="r-in"><span><span class="va">fn</span> <span class="op">=</span> <span class="fu">ll_FUN</span><span class="op">(</span><span class="va">tmpl</span>, <span class="va">y</span>, <span class="st">'conditional'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">fn</span><span class="op">(</span><span class="va">th</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.283411</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.115462</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># concentrated conditional log likelihood</span></span></span>
 <span class="r-in"><span><span class="co"># the following statements return the same ll value!</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ll.html">ll</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, <span class="st">'concentrated'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.248823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.05168</span>
 <span class="r-in"><span><span class="fu"><a href="ll_theta.html">ll_theta</a></span><span class="op">(</span><span class="va">th</span>, <span class="va">tmpl</span>, <span class="va">y</span>, <span class="st">'concentrated'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.248823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.05168</span>
 <span class="r-in"><span><span class="va">fn</span> <span class="op">=</span> <span class="fu">ll_FUN</span><span class="op">(</span><span class="va">tmpl</span>, <span class="va">y</span>, <span class="st">'concentrated'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">fn</span><span class="op">(</span><span class="va">th</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.248823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.05168</span>
 <span class="r-in"><span><span class="co"># for this case, we may also compute the (analytic) gradient</span></span></span>
 <span class="r-in"><span><span class="va">gr</span> <span class="op">=</span> <span class="fu">ll_FUN</span><span class="op">(</span><span class="va">tmpl</span>, <span class="va">y</span>, <span class="st">'gr_concentrated'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">gr</span><span class="op">(</span><span class="va">th</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -6.884443e-01 -3.628422e-02  7.316056e-01  2.632317e-01 -2.791062e-03</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] -6.040969e-02 -8.197604e-02  3.233422e-05  9.889647e-02 -6.908969e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11]  1.347149e-02  3.425038e-01  6.087337e-02  3.500822e-01  1.623533e-01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] -3.689552e-02 -2.536515e-01 -4.107069e-01  1.207367e-01  7.516551e-02</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [21] -3.309819e-02 -2.035432e-01 -2.322694e-01  9.862495e-02  0.000000e+00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [26]  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -0.035510378  0.034818042 -0.084387036 -0.055252781 -0.168681470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6]  0.090886282 -0.107272572 -0.106298495  0.097460089  0.009128784</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] -0.104673766  0.006148398  0.361105630  0.433500029 -0.145044069</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [16] -0.071968044 -0.008647779  0.221878944 -0.295283813  0.051167458</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [21] -0.020214612 -0.053694750 -0.001739417 -0.014929199  0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [26]  0.000000000  0.000000000  0.000000000  0.000000000  0.000000000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># log likelihood (via Kalman filter)</span></span></span>
 <span class="r-in"><span><span class="co"># the following statements return the same ll value!</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="ll.html">ll</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, <span class="st">'kf2'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.283794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.124856</span>
 <span class="r-in"><span><span class="fu"><a href="ll_theta.html">ll_theta</a></span><span class="op">(</span><span class="va">th</span>, <span class="va">tmpl</span>, <span class="va">y</span>, <span class="st">'kf2'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.283794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.124856</span>
 <span class="r-in"><span><span class="fu"><a href="ll.html">ll</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">y</span>, <span class="st">'kf'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.283794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.124856</span>
 <span class="r-in"><span><span class="fu"><a href="ll_theta.html">ll_theta</a></span><span class="op">(</span><span class="va">th</span>, <span class="va">tmpl</span>, <span class="va">y</span>, <span class="st">'kf'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.283794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.124856</span>
 <span class="r-in"><span><span class="va">fn</span> <span class="op">=</span> <span class="fu">ll_FUN</span><span class="op">(</span><span class="va">tmpl</span>, <span class="va">y</span>, <span class="st">'kf'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">fn</span><span class="op">(</span><span class="va">th</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.283794</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] -4.124856</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

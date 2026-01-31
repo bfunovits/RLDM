@@ -52,7 +52,7 @@
 
 
 <dl><dt id="arg-sys">sys<a class="anchor" aria-label="anchor" href="#arg-sys"></a></dt>
-<dd><p><code>rationalmatrices::lmfd()</code> or <code>rationalmatrices::rmfd()</code> object</p></dd>
+<dd><p><code><a href="https://bfunovits.github.io/rationalmatrices/reference/lmfd.html" class="external-link">rationalmatrices::lmfd()</a></code> or <code><a href="https://bfunovits.github.io/rationalmatrices/reference/rmfd.html" class="external-link">rationalmatrices::rmfd()</a></code> object</p></dd>
 
 
 <dt id="arg-sigma-l">sigma_L<a class="anchor" aria-label="anchor" href="#arg-sigma-l"></a></dt>
@@ -82,7 +82,7 @@ Internally, MFDs are lists with slots <code>sys</code>, <code>sigma_L</code>, <c
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu">armamod</span><span class="op">(</span>sys <span class="op">=</span> <span class="fu">lmfd</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>, sigma_L <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">x</span> <span class="op">=</span> <span class="fu">armamod</span><span class="op">(</span>sys <span class="op">=</span> <span class="fu"><a href="https://bfunovits.github.io/rationalmatrices/reference/lmfd.html" class="external-link">lmfd</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>, sigma_L <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">x</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ARMA model [1,1] with orders p = 1 and q = 0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> AR polynomial a(z):</span>

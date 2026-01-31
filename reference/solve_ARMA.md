@@ -52,3 +52,13 @@ with care!
 Note the non standard arguments: The order of the AR coefficients is
 reversed. The data matrices are organized column-wise (to avoid memory
 shuffling)!
+
+## Examples
+
+``` r
+# Basic example
+result <- solve_ARMA_R()
+#> Error in solve_ARMA_R(): argument "y" is missing, with no default
+result
+#> Error: object 'result' not found
+```

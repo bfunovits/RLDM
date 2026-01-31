@@ -81,7 +81,7 @@ $$a_{t+1} = A a_t + B u_t \mbox{ and } y_t = C a_t + D u_t.$$</p>
 
 
 <dl><dt id="arg-sys">sys<a class="anchor" aria-label="anchor" href="#arg-sys"></a></dt>
-<dd><p><code>rationalmatrices::lmfd()</code> or <code>rationalmatrices::stsp()</code> object
+<dd><p><code><a href="https://bfunovits.github.io/rationalmatrices/reference/lmfd.html" class="external-link">rationalmatrices::lmfd()</a></code> or <code><a href="https://bfunovits.github.io/rationalmatrices/reference/stsp.html" class="external-link">rationalmatrices::stsp()</a></code> object
 which describes the difference equation.</p></dd>
 
 
@@ -188,6 +188,11 @@ on the input parameters are performed.</p>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/all.equal.html" class="external-link">all.equal</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">u</span>, <span class="va">data1</span><span class="op">$</span><span class="va">u</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Basic example</span></span></span>
+<span class="r-in"><span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">solve_inverse_de</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in solve_inverse_de():</span> argument "sys" is missing, with no default</span>
+<span class="r-in"><span><span class="va">result</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'result' not found</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

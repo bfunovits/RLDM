@@ -213,4 +213,115 @@ cbind_templates(tmpl_season(4), tmpl_stsp_ar(2, 2))
 # the third argument is a "VARMA template"
 cbind_templates(tmpl_lltm(), tmpl_cycle(1/20,1), tmpl_arma_pq(1, 1, 1, 1))
 } # }
+# Create a template
+tmpl <- tmpl_lltm()
+tmpl
+#> $h
+#>  [1] 1 0 1 1 1 0 1 0 0 0 1 0 0 0 0 0
+#> 
+#> $H
+#>       [,1] [,2]
+#>  [1,]    0    0
+#>  [2,]    0    0
+#>  [3,]    0    0
+#>  [4,]    0    0
+#>  [5,]    0    0
+#>  [6,]    0    0
+#>  [7,]    0    0
+#>  [8,]    0    0
+#>  [9,]    0    0
+#> [10,]    0    0
+#> [11,]    0    0
+#> [12,]    0    0
+#> [13,]    1    0
+#> [14,]    0    0
+#> [15,]    0    0
+#> [16,]    0    1
+#> 
+#> $class
+#> [1] "stspmod"
+#> 
+#> $order
+#> [1] 1 2 2
+#> 
+#> $n.par
+#> [1] 2
+#> 
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
+# Create a template
+tmpl <- tmpl_cycle(fr = 1/20, rho = 1)
+tmpl
+#> $h
+#>  [1]  1.902113  1.000000  1.902113 -1.000000  0.000000 -1.000000  1.000000
+#>  [8]  0.000000  1.000000  0.000000
+#> 
+#> $H
+#>       [,1]
+#>  [1,]    0
+#>  [2,]    0
+#>  [3,]    0
+#>  [4,]    0
+#>  [5,]    0
+#>  [6,]    0
+#>  [7,]    0
+#>  [8,]    0
+#>  [9,]    0
+#> [10,]    1
+#> 
+#> $class
+#> [1] "stspmod"
+#> 
+#> $order
+#> [1] 1 1 2
+#> 
+#> $n.par
+#> [1] 1
+#> 
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
+# Create a template
+tmpl <- tmpl_season(s = 4)
+tmpl
+#> $h
+#>  [1] -1  1  0 -1 -1  0  1 -1 -1  0  0 -1  1  0  0  1  0
+#> 
+#> $H
+#>       [,1]
+#>  [1,]    0
+#>  [2,]    0
+#>  [3,]    0
+#>  [4,]    0
+#>  [5,]    0
+#>  [6,]    0
+#>  [7,]    0
+#>  [8,]    0
+#>  [9,]    0
+#> [10,]    0
+#> [11,]    0
+#> [12,]    0
+#> [13,]    0
+#> [14,]    0
+#> [15,]    0
+#> [16,]    0
+#> [17,]    1
+#> 
+#> $class
+#> [1] "stspmod"
+#> 
+#> $order
+#> [1] 1 1 3
+#> 
+#> $n.par
+#> [1] 1
+#> 
+
+# Use the template with fill_template()
+# filled <- fill_template(tmpl, theta = rnorm(tmpl$n.par))
+# Basic example
+result <- cbind_templates()
+result
+#> NULL
 ```

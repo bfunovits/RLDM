@@ -54,7 +54,8 @@ spectrald(obj, n.f = NULL, demean = TRUE, ...)
 
 - spd:
 
-  `rationalmatrices::zvalues()` object.
+  [`rationalmatrices::zvalues()`](https://bfunovits.github.io/rationalmatrices/reference/zvalues.html)
+  object.
 
 - names:
 

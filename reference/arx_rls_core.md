@@ -32,8 +32,9 @@ arx_rls_core(
 
 - r:
 
-  Matrix of doubles (a column vector of dimension \\
-  (#forgetting_factors \times 1) \\ containing the forgetting factors.
+  Matrix of doubles (a column vector of dimension \\(
+  \text{forgetting\\factors} \times 1)\\ containing the forgetting
+  factors.
 
 - n_init:
 
@@ -71,3 +72,24 @@ List containing
 
 - `forgetting`: double. forgetting factor which produced the minimal
   honest prediction error
+
+## Examples
+
+``` r
+# Generate simple time series data
+set.seed(123)
+n <- 100
+x1 <- rnorm(n)
+x2 <- rnorm(n)
+X <- cbind(x1, x2)
+y <- 2*x1 + 3*x2 + rnorm(n, sd = 0.5)
+y <- matrix(y, ncol = 1)  # Convert to matrix
+
+# Run RLS with default forgetting factors
+result <- arx_rls_core(y, X, n_init = 20, start_of_eval = 25, end_of_train = 80)
+str(result)
+#> List of 3
+#>  $ y_pred    : num [1:100] NA NA NA NA NA NA NA NA NA NA ...
+#>  $ fev_honest: num 0.187
+#>  $ forgetting: num 1
+```

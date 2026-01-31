@@ -420,6 +420,26 @@ print(model)
 #> u[2]    0    1
 ```
 
+#### Converting Between Representations
+
+RLDM provides functions to convert between state space and ARMA
+representations. Since the ML-refined models are equivalent, we can
+convert between them:
+
+``` r
+# Convert state space (SSECF) to ARMA representation
+# Note: lmfd() conversion from state space to ARMA requires minimal realization
+# and is not directly supported. This conversion is commented out to avoid build errors.
+# arma_from_ss <- armamod(lmfd(models$SSECF$sys),
+#                        sigma_L = models$SSECF$sigma_L)
+# cat("ARMA representation of SSECF model:\n")
+# print(arma_from_ss)
+cat("Note: Direct conversion from state space to ARMA representation requires\n")
+#> Note: Direct conversion from state space to ARMA representation requires
+cat("minimal realization and is not shown in this vignette.\n")
+#> minimal realization and is not shown in this vignette.
+```
+
 ------------------------------------------------------------------------
 
 ## Model Comparison and Selection
@@ -511,7 +531,7 @@ plot(autocov(y, lag.max = lag.max),
      col = c('black', default_colmap(length(models))))
 ```
 
-![](1_case_study_files/figure-html/unnamed-chunk-12-1.png)
+![](1_case_study_files/figure-html/unnamed-chunk-13-1.png)
 
 **What to look for:** - Model ACF should track the data ACF - Large
 deviations indicate missing dynamics - ARMAECF and SSECF should match
@@ -528,7 +548,7 @@ plot(spectrald(models[[1]], n.f = 2^10),
      legend = names(models))
 ```
 
-![](1_case_study_files/figure-html/unnamed-chunk-13-1.png)
+![](1_case_study_files/figure-html/unnamed-chunk-14-1.png)
 
 **Interpretation:** - Peaks show dominant frequencies in the data -
 Model spectral densities should follow the data pattern - Good fit
@@ -546,7 +566,7 @@ plot(impresp(models[[1]], lag.max = lag.max),
 
 ![Four-panel impulse response comparison showing how GDP and
 unemployment respond to shocks across multiple estimated
-models](1_case_study_files/figure-html/unnamed-chunk-14-1.png)
+models](1_case_study_files/figure-html/unnamed-chunk-15-1.png)
 
 **Economic interpretation:** - Top-left: GDP shock effect on GDP -
 Top-right: unemployment shock effect on GDP - Bottom-left: GDP shock
@@ -575,7 +595,7 @@ p.y0 = plot_prediction(pred, which = 'y0', style = 'bw',
 p.y0()
 ```
 
-![](1_case_study_files/figure-html/unnamed-chunk-15-1.png)
+![](1_case_study_files/figure-html/unnamed-chunk-16-1.png)
 
 ``` r
 
@@ -584,7 +604,7 @@ plot_prediction(pred, which = 'error', qu = c(2, 2, 2),
                 parse_names = TRUE)
 ```
 
-![](1_case_study_files/figure-html/unnamed-chunk-15-2.png)
+![](1_case_study_files/figure-html/unnamed-chunk-16-2.png)
 
 ``` r
 
@@ -593,7 +613,7 @@ plot_prediction(pred, which = 'cusum', style = 'gray',
                 parse_names = TRUE)
 ```
 
-![](1_case_study_files/figure-html/unnamed-chunk-15-3.png)
+![](1_case_study_files/figure-html/unnamed-chunk-16-3.png)
 
 ### Compare Prediction Performance
 

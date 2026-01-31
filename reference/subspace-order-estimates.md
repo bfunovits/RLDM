@@ -111,3 +111,29 @@ Bauer D (2001). “Order estimation for subspace methods.” *Automatica*,
 **37**(10), 1561 - 1573.
 [doi:10.1016/S0005-1098(01)00118-2](https://doi.org/10.1016/S0005-1098%2801%2900118-2)
 .
+
+## Examples
+
+``` r
+# Basic example
+result <- estorder_SVC()
+result
+#> NULL
+# Basic example
+result <- estorder_IVC()
+result
+#> NULL
+# Basic example
+result <- estorder_max()
+#> Error in estorder_max(): argument "s.max" is missing, with no default
+result
+#> NULL
+# Basic example
+result <- estorder_rkH()
+result
+#> NULL
+# Basic example
+result <- estorder_MOE()
+result
+#> NULL
+```

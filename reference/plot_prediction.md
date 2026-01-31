@@ -46,7 +46,7 @@ plot_prediction(
 
   character string determines the general style of the plot (background
   color, grid style, axis and axis-labels colors, ...). See also
-  `style_parameters()`.
+  [`rationalmatrices::style_parameters()`](https://bfunovits.github.io/rationalmatrices/reference/style_parameters.html).
 
 - parse_names:
 
@@ -80,8 +80,10 @@ See also the examples below.
 
 ## See also
 
-The utility `zoom_plot()` may be used to interactivly zoom in and scroll
-such a plot (provided that the shiny package is installed).
+The utility
+[`rationalmatrices::zoom_plot()`](https://bfunovits.github.io/rationalmatrices/reference/zoom_plot.html)
+may be used to interactivly zoom in and scroll such a plot (provided
+that the shiny package is installed).
 
 ## Examples
 

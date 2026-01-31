@@ -31,11 +31,9 @@ solve_inverse_RMFD_R(polm_c, polm_d, data_output, t0 = 1)
 
 The R implementation `solve_inverse_RMFD_R` returns the matrix `u` with
 the computed inputs \$\$u_t = d^{+}(z) c(z) y_t\$\$ in its columns. The
-RcppArmadillo implementation
-[`solve_rmfd_cpp()`](https://bfunovits.github.io/RLDM/reference/solve_rmfd_cpp.md)
-returns `NULL` but **overwrites** its input argument! Note that the
-RcppArmadillo implementation has a different user interface (it is
-intended for internal use only).
+internal RcppArmadillo implementation returns `NULL` but **overwrites**
+its input argument! Note that the RcppArmadillo implementation has a
+different user interface (it is intended for internal use only).
 
 ## Details
 
@@ -62,3 +60,13 @@ organized columnwise (to avoid memory shuffling)!
 ## See also
 
 solve_RMFD_R
+
+## Examples
+
+``` r
+# Basic example
+result <- solve_inverse_RMFD_R()
+#> Error in solve_inverse_RMFD_R(): argument "polm_c" is missing, with no default
+result
+#> Error: object 'result' not found
+```

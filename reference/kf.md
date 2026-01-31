@@ -9,10 +9,6 @@ e.g. (Anderson and Moore 2005) .
 
 ``` r
 kf(model, y, method = c("kf", "kf2"), P1 = NULL, a1 = NULL)
-
-kf_cpp(A, C, Q, R, S, y_t, P1, a1)
-
-kf2_cpp(A, C, H_t, y_t, P1_R, a1)
 ```
 
 ## Arguments
@@ -31,10 +27,10 @@ kf2_cpp(A, C, H_t, y_t, P1_R, a1)
 
 - method:
 
-  Character string. If `method="kf"` then `kf` calls `kf_cpp` ("standard
-  form" of the Kalman filter) and for `method="kf2"` the "square root"
-  form of the Kalman filter is used, i.e. `kf2_cpp` is called. Up to
-  numerical errors the outputs should not depend on the chosen method.
+  Character string. If `method="kf"` then the standard form of the
+  Kalman filter is used, and for `method="kf2"` the square root form is
+  used. Up to numerical errors the outputs should not depend on the
+  chosen method.
 
 - P1:
 
@@ -49,34 +45,6 @@ kf2_cpp(A, C, H_t, y_t, P1_R, a1)
   \\s\\ dimensional vector, which holds the initial estimate
   \\a\_{1\|0}\\ for the state at time \\t=1\\. If `a1=NULL`, then a zero
   vector is used.
-
-- A:
-
-  \\(s,s)\\ dimensional state transition matrix \\A\\.
-
-- C:
-
-  \\(m,s)\\ dimensional matrix \\C\\.
-
-- Q, R, S:
-
-  The variance, covariance matrices of the "state disturbances"
-  (\\Bu_t\\) and the "measurement disturbances" (\\Du_t\\) as described
-  above. These matrices must be of dimension \\(s,s)\\, \\(m,m)\\ and
-  \\(s,m)\\ respectively.
-
-- y_t:
-
-  \\(m,N)\\ transposed data matrix `y_t = t(y)`.
-
-- H_t:
-
-  \\(n,s+m)\\ dimensional matrix. This parameter corresponds to the
-  transpose \\H'\\ of \\H=(D',B')'\Sigma^{1/2}\\.
-
-- P1_R:
-
-  (right) square root of `P1`, i.e. `P1 = t(P1_R) \%*\% P1_R`.
 
 ## Value
 
@@ -147,12 +115,11 @@ For the square root form of the filter we need the "square roots"
 \Sigma^{1/2}(\Sigma^{1/2})'\\. In addition, we define
 \\H=(D',B')'\Sigma^{1/2}\\.
 
-The routines `kf_cpp`, `kf2_cpp` are RcppArmadillo implementations of
-the standard form and of the square root form of the Kalman filter. The
-wrapper function `kf` takes an
+The Kalman filter is implemented in C++ via RcppArmadillo for
+performance. The wrapper function `kf` takes an
 [`stspmod()`](https://bfunovits.github.io/RLDM/reference/stspmod.md)
 object, which describes the state space model, and then calls the
-approriate `RcppArmadillo` function.
+appropriate internal implementation.
 
 Square root Kalman filter: For the square root \\\Pi\_{1\|0}^{1/2}\\ the
 procedure first tries the Cholesky decomposition. If this fails (since
@@ -162,8 +129,9 @@ compute a symmetric square root via the eigenvalue decomposition of
 
 ## Notes
 
-The `RcppArmadillo` functions (`kf_cpp` and `kf2_cpp`) do not check the
-input parameters, so these function must be used with some care.
+The internal C++ implementations do not check the input parameters, so
+direct use (via [`.Call()`](https://rdrr.io/r/base/CallExternal.html))
+must be done with care.
 
 The procedures only accept "wide" state space systems (\\m \leq n\\),
 since for "tall" systems (\\m \> n\\) the variance of the prediction
@@ -209,23 +177,16 @@ S = model$sys$B %*% sigma %*% t(model$sys$D)
 Q = model$sys$B %*% sigma %*% t(model$sys$B)
 P1 = lyapunov(model$sys$A, Q)
 
-# call Kalman filter. Note y_t = t(y)!
-out = kf_cpp(model$sys$A, model$sys$C, Q, R, S, t(data$y), P1, double(s))
-# use the wrapper function
-out_test = kf(model, data$y, method = 'kf')
-all.equal(out, out_test)
-#> [1] TRUE
+# call Kalman filter using the wrapper function
+out = kf(model, data$y, method = 'kf')
+# Note: kf_cpp is the internal C++ implementation called by kf()
 
 # compute H and square root of P1
 H = rbind(model$sys$D, model$sys$B) %*% sigma_L
 P1_R = chol(P1)
 
-# call square root Kalman filter. Note H_t = t(H) and y_t = t(y)!
-out_test = kf2_cpp(model$sys$A, model$sys$C, t(H), t(data$y), P1_R, double(s))
-all.equal(out, out_test)
-#> [1] TRUE
-# use the wrapper function
-out_test = kf(model, data$y, method = 'kf2')
+# call square root Kalman filter using wrapper function
+out_test = kf(model, data$y, method = 'kf2')  # using wrapper function
 all.equal(out, out_test)
 #> [1] TRUE
 

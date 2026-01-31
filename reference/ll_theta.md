@@ -12,7 +12,13 @@ log-likelihood function is returned, see
 ## Usage
 
 ``` r
-ll_theta(th, template, y, which, ...)
+ll_theta(
+  th,
+  template,
+  y,
+  which = c("concentrated", "conditional", "kf", "kf2"),
+  ...
+)
 ```
 
 ## Arguments
@@ -46,3 +52,20 @@ ll_theta(th, template, y, which, ...)
 Value of log-likelihood for a given deep/free parameter vector `th` and
 a model structure defined via `template`. Note that this function simply
 calls `ll(fill_template(th, template), y, which, ...)`.
+
+## Examples
+
+``` r
+# Basic example
+set.seed(123)
+# Create a template
+tmpl <- tmpl_stsp_ar(m = 1, p = 1)
+# Generate random parameters and data
+th <- rnorm(tmpl$n.par, sd = 0.1)
+model <- fill_template(th, tmpl)
+y <- sim(model, n.obs = 50)$y
+# Compute log-likelihood
+result <- ll_theta(th, tmpl, y)
+result
+#> [1] 2.442574
+```

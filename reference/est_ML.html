@@ -125,33 +125,34 @@ and the "noise parameters".)</p></li>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Generate a random model in echelon form model (m = 3)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Generate a random model in echelon form model (m = 3)</span></span></span>
 <span class="r-in"><span><span class="va">tmpl</span> <span class="op">=</span> <span class="fu"><a href="model_structures.html">tmpl_stsp_echelon</a></span><span class="op">(</span>nu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">model</span> <span class="op">=</span> <span class="fu"><a href="r_model.html">r_model</a></span><span class="op">(</span>template <span class="op">=</span> <span class="va">tmpl</span>, bpoles <span class="op">=</span> <span class="fl">1</span>, bzeroes <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/diag.html" class="external-link">diag</a></span><span class="op">(</span><span class="va">model</span><span class="op">$</span><span class="va">sigma_L</span><span class="op">)</span> <span class="op">=</span> <span class="fl">1</span> <span class="co"># scale the diagonal entries of sigma_L</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> state space model [3,3] with s = 4 states</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              s[1]      s[2]       s[3]        s[4]       u[1]        u[2]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.000000000 0.0000000  0.0000000  1.00000000  0.2260673 -0.18269465</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] -0.300891527 0.1763168 -0.3097276 -0.10587253  0.0199123 -0.04753638</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] -0.009954261 0.2478604  0.6637246 -0.04959676 -0.3147068  0.13221617</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.171745616 0.2860622 -0.0392293 -0.22370060  0.2564213  0.13755263</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.000000000 0.0000000  0.0000000  0.00000000  1.0000000  0.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.000000000 1.0000000  0.0000000  0.00000000  0.0000000  1.00000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.000000000 0.0000000  1.0000000  0.00000000  0.0000000  0.00000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             s[1]       s[2]       s[3]        s[4]        u[1]       u[2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.00000000 0.00000000  0.0000000  1.00000000  0.10019286  0.1244626</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] -0.14011891 0.01762710  0.1152291 -0.11141549  0.02767068 -0.4916543</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] -0.05754437 0.03232193 -0.3162653  0.30602045 -0.13896028  0.1753390</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[4]  0.38967708 0.42876625 -0.1717132  0.08995346  0.44672828 -0.1181979</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  1.00000000 0.00000000  0.0000000  0.00000000  1.00000000  0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.00000000 1.00000000  0.0000000  0.00000000  0.00000000  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  0.00000000 0.00000000  1.0000000  0.00000000  0.00000000  0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             u[3]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[1]  0.13742108</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] -0.16488559</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[3]  0.01435543</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> s[4] -0.70200263</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[1] -0.26695593</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[2] -0.05449373</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[3] -0.25650111</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> s[4] -0.18222281</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x[1]  0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x[2]  0.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> x[3]  1.00000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Left square root of noise covariance Sigma:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            u[1]       u[2] u[3]</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> u[1]  1.0000000  0.0000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.1955948  1.0000000    0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> u[3] -0.1660262 -0.1268121    1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[2] -0.4216733  1.0000000    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> u[3]  0.2094468 -0.2845342    1</span>
 <span class="r-in"><span><span class="co"># extract the corresponding free/deep parameters</span></span></span>
 <span class="r-in"><span><span class="va">th</span> <span class="op">=</span> <span class="fu"><a href="fill_template.html">extract_theta</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">tmpl</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -164,17 +165,17 @@ and the "noise parameters".)</p></li>
 <span class="r-in"><span><span class="co"># estimate the model with the "exakt log likelihood"</span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">=</span> <span class="fu">est_ML</span><span class="op">(</span><span class="va">y</span>, <span class="va">tmpl</span>, <span class="va">th</span>, which <span class="op">=</span> <span class="st">'kf'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="KL_divergence.html">KL_divergence</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">out</span><span class="op">$</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01806206</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.007795355</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># estimate the model with "conditional log likelihood"</span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">=</span> <span class="fu">est_ML</span><span class="op">(</span><span class="va">y</span>, <span class="va">tmpl</span>, <span class="va">th</span>, which <span class="op">=</span> <span class="st">'conditional'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="KL_divergence.html">KL_divergence</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">out</span><span class="op">$</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01786555</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.007764377</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># estimate the model with "concentrated, conditional log likelihood"</span></span></span>
 <span class="r-in"><span><span class="va">out</span> <span class="op">=</span> <span class="fu">est_ML</span><span class="op">(</span><span class="va">y</span>, <span class="va">tmpl</span>, <span class="va">th</span>, which <span class="op">=</span> <span class="st">'concentrated'</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="KL_divergence.html">KL_divergence</a></span><span class="op">(</span><span class="va">model</span>, <span class="va">out</span><span class="op">$</span><span class="va">model</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.01786693</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.007765628</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

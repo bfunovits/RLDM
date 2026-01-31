@@ -110,7 +110,9 @@ list with slots
 
 - model:
 
-  a `stsp()` object, which represents the estimated state space model.
+  a
+  [`rationalmatrices::stsp()`](https://bfunovits.github.io/rationalmatrices/reference/stsp.html)
+  object, which represents the estimated state space model.
 
 - models:
 
