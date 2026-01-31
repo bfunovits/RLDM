@@ -97,16 +97,6 @@ reference:
   - solve_inverse_RMFD_R
   - solve_ARMA_R
   - toepl_fwd
-- title: RcppArmadillo Implementations - Solving
-  contents:
-  - outputs_ARMA_cpp
-  - outputs_STSP_cpp
-  - residuals_ARMA_cpp
-  - residuals_STSP_cpp
-  - cll_theta_ARMA_cpp
-  - cll_theta_STSP_cpp
-  - fbsolve_STSP_cpp
-  - solve_rmfd_cpp
 - title: Estimation Methods - AR
   contents:
   - est_ar
@@ -133,11 +123,9 @@ reference:
   - ll_FUN
   - ll_theta
   - ll_kf
-  - ll_kf_theta_cpp
 - title: Estimation Methods - Recursive Least Squares
   contents:
   - arx_rls_core
-  - rls_exp_cpp
 - title: Model Comparison
   desc: |
     Compare and evaluate estimated models.
