@@ -32,10 +32,8 @@ Requirements for initial cleanup and streamlining.
 - [x] **CODE-03**: Organize S3 methods and ensure proper registration
 - [x] **CODE-04**: Review and update DESCRIPTION file dependencies
 
-### Website
-
-- [ ] **WEB-01**: Professional documentation website with pkgdown
-- [ ] **WEB-02**: Website builds locally and can be deployed
+### Website\n\n- [x] **WEB-01**: Professional documentation website with pkgdown
+- [x] **WEB-02**: Website builds locally and can be deployed
 
 ## v2 Requirements
 
@@ -85,8 +83,8 @@ Which phases cover which requirements. Updated during roadmap creation.
 | DOCS-01 | Phase 4 | Complete |
 | DOCS-02 | Phase 4 | Complete |
 | DOCS-03 | Phase 4 | Complete |
-| WEB-01 | Phase 5 | Pending |
-| WEB-02 | Phase 5 | Pending |
+| WEB-01 | Phase 5 | Complete |
+| WEB-02 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 15 total
@@ -95,4 +93,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-01-24*
-*Last updated: 2026-01-30 after phase 4 completion*
+*Last updated: 2026-01-31 after phase 5 completion*
