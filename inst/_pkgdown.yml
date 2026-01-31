@@ -139,6 +139,9 @@ reference:
   contents:
   - kf
   - riccati
+  - pfilter
+  - ll_pfilter
+  - plot.pfilter
 - title: Datasets
   contents:
   - BQdata
