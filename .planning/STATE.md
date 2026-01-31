@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-24)
 ## Current Position
 
 Phase: 5 of 5 (Website Deployment) - IN PROGRESS
-Plan: 1 of 3 in current phase (05-01 complete)
-Status: pkgdown configuration fixed, ready for local build test
-Last activity: 2026-01-31 — Completed 05-01-PLAN.md (fix pkgdown configuration)
+Plan: 2 of 3 in current phase (05-02 complete)
+Status: Local pkgdown build tested, configuration fixes committed
+Last activity: 2026-01-31 — Completed 05-02-PLAN.md (test local pkgdown build)
 
-Progress: [█████████░] 90.5% (19/21 plans complete: Phase 1 complete, Phase 2 complete, Phase 3 complete, Phase 4 complete, Phase 5 started)
+Progress: [██████████░] 95.2% (20/21 plans complete: Phase 1 complete, Phase 2 complete, Phase 3 complete, Phase 4 complete, Phase 5 in progress)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 19
-- Average duration: 18.4 min
-- Total execution time: 5.9 hours
+- Total plans completed: 20
+- Average duration: 18.0 min
+- Total execution time: 6.0 hours
 
 **By Phase:**
 
@@ -31,10 +31,11 @@ Progress: [█████████░] 90.5% (19/21 plans complete: Phase 1 
 | 02-code-organization | 4 | 91 min | 22.8 min |
 | 03-build-verification | 5 | 114 min | 22.8 min |
 | 04-documentation-completeness | 4 | 85 min | 21.3 min |
+| 05-website-deployment | 2 | 9 min | 4.5 min |
 
 **Recent Trend:**
-- Last 5 plans: [04-02 (16 min), 04-03 (22 min), 04-04 (25 min), 05-01 (3 min)]
-- Trend: Phase 5 started - pkgdown configuration fixed, ready for local build test
+- Last 5 plans: [04-03 (22 min), 04-04 (25 min), 05-01 (3 min), 05-02 (6 min)]
+- Trend: Phase 5 progressing - local pkgdown build tested, ready for final deployment
 
 *Updated after each plan completion*
 
@@ -94,6 +95,8 @@ Recent decisions affecting current work:
 - [04-03 Execution]: Example coverage was 52.1% (37/71 functions), not 78.3% as previously estimated
 - [04-03 Execution]: Stochastic functions require set.seed() for reproducibility in examples
 - [05-01 Execution]: Remove internal C++ function references from pkgdown configuration - these functions lack Rd documentation and shouldn't be in public reference
+- [05-02 Execution]: Add missing particle filter functions (pfilter, ll_pfilter, plot.pfilter) to pkgdown reference configuration - exported functions must be in index or marked @keywords internal
+- [05-02 Execution]: Accept pandoc-citeproc system dependency as known issue for local vignette builds - GitHub Actions has proper setup via r-lib/actions/setup-pandoc@v2
 
 ### Pending Todos
 
@@ -117,10 +120,11 @@ None yet.
 ### Phase 5 Progress
 
 **05-01 Status:** ✅ Complete - pkgdown configuration fixed, invalid internal C++ function references removed
-**Next:** 05-02 local build test
+**05-02 Status:** ✅ Complete - local pkgdown build tested, missing particle filter functions added to configuration
+**Next:** 05-03 final verification and deployment
 
 ## Session Continuity
 
 Last session: 2026-01-31
-Stopped at: Completed 05-01-PLAN.md (fix pkgdown configuration)
-Resume file: None (ready for 05-02 local build test)
+Stopped at: Completed 05-02-PLAN.md (test local pkgdown build)
+Resume file: None (ready for 05-03 final verification and deployment)
